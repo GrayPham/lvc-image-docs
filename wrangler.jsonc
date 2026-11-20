@@ -1,0 +1,13 @@
+// Cấu hình đưa trang lên Cloudflare Workers (trang tĩnh).
+// Cloudflare chạy `npm run build` rồi `npx wrangler deploy`; lệnh deploy đọc
+// file này để biết đưa thư mục dist/ lên.
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "lvc-image-docs",
+	"compatibility_date": "2026-11-01",
+	"assets": {
+		"directory": "./dist",
+		// Đường dẫn sai thì hiện trang 404 của tài liệu thay vì lỗi trắng.
+		"not_found_handling": "404-page"
+	}
+}
