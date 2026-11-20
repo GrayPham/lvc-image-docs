@@ -106,5 +106,5 @@ npx wrangler pages deploy dist --project-name lvc-image-docs
 
 ### Gắn tên miền riêng
 
-Trong project Pages → **Custom domains** → thêm ví dụ `docs.lvcmedia.vn`.
+Trong project Pages → **Custom domains** → thêm ví dụ `imagedoc.lvcmedia.vn`.
 Sau đó sửa dòng `const SITE = …` trong `astro.config.mjs` thành tên miền đó rồi dựng lại.

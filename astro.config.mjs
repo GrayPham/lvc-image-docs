@@ -3,8 +3,8 @@ import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import { SUPPORT_LINK, toStarlightSidebar } from './src/data/navigation.mjs';
 
-// Đổi thành tên miền thật khi gắn (ví dụ https://docs.lvcmedia.vn).
-const SITE = 'https://lvc-image-docs.pages.dev';
+// Tên miền chính của trang (gắn ở Worker → Settings → Domains & Routes).
+const SITE = 'https://imagedoc.lvcmedia.vn';
 
 export default defineConfig({
 	site: SITE,
