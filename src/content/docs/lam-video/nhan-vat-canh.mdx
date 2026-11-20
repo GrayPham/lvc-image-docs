@@ -1,0 +1,105 @@
+---
+title: Nhân vật & bối cảnh
+description: Lập dàn nhân vật, gắn ảnh của bạn và giữ nhân vật giống nhau ở mọi cảnh.
+sidebar:
+  order: 4
+---
+
+import { Steps, Aside } from '@astrojs/starlight/components';
+import TutorialVideo from '../../../components/TutorialVideo.astro';
+
+Trang **1. Nhân vật/cảnh** giúp bạn xem và sửa dàn nhân vật, bối cảnh **trước khi** chia cảnh. Có dàn nhân vật, AI gọi đúng tên và tool đính đúng ảnh tham chiếu, nên nhân vật giữ nguyên khuôn mặt, hình dáng qua mọi cảnh.
+
+Trang này có ở cả **Phụ đề/âm thanh → Video** và **Kịch Bản → Video**.
+
+<TutorialVideo id="cast-page" />
+
+Mở trang bằng một trong ba cách:
+
+- Bấm **1. Nhân vật/cảnh** ở khung kết quả bên phải.
+- Nhấn <kbd>Ctrl</kbd>+<kbd>1</kbd>.
+- Bấm nút <kbd>🎭 Nhân vật && bối cảnh…</kbd>.
+
+## Các bước
+
+<Steps>
+
+1. **Chuẩn bị nội dung**:
+   - Tab Phụ đề/âm thanh → Video: chạy bước *1. Tách sub* trước, hoặc nạp file `.srt`.
+   - Tab Kịch Bản → Video: cần có lời dẫn.
+
+2. Bấm <kbd>✨ Phân tích nhân vật</kbd>. AI đọc nội dung và lập dàn nhân vật, bối cảnh (tối đa 12 nhân vật, 8 bối cảnh). Tên bạn đã đặt được giữ nguyên.
+
+3. **Kiểm tra bảng**. Nhấp đúp một dòng để sửa **Tên**, **Loại** và **Mô tả**. Mô tả là thứ AI dùng để vẽ ảnh, nên tả càng rõ càng đúng.
+
+4. **Gắn ảnh của bạn** nếu có (xem mục dưới). Dòng có ảnh của bạn thì tool dùng luôn, **không vẽ lại, không tốn lượt**.
+
+5. Bấm <kbd>🎨 Tạo ảnh</kbd> để vẽ ảnh cho các dòng còn thiếu.
+   - Đang chọn dòng nào thì vẽ đúng các dòng đó.
+   - Không chọn dòng nào thì vẽ mọi dòng chưa có ảnh.
+   - Mỗi ảnh tốn 1 lượt tạo ảnh.
+
+6. Bấm <kbd>▶ Tạo kịch bản với nhân vật</kbd> để chia cảnh bằng đúng dàn này.
+
+</Steps>
+
+<Aside type="tip" title="Nhân vật không phải người">
+Nhân vật có thể là con vật, đồ vật, hay bất cứ thứ gì trong truyện. Hãy mở đầu mô tả bằng việc nó **là gì** (một chú chó, một viên kim cương…). Từ bản 1.1.61, tool vẽ đúng bản chất, không biến chúng thành người.
+</Aside>
+
+## Gắn ảnh của bạn
+
+| Cách | Kết quả |
+| --- | --- |
+| Kéo thả **1 ảnh** lên một dòng | Dòng đó dùng ảnh ấy. |
+| Kéo thả ảnh ra **vùng trống** của bảng | Mỗi ảnh thành một nhân vật mới, tên theo tên file. |
+| <kbd>➕ Thêm</kbd> → *Thêm nhân vật… / Thêm bối cảnh… / Thêm nhiều ảnh…* | Thêm dòng mới, có hoặc không kèm ảnh. |
+| Chuột phải một dòng → *🖼️ Chọn ảnh của bạn…* | Thay ảnh cho dòng đó. |
+
+Tool nhận ảnh `.png`, `.jpg`, `.jpeg`, `.webp`, `.bmp`.
+
+Gắn ảnh xong, tool tự bật ô **Giữ nhân vật cố định** hoặc **Giữ bối cảnh cố định**.
+
+## Ý nghĩa cột Trạng thái
+
+| Trạng thái | Nghĩa |
+| --- | --- |
+| ⏳ Chưa có ảnh | Chưa vẽ. |
+| ⚡ Đang tạo… | Đang vẽ. |
+| ✅ Đã có ảnh | Tool đã vẽ xong. |
+| 📌 Ảnh của bạn | Đang dùng ảnh bạn gắn. |
+| ❌ Lỗi | Không vẽ được. Bấm chuột phải → *🎨 Vẽ (lại) ảnh dòng này* để thử lại. |
+
+## Kho nhân vật dùng chung
+
+Kho lưu nhân vật, bối cảnh kèm ảnh để **dùng lại ở mọi dự án**, không tốn lượt vẽ lại.
+
+- **Lưu vào kho**: chuột phải một dòng → *🗃️ Lưu vào kho*.
+- **Lấy từ kho**: bấm <kbd>🗃️ Kho nhân vật</kbd>, tìm theo tên hoặc mô tả, tích các mục cần dùng rồi bấm <kbd>✅ Đưa vào dự án</kbd>.
+
+Kho giữ **bản sao** của ảnh, nên xoá dự án cũ thì ảnh trong kho vẫn còn.
+
+## Các nút khác
+
+| Nút | Làm gì |
+| --- | --- |
+| <kbd>🔄 Đặt lại</kbd> | Bỏ ảnh để vẽ lại. Không chọn dòng thì áp cho mọi dòng (có hỏi trước). File trên đĩa giữ nguyên. |
+| <kbd>🗑️ Xóa</kbd> | Xoá dòng khỏi dự án. Kho không bị ảnh hưởng. |
+| Chuột phải → *🔍 Xem ảnh* | Xem ảnh lớn. Bấm vào ảnh trong bảng cũng được. |
+| Chuột phải → *📂 Mở thư mục ảnh* | Mở thư mục chứa ảnh nhân vật. |
+
+## Lưu ý
+
+<Aside type="caution" title="Model ảnh phải nhận được ảnh tham chiếu">
+Ảnh nhân vật chỉ có tác dụng với **Banana2, BananaPro, BananaLite, Muse AI** và **GPT Image**. Model **ImageGen4** không nhận ảnh tham chiếu.
+</Aside>
+
+- Log báo *“…có ảnh nhưng không khớp nhân vật/bối cảnh nào trong kịch bản”*: tên bạn đặt khác hẳn tên trong truyện. Sửa tên cho khớp.
+- Vẽ lại một dòng đang dùng ảnh của bạn, tool sẽ hỏi trước *“Vẽ đè ảnh của bạn?”*.
+
+| Thông báo | Cách xử lý |
+| --- | --- |
+| **Chưa có nội dung** | Chạy *1. Tách sub* (hoặc nạp `.srt`), hay viết lời dẫn trước, rồi bấm *Phân tích nhân vật*. |
+| **Model này không dùng được ảnh tham chiếu** | Đổi model ảnh sang Banana2, BananaPro, BananaLite, Muse hoặc GPT Image. |
+| **Mọi dòng đã có ảnh** | Không có gì cần vẽ. Muốn vẽ lại thì chọn dòng rồi bấm *Đặt lại*. |
+| **Trùng tên** | Đã có dòng cùng tên. Đặt tên khác. |

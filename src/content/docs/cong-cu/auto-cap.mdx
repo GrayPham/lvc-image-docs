@@ -1,0 +1,84 @@
+---
+title: Auto Cap
+description: Ghép ảnh, clip, tiếng và phụ đề thành dự án CapCut hoặc xuất thẳng MP4.
+sidebar:
+  order: 1
+---
+
+import { Steps, Aside } from '@astrojs/starlight/components';
+import TutorialVideo from '../../../components/TutorialVideo.astro';
+
+Bạn đã có sẵn ảnh, clip, file tiếng và phụ đề. **Auto Cap** ghép chúng thành **dự án CapCut** để mở ra chỉnh tiếp, hoặc **xuất thẳng MP4** mà không cần CapCut.
+
+<TutorialVideo id="auto-cap" />
+
+## Các bước
+
+<Steps>
+
+1. Ở thanh bên trái, bấm **✂️ Auto Cap**.
+
+2. **📁 Nguồn dữ liệu**:
+   - **Thư mục ảnh / video**: bấm 📂 để chọn. Bấm <kbd>➕ Thêm thư mục</kbd> nếu có nhiều thư mục.
+   - **File tiếng**: file lời đọc hoặc nhạc. Để trống thì mỗi ảnh dài 5 giây.
+   - **File SRT**: phụ đề, không bắt buộc.
+
+3. **⚙️ Tùy chọn**: đặt **Tên dự án** (bắt buộc) và chọn **Độ phân giải**.
+
+4. **🎞 Đầu ra**: kiểm tra ô **Draft CapCut**. Tool tự tìm thư mục bản nháp của CapCut.
+
+5. Bấm <kbd>⚡ Tạo dự án CapCut</kbd>, rồi mở CapCut lên là thấy dự án trong danh sách **Projects**.
+   Hoặc chọn **File MP4 xuất ra** rồi bấm <kbd>🎞 Kết xuất MP4</kbd>.
+
+</Steps>
+
+<Aside type="tip" title="Đặt tên file để đúng thứ tự">
+Ảnh và clip được trộn chung và **sắp theo tên file**. Đặt tên `001_…`, `002_…`, `003_…` là ra đúng thứ tự kịch bản. Clip giữ nguyên độ dài gốc và không bị zoom.
+</Aside>
+
+## Các tuỳ chọn
+
+### Nguồn dữ liệu
+
+| Ô | Ý nghĩa | Mặc định |
+| --- | --- | --- |
+| Chia thời lượng theo | *Độ dài audio*: video dài bằng file tiếng, ảnh chia phần thời gian còn lại sau clip. *Độ dài clip có sẵn*: dùng khi clip đã có sẵn lời thoại. | Độ dài audio |
+| Dùng tiếng có sẵn trong clip | Giữ tiếng gốc của clip. | Bật |
+| Chọn cả thư mục audio | Nối nhiều file tiếng theo thứ tự tên. Mỗi file có thể kèm một `.srt` **cùng tên**. | Tắt |
+
+Định dạng nhận: ảnh `.jpg .jpeg .png .webp .bmp`, video `.mp4 .mov .mkv .avi .webm .m4v`, tiếng `.wav .mp3 .m4a .aac .flac .ogg`.
+
+### Tùy chọn
+
+| Ô | Ý nghĩa | Mặc định |
+| --- | --- | --- |
+| Độ phân giải | 1920×1080 ngang, 1080×1920 dọc, 1080×1080 vuông, 2K, 4K. Luôn 30 fps. | 1920×1080 |
+| Chuyển động ảnh (Ken Burns) | Ảnh tự zoom, lia nhẹ, đổi luân phiên 4 kiểu. | Bật |
+| Chuyển cảnh hoà tan | Hai cảnh hoà vào nhau. **Dài** 0,2–5 giây. | Bật, 1 giây |
+| Logo | Gắn logo lên video. | — |
+| Thư mục nhạc nền | Nhạc nền phát suốt video. | — |
+| Tự hạ nhạc khi có tiếng | Nhạc nhỏ đi khi có lời đọc, to lại khi im. | Bật |
+
+### Đầu ra
+
+| Ô | Ý nghĩa | Mặc định |
+| --- | --- | --- |
+| Draft CapCut | Thư mục bản nháp của CapCut. Tool tự dò. | Tự dò |
+| File MP4 xuất ra | Chỉ cần khi bấm *Kết xuất MP4*. | — |
+| Chất lượng | Cao (chậm), Vừa, Nhanh (file to hơn). | Vừa |
+| Nung phụ đề vào hình | Chữ nằm cố định trên video. Đã nung thì không sửa được. | Bật |
+
+<Aside type="caution" title="Chưa thấy thư mục CapCut?">
+Nếu tool báo *“Chưa thấy thư mục draft”*, có thể máy chưa cài CapCut, hoặc đã cài nhưng chưa từng tạo dự án nào. Mở CapCut, tạo thử một dự án trống rồi quay lại tool.
+</Aside>
+
+## Lỗi hay gặp
+
+| Thông báo | Cách xử lý |
+| --- | --- |
+| **Còn thiếu** | Tool liệt kê ô còn thiếu: tên dự án, thư mục ảnh, thư mục Draft CapCut… Điền đủ rồi bấm lại. |
+| Không tìm thấy ảnh hoặc video nào | Thư mục đã chọn không có file đúng định dạng. |
+| Các clip đã chiếm …s, dài hơn cả …s cần lấp | Clip dài hơn file tiếng. Đổi *Chia thời lượng theo* sang *Độ dài clip có sẵn*, hoặc dùng file tiếng dài hơn. |
+| Nguồn quá ngắn để hoà tan | Giảm độ dài chuyển cảnh, bớt số ảnh, hoặc dùng file tiếng dài hơn. |
+| Đường dẫn bản nháp quá dài | Chọn thư mục Draft CapCut gần ổ đĩa hơn, hoặc đặt tên dự án ngắn lại. |
+| Không tìm thấy ffmpeg | Đặt `ffmpeg.exe` cạnh tool, hoặc cài CapCut (tool dùng ffmpeg của CapCut). |

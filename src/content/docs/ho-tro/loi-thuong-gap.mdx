@@ -1,0 +1,120 @@
+---
+title: Lỗi thường gặp
+description: Các lỗi hay gặp khi dùng LVC Image Gen và cách tự xử lý.
+sidebar:
+  order: 1
+---
+
+import { Steps, Aside } from '@astrojs/starlight/components';
+import TutorialVideo from '../../../components/TutorialVideo.astro';
+
+Tìm nhanh bằng <kbd>Ctrl</kbd>+<kbd>F</kbd>, hoặc bấm ô **Tìm kiếm** ở đầu trang rồi gõ vài chữ trong thông báo lỗi.
+
+<TutorialVideo id="troubleshooting" />
+
+## Cài đặt và khởi động
+
+### LVC Image Gen đang mở rồi
+
+Bạn đang mở tool lần thứ hai. Hãy chuyển sang cửa sổ đang mở. Hai bản chạy cùng lúc sẽ ghi đè hàng đợi và cài đặt của nhau. Chỉ bấm **Vẫn mở** khi chắc bản kia đã treo cứng.
+
+### Thiếu ffmpeg
+
+Tool cần `ffmpeg.exe` để tách tiếng và xuất video. Đặt `ffmpeg.exe` và `ffprobe.exe` **cạnh** `LVC Image Gen.exe` (có sẵn trong bộ cài đầy đủ), rồi mở lại tool.
+
+### Chưa có yt-dlp
+
+Đặt `yt-dlp.exe` cạnh `LVC Image Gen.exe`. Thiếu file này thì chỉ riêng ô tải video từ link bị khoá.
+
+### Chưa tách được sub
+
+Thiếu file `transcribe_worker.exe` cạnh `LVC Image Gen.exe`. Cài lại bằng bộ cài đầy đủ theo cách [chép đè](/bat-dau/cap-nhat/).
+
+### Tách sub báo lỗi `HF_HUB_OFFLINE`
+
+Thông báo có chữ *“Cannot find an appropriate cached snapshot”*, *“HF_HUB_OFFLINE”* hoặc *“outgoing traffic has been disabled”*. Nguyên nhân là máy có phần mềm AI khác đã chặn việc tải bộ nghe chữ.
+
+Từ bản 1.1.60, tool tự xử lý. Nếu vẫn gặp:
+
+<Steps>
+
+1. Bấm phím <kbd>Windows</kbd>, gõ `cmd`, nhấn Enter.
+2. Gõ lần lượt hai lệnh sau, mỗi lệnh nhấn Enter:
+   ```bat
+   setx HF_HUB_OFFLINE 0
+   setx TRANSFORMERS_OFFLINE 0
+   ```
+3. Thấy chữ **SUCCESS** là được. **Tắt hẳn** tool rồi mở lại.
+
+</Steps>
+
+## Trình duyệt
+
+### Bản tool này chưa có sẵn trình duyệt Firefox đi kèm
+
+Thiếu thư mục `data\firefox-portable\`. Cài lại bằng bộ cài đầy đủ theo cách [chép đè](/bat-dau/cap-nhat/), hoặc vào **Tài Khoản → ⚙️ Cài đặt** chọn đường dẫn tới `FirefoxPortable.exe`.
+
+### Firefox đã mở nhưng phần điều khiển của tool chưa nạp vào trình duyệt
+
+Thường do Firefox vừa tự cập nhật, hoặc phần mềm diệt virus chặn ghi vào thư mục Firefox. Mở lại tool rồi thử lại. Nếu vẫn lỗi, thêm thư mục tool vào danh sách loại trừ của phần mềm diệt virus.
+
+### Không tìm thấy Google Chrome trên máy
+
+Cài Google Chrome, hoặc chuyển tài khoản sang Firefox: chuột phải tài khoản → *🔁 Chuyển trình duyệt*.
+
+## Tài khoản Google
+
+| Thông báo | Cách xử lý |
+| --- | --- |
+| Tài khoản hết phiên — đăng nhập lại | Chuột phải tài khoản → *🔄 Reload cookie*. Không được thì đăng nhập lại. |
+| Google từ chối tài khoản — đăng nhập lại | Như trên. |
+| Chưa chọn tài khoản nào để xoay | Bật tài khoản ở tab **Tài Khoản**, tích chọn tài khoản trong tab đang chạy, rồi bấm **Làm mới**. |
+| Tài khoản chưa xác minh tuổi | Google coi tài khoản là người chưa đủ tuổi. Xác minh tuổi tại myaccount.google.com, hoặc dùng tài khoản khác. |
+| Hết lượt hôm nay của model | Tài khoản hết hạn mức ngày. Đổi tài khoản, đổi model, hoặc chờ sang ngày mới. Tool tự cho tài khoản nghỉ 6 tiếng. |
+| Bắn quá nhiều cùng lúc — giảm Luồng | Giảm ô Luồng, chờ vài phút. Tool tự cho tài khoản nghỉ ngắn rồi dùng lại. |
+| Hỏng mã xác minh — bấm chạy lại task lỗi | Chạy lại các dòng lỗi. Nếu cả loạt đều dính, giảm Luồng. |
+| 🌐 Proxy lỗi | Đổi proxy: chuột phải → *🔑 Đổi proxy…*. |
+
+## Nội dung bị chặn
+
+| Thông báo | Cách xử lý |
+| --- | --- |
+| Nội dung vi phạm chính sách — sửa lời tả | Prompt bị bộ lọc của Google chặn. Chạy lại y nguyên vẫn bị chặn: phải sửa lời tả nhẹ nhàng hơn. Lỗi này không làm hại tài khoản. |
+| Dính người nổi tiếng — bỏ tên riêng | Bỏ tên người thật khỏi prompt. |
+| Ảnh tham chiếu có người nổi tiếng — đổi ảnh | Dùng ảnh tham chiếu khác. |
+| Prompt phải viết bằng tiếng Anh | Đổi **Ngôn ngữ prompt** sang English. |
+
+## ChatGPT
+
+| Thông báo | Cách xử lý |
+| --- | --- |
+| Cloudflare chặn (403) | Đổi proxy hoặc IP, hoặc đăng nhập tay tài khoản một lần. |
+| ChatGPT từ chối (403) — phiên hỏng hoặc tài khoản bị giới hạn | Đăng nhập lại tài khoản. |
+| phiên ChatGPT đã hết (401) | Dán trang session mới. Xem [Tài khoản ChatGPT](/tai-khoan/chatgpt/). |
+| Tài khoản đã hết lượt tạo ảnh | Chờ sang ngày hoặc dùng tài khoản khác. |
+| ChatGPT đang chặn tốc độ (429) | Giảm Luồng/tài khoản, chờ rồi thử lại. |
+| ChatGPT trả lời bằng lời, không tạo ảnh | Prompt có thể bị coi là câu hỏi. Viết rõ là cần vẽ ảnh, hoặc sửa nội dung cho nhẹ hơn. |
+
+## Bản quyền
+
+| Thông báo | Cách xử lý |
+| --- | --- |
+| License đã hết hạn | Liên hệ LVC Media để gia hạn, rồi nhập key mới. |
+| Bản quyền không hợp lệ | Đăng xuất rồi kích hoạt lại. |
+| Lỗi Kết Nối Server | Kiểm tra mạng. Tool cần mạng để xác minh bản quyền mỗi lần mở. |
+
+## Lỗi lạ, chưa có trong danh sách
+
+Nếu tool báo *“Tool chưa có mô tả cho mã này”* hoặc lỗi bạn không hiểu:
+
+<Steps>
+
+1. Mở khung **Nhật ký** của tab đang lỗi, bấm *Chép toàn bộ* (nếu có).
+2. Nén thư mục `logs\` và file `app_debug.log` nằm cạnh `LVC Image Gen.exe`.
+3. Gửi kèm ảnh chụp màn hình cho [bên hỗ trợ](/ho-tro/lien-he/).
+
+</Steps>
+
+<Aside type="caution">
+Đừng gửi thư mục `data\`, `profiles\` hay file `app_data.json`. Các mục này chứa phiên đăng nhập tài khoản của bạn.
+</Aside>

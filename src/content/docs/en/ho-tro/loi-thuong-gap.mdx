@@ -1,0 +1,120 @@
+---
+title: Common errors
+description: Common errors when using LVC Image Gen and how to fix them yourself.
+sidebar:
+  order: 1
+---
+
+import { Steps, Aside } from '@astrojs/starlight/components';
+import TutorialVideo from '../../../../components/TutorialVideo.astro';
+
+Search quickly with <kbd>Ctrl</kbd>+<kbd>F</kbd>, or click the **Search** box at the top of the page and type a few words from the error message.
+
+<TutorialVideo id="troubleshooting" />
+
+## Installation and startup
+
+### LVC Image Gen đang mở rồi (already open)
+
+You are opening the tool a second time. Switch to the window that is already open. Two copies running at the same time overwrite each other's queue and settings. Only click **Vẫn mở** (Open anyway) when you are sure the other copy is completely frozen.
+
+### Thiếu ffmpeg (ffmpeg missing)
+
+The tool needs `ffmpeg.exe` to extract audio and export video. Put `ffmpeg.exe` and `ffprobe.exe` **next to** `LVC Image Gen.exe` (they are included in the full installer package), then reopen the tool.
+
+### Chưa có yt-dlp (yt-dlp not found)
+
+Put `yt-dlp.exe` next to `LVC Image Gen.exe`. Without this file, only the download-video-from-link field is locked.
+
+### Chưa tách được sub (Cannot transcribe yet)
+
+The file `transcribe_worker.exe` is missing next to `LVC Image Gen.exe`. Reinstall with the full installer package using the [copy-over](/en/bat-dau/cap-nhat/) method.
+
+### Transcribe shows the `HF_HUB_OFFLINE` error
+
+The message contains *“Cannot find an appropriate cached snapshot”*, *“HF_HUB_OFFLINE”* or *“outgoing traffic has been disabled”*. This happens because another AI program on your computer has blocked the speech recognition model from downloading.
+
+Since version 1.1.60, the tool handles this automatically. If you still see it:
+
+<Steps>
+
+1. Press the <kbd>Windows</kbd> key, type `cmd` and press Enter.
+2. Type the following two commands one at a time, pressing Enter after each:
+   ```bat
+   setx HF_HUB_OFFLINE 0
+   setx TRANSFORMERS_OFFLINE 0
+   ```
+3. When you see **SUCCESS**, it worked. **Fully close** the tool and open it again.
+
+</Steps>
+
+## Browser
+
+### Bản tool này chưa có sẵn trình duyệt Firefox đi kèm (This version does not include Firefox)
+
+The `data\firefox-portable\` folder is missing. Reinstall with the full installer package using the [copy-over](/en/bat-dau/cap-nhat/) method, or go to **Tài Khoản → ⚙️ Cài đặt** (Accounts → Settings) and choose the path to `FirefoxPortable.exe`.
+
+### Firefox đã mở nhưng phần điều khiển của tool chưa nạp vào trình duyệt (Firefox opened but the tool's control add-on did not load)
+
+This usually happens because Firefox has just updated itself, or antivirus software is blocking writes to the Firefox folder. Reopen the tool and try again. If it still fails, add the tool folder to your antivirus exclusion list.
+
+### Không tìm thấy Google Chrome trên máy (Google Chrome not found on this computer)
+
+Install Google Chrome, or switch the account to Firefox: right-click the account → *🔁 Chuyển trình duyệt* (Switch browser).
+
+## Google accounts
+
+| Message | What to do |
+| --- | --- |
+| Tài khoản hết phiên — đăng nhập lại (Account session expired — sign in again) | Right-click the account → *🔄 Reload cookie*. If that doesn't work, sign in again. |
+| Google từ chối tài khoản — đăng nhập lại (Google rejected the account — sign in again) | Same as above. |
+| Chưa chọn tài khoản nào để xoay (No account selected for rotation) | Turn on accounts in the **Tài Khoản** (Accounts) tab, tick the accounts in the tab you are running, then click **Làm mới** (Refresh). |
+| Tài khoản chưa xác minh tuổi (Account age not verified) | Google considers the account to belong to a minor. Verify your age at myaccount.google.com, or use another account. |
+| Hết lượt hôm nay của model (Model's daily quota used up) | The account has reached its daily limit. Switch accounts, switch models, or wait until the next day. The tool rests the account for 6 hours automatically. |
+| Bắn quá nhiều cùng lúc — giảm Luồng (Too many requests at once — lower Threads) | Lower the Luồng (Threads) value and wait a few minutes. The tool rests the account briefly, then uses it again. |
+| Hỏng mã xác minh — bấm chạy lại task lỗi (Verification code failed — rerun failed tasks) | Rerun the failed rows. If the whole batch fails, lower Threads. |
+| 🌐 Proxy lỗi (Proxy error) | Change the proxy: right-click → *🔑 Đổi proxy…* (Change proxy). |
+
+## Blocked content
+
+| Message | What to do |
+| --- | --- |
+| Nội dung vi phạm chính sách — sửa lời tả (Content violates policy — edit the description) | Google's filter blocked the prompt. Running it again unchanged will still be blocked: you must rewrite the description more gently. This error does not harm your account. |
+| Dính người nổi tiếng — bỏ tên riêng (Celebrity detected — remove names) | Remove real people's names from the prompt. |
+| Ảnh tham chiếu có người nổi tiếng — đổi ảnh (Reference image contains a celebrity — change the image) | Use a different reference image. |
+| Prompt phải viết bằng tiếng Anh (Prompt must be in English) | Change **Ngôn ngữ prompt** (Prompt language) to English. |
+
+## ChatGPT
+
+| Message | What to do |
+| --- | --- |
+| Cloudflare chặn (403) (Blocked by Cloudflare) | Change the proxy or IP, or sign in to the account manually once. |
+| ChatGPT từ chối (403) — phiên hỏng hoặc tài khoản bị giới hạn (ChatGPT refused — broken session or limited account) | Sign in to the account again. |
+| phiên ChatGPT đã hết (401) (ChatGPT session expired) | Paste a new session page. See [ChatGPT accounts](/en/tai-khoan/chatgpt/). |
+| Tài khoản đã hết lượt tạo ảnh (Account has no image generations left) | Wait until the next day or use another account. |
+| ChatGPT đang chặn tốc độ (429) (ChatGPT is rate limiting) | Lower Threads per account, wait, then try again. |
+| ChatGPT trả lời bằng lời, không tạo ảnh (ChatGPT replied with text, no image) | The prompt may have been treated as a question. State clearly that you want an image drawn, or soften the content. |
+
+## License
+
+| Message | What to do |
+| --- | --- |
+| License đã hết hạn (License expired) | Contact LVC Media to renew, then enter the new key. |
+| Bản quyền không hợp lệ (Invalid license) | Sign out, then activate again. |
+| Lỗi Kết Nối Server (Server connection error) | Check your connection. The tool needs internet to verify your license every time it opens. |
+
+## Unknown errors not on this list
+
+If the tool shows *“Tool chưa có mô tả cho mã này”* (The tool has no description for this code yet) or an error you don't understand:
+
+<Steps>
+
+1. Open the **Nhật ký** (Log) panel of the tab with the error and click *Chép toàn bộ* (Copy all), if available.
+2. Zip the `logs\` folder and the `app_debug.log` file next to `LVC Image Gen.exe`.
+3. Send them with a screenshot to [support](/en/ho-tro/lien-he/).
+
+</Steps>
+
+<Aside type="caution">
+Do not send the `data\` or `profiles\` folders or the `app_data.json` file. These contain your accounts' sign-in sessions.
+</Aside>

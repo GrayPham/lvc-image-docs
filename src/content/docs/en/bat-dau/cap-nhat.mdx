@@ -1,0 +1,59 @@
+---
+title: Update the tool
+description: The tool updates itself, or you can update by copying the full installer package over it.
+sidebar:
+  order: 3
+---
+
+import { Steps, Aside, Tabs, TabItem } from '@astrojs/starlight/components';
+import TutorialVideo from '../../../../components/TutorialVideo.astro';
+
+<TutorialVideo id="update" />
+
+<Tabs>
+<TabItem label="Automatic update (usual way)">
+
+Every time it opens, the tool checks for a new version.
+
+<Steps>
+
+1. When a new version is available, the **🎉 Có phiên bản mới!** (New version available!) box appears. Click **Yes**.
+2. The tool asks *“Bạn có chắc muốn đóng ứng dụng?”* (Are you sure you want to close the app?). Click **Yes** so the tool closes and updates.
+3. The **Đang cập nhật LVC Image Gen** (Updating LVC Image Gen) window downloads the new version, then reopens the tool.
+4. The **🎉 Có gì mới?** (What's new?) box lists the changes in the new version.
+
+</Steps>
+
+To check right away, click <kbd>🔄 Cập nhật</kbd> (Update) at the bottom of the left sidebar.
+
+</TabItem>
+<TabItem label="Copy the full installer over it">
+
+Use this when the automatic update fails, or when your old version is missing companion files (for example, Firefox).
+
+<Steps>
+
+1. Download the latest `LVC_Image_Gen_vX.Y.Z.rar` file and extract it.
+2. **Fully close** LVC Image Gen, including its icon in the system tray near the clock.
+3. Copy **all the contents** of the extracted folder **over** your old tool folder. When Windows asks, choose **Replace**.
+4. Open `LVC Image Gen.exe` again.
+
+</Steps>
+
+The installer package does not contain accounts, cookies or settings, so copying over it **does not lose your data**.
+
+</TabItem>
+</Tabs>
+
+## Update errors
+
+| Message | What to do |
+| --- | --- |
+| Lỗi kết nối (Connection error) | Can't reach the update server. Check your connection, then click *Cập nhật* (Update) again. |
+| Lỗi tải file … sau 4 lần thử (File download failed … after 4 attempts) | Unstable connection. Try again in a few minutes, or use the full installer copy-over method. |
+| File … bị lỗi (hash không khớp) (File … is corrupted, hash mismatch) | The downloaded file is damaged. Update again. |
+| Không thể xóa file cũ (Cannot delete old file) | The tool is still running. Fully close the tool (including the tray icon), then try again. |
+
+<Aside type="tip">
+Antivirus software sometimes blocks update files. If updates fail repeatedly, add the tool folder to your antivirus exclusion list.
+</Aside>

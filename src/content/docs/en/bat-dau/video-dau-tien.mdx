@@ -1,0 +1,45 @@
+---
+title: Make your first video
+description: A 10-minute path from installing the tool to your first video.
+sidebar:
+  order: 4
+---
+
+import { Steps, Aside, LinkCard } from '@astrojs/starlight/components';
+import TutorialVideo from '../../../../components/TutorialVideo.astro';
+
+This page takes you along the shortest path: from a freshly installed tool to your first video.
+
+<TutorialVideo id="quick-start" />
+
+<Steps>
+
+1. **Install the tool and sign in to your license**.
+   See [Install the tool](/en/bat-dau/cai-dat/) and [License sign-in](/en/bat-dau/dang-nhap/).
+
+2. **Add at least one Google account**.
+   Go to **👤 Tài Khoản → 🎬 Google Flow** (Accounts → Google Flow) → <kbd>🤖 Thêm Tài Khoản Tự Động</kbd> (Add account automatically). Wait until the Trạng thái (Status) column shows **✅ Hoạt động** (Active) and the **Dùng** (Use) switch is on.
+
+3. **Prepare a source**: a `.srt` subtitle file, an audio file, a short video, or a YouTube/TikTok link.
+
+4. **Open 🎞️ Phụ đề/âm thanh → Video** (Subtitles/audio → Video) → <kbd>Mở dự án đang làm →</kbd> (Open current project).
+
+5. Click <kbd>Chọn file…</kbd> (Choose file) or paste a link and click <kbd>Tải về</kbd> (Download).
+
+6. Choose the image **Phong cách** (Style) and **Tỉ lệ ảnh** (Aspect ratio) — landscape for YouTube, portrait for TikTok. Leave the other fields at their defaults.
+
+7. Click <kbd>Bắt đầu</kbd> (Start). The tool runs in order: transcribe → split scenes → create images → export video.
+
+8. Click <kbd>▶ Xem video</kbd> (Watch video) to see the result.
+
+</Steps>
+
+<Aside type="tip" title="The first transcription takes a while">
+On first use, the tool has to download the speech recognition model (~485 MB). It will be much faster after that.
+</Aside>
+
+## What next?
+
+<LinkCard title="Keep characters the same in every scene" href="/en/lam-video/nhan-vat-canh/" />
+<LinkCard title="Make many videos overnight with the queue" href="/en/lam-video/hang-doi/" />
+<LinkCard title="Make a video from a one-sentence idea" href="/en/lam-video/kich-ban/" />

@@ -1,0 +1,103 @@
+---
+/**
+ * Khung video YouTube hướng dẫn.
+ *
+ * Dùng trong trang .mdx:  <TutorialVideo id="accounts-google" />
+ * Link video KHÔNG ghi ở đây mà ở src/data/videos.ts — đổi video chỉ sửa
+ * đúng một file đó. Ô còn trống thì hiện khung "đang cập nhật".
+ */
+import { videos } from '../data/videos';
+
+interface Props {
+	id: keyof typeof videos;
+	title?: string;
+}
+
+const { id, title } = Astro.props;
+const entry = videos[id];
+if (!entry) {
+	throw new Error(`TutorialVideo: không có mã video "${id}" trong src/data/videos.ts`);
+}
+
+/** Nhận cả link đầy đủ (watch?v=, youtu.be/, shorts/, embed/) lẫn mã 11 ký tự. */
+function toYoutubeId(raw: string): string {
+	const value = raw.trim();
+	if (/^[\w-]{11}$/.test(value)) return value;
+	const match = value.match(/(?:v=|youtu\.be\/|shorts\/|embed\/|live\/)([\w-]{11})/);
+	return match ? match[1] : '';
+}
+
+const isEnglish = Astro.locals.starlightRoute?.locale === 'en';
+const youtubeId = toYoutubeId(entry.url);
+const caption = title ?? (isEnglish ? entry.en : entry.title);
+const comingSoon = isEnglish ? 'Tutorial video coming soon' : 'Video hướng dẫn đang được cập nhật';
+---
+
+<figure class="tutorial-video">
+	{
+		youtubeId ? (
+			<div class="tutorial-video__frame">
+				<iframe
+					src={`https://www.youtube-nocookie.com/embed/${youtubeId}?rel=0`}
+					title={caption}
+					loading="lazy"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowfullscreen
+				/>
+			</div>
+		) : (
+			<div class="tutorial-video__frame tutorial-video__placeholder">
+				<span class="tutorial-video__icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22"><path d="M8 5v14l11-7z" fill="currentColor" /></svg></span>
+				<span>{comingSoon}</span>
+				{import.meta.env.DEV && <code>mã: {id}</code>}
+			</div>
+		)
+	}
+	<figcaption>🎬 {caption}</figcaption>
+</figure>
+
+<style>
+	.tutorial-video {
+		margin: 1.5rem 0;
+	}
+	.tutorial-video__frame {
+		position: relative;
+		aspect-ratio: 16 / 9;
+		border-radius: 0.75rem;
+		overflow: hidden;
+		border: 1px solid var(--sl-color-gray-5);
+		background: var(--sl-color-black);
+	}
+	.tutorial-video__frame iframe {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		border: 0;
+	}
+	.tutorial-video__placeholder {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 0.5rem;
+		color: var(--sl-color-gray-3);
+		background: linear-gradient(135deg, var(--sl-color-gray-6), var(--sl-color-gray-5));
+		font-size: var(--sl-text-sm);
+	}
+	.tutorial-video__icon {
+		display: grid;
+		place-items: center;
+		width: 3.5rem;
+		height: 3.5rem;
+		border-radius: 50%;
+		background: var(--sl-color-accent);
+		color: var(--sl-color-white);
+		padding-left: 0.15rem;
+	}
+	.tutorial-video figcaption {
+		margin-top: 0.5rem;
+		font-size: var(--sl-text-sm);
+		color: var(--sl-color-gray-3);
+	}
+</style>

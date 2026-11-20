@@ -1,0 +1,48 @@
+---
+title: About LVC Image Gen
+description: User guide for LVC Image Gen — create AI images in bulk and make videos from subtitles, audio and scripts.
+hero:
+  title: LVC Image Gen
+  tagline: Create AI images in bulk and turn subtitles, audio and ideas into videos — all in one tool.
+  image:
+    file: ../../../assets/logo.png
+  actions:
+    - text: Get started
+      link: /en/bat-dau/cai-dat/
+      icon: right-arrow
+    - text: Make your first video
+      link: /en/bat-dau/video-dau-tien/
+      icon: rocket
+      variant: minimal
+---
+
+import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+import TutorialVideo from '../../../components/TutorialVideo.astro';
+
+<TutorialVideo id="intro" />
+
+## What the tool can do
+
+<CardGrid>
+	<Card title="Bulk image creation" icon="seti:image">
+		Paste hundreds of prompts. The tool splits the work across many accounts and saves the images automatically. Supports Google Flow, Muse AI and GPT Image.
+	</Card>
+	<Card title="Subtitles / audio → Video" icon="seti:video">
+		Add a subtitle file, audio, video or a YouTube link. The tool transcribes the speech, draws an image for each scene and exports a video.
+	</Card>
+	<Card title="Script → Video" icon="pencil">
+		All you need is a one-sentence idea: AI writes the narration, creates the characters, draws the images and exports the video.
+	</Card>
+	<Card title="Consistent characters" icon="star">
+		Characters keep the same face and look in every scene. Use your own images or let AI draw them.
+	</Card>
+</CardGrid>
+
+## Where to start?
+
+<CardGrid>
+	<LinkCard title="Install the tool" description="System requirements, extracting and first run." href="/en/bat-dau/cai-dat/" />
+	<LinkCard title="Add accounts" description="Google, Muse AI and ChatGPT accounts." href="/en/tai-khoan/tong-quan/" />
+	<LinkCard title="Make your first video" description="A 10-minute path to your first video." href="/en/bat-dau/video-dau-tien/" />
+	<LinkCard title="Got an error?" description="Common errors and how to fix them." href="/en/ho-tro/loi-thuong-gap/" />
+</CardGrid>

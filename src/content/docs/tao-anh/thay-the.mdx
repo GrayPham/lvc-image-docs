@@ -1,0 +1,77 @@
+---
+title: Thay Thế nhân vật
+description: Thay nhân vật hoặc chi tiết trong cả loạt ảnh có sẵn theo một ảnh mẫu.
+sidebar:
+  order: 2
+---
+
+import { Steps, Aside } from '@astrojs/starlight/components';
+import TutorialVideo from '../../../components/TutorialVideo.astro';
+
+Bạn có sẵn một loạt ảnh và muốn đổi nhân vật trong đó thành một nhân vật khác. Tool dùng AI (Google Flow) sửa từng ảnh theo **một ảnh mẫu** và **một câu mô tả**.
+
+<TutorialVideo id="replace-character" />
+
+## Các bước
+
+<Steps>
+
+1. Ở thanh bên trái, bấm **🔄 Thay Thế**.
+
+2. **Bước 1: Import ảnh**: bấm <kbd>📁 Chọn ảnh (File)</kbd> hoặc <kbd>📂 Chọn ảnh (Thư mục)</kbd>. Nhận `.png`, `.jpg`, `.jpeg`, `.webp`. Ảnh trùng sẽ bị bỏ qua.
+
+3. **Bước 2: Chọn ảnh thay thế**: bấm <kbd>🖼️ Chọn ảnh thay thế</kbd>.
+   - Thẻ **📚 Kho**: chọn nhân vật đã lưu. Nhấp đúp để chọn nhanh.
+   - Thẻ **📤 Upload**: chọn ảnh từ máy.
+   - Bấm <kbd>✅ Chọn</kbd>.
+
+4. **Bước 3: Yêu cầu thay thế**: gõ mô tả việc cần làm vào ô *Mô tả yêu cầu thay thế*. Tool gợi ý sẵn câu *“Thay thế nhân vật trong ảnh bằng …”*.
+
+5. Chỉnh **⚙️ Cài đặt** nếu cần.
+
+6. Bấm <kbd>🚀 Bắt đầu thay thế</kbd>.
+
+</Steps>
+
+## Cài đặt
+
+| Ô | Ý nghĩa | Mặc định |
+| --- | --- | --- |
+| 📐 Tỷ lệ | 16:9 (YouTube), 9:16 (TikTok/Shorts), 1:1 (Instagram). | 16:9 |
+| 🖼️ Model Ảnh | Banana 2, Banana Pro, Banana Lite, ImageGen4. | Banana 2 |
+| ⚙️ Số luồng | Số ảnh xử lý cùng lúc (1–10). | 3 |
+| 🔄 Số lần retry | Số lần thử lại khi lỗi. **Đừng đặt 0.** | 30 |
+| 🌐 Proxy | Dùng proxy trong danh sách ở tab Cài Đặt. | Tắt |
+
+## Sửa riêng từng ảnh
+
+- Chữ gõ ở Bước 3 tự điền vào các dòng **chưa có** prompt riêng.
+- <kbd>📋 Áp dụng prompt cho tất cả dòng</kbd> ghi đè prompt riêng của mọi dòng (có hỏi trước).
+- Chuột phải → *✏️ Sửa prompt…* để đặt prompt riêng cho một hay nhiều dòng.
+- Bỏ tích cột **Dùng ảnh thay thế** ở một dòng: dòng đó chỉ sửa ảnh theo prompt, không dùng ảnh mẫu.
+
+## Kết quả lưu ở đâu
+
+Mỗi lần chạy, tool tạo một thư mục mới trong `data\character_replacement\` của thư mục tool, kèm file `log.txt`. Bấm <kbd>📁 Mở thư mục</kbd> để mở.
+
+Tên ảnh kết quả có đuôi `_replaced`, ví dụ `001_anh-goc_replaced.jpg`.
+
+## Chạy lại ảnh lỗi
+
+<Aside type="caution">
+Tool chỉ chạy các dòng đang **⏳ Chờ**. Muốn chạy lại:
+
+- Bấm <kbd>🔄 Chạy lại tất cả task lỗi</kbd>.
+- Hoặc chuột phải → *🔄 Đặt lại trạng thái*, rồi bấm lại *Bắt đầu thay thế*.
+</Aside>
+
+Chuột phải một dòng còn có *👁️ Xem ảnh gốc*, *👁️ Xem ảnh sau thay thế* và *🔍 Upscale* lên 1K, 2K, 4K.
+
+## Lỗi hay gặp
+
+| Thông báo | Cách xử lý |
+| --- | --- |
+| **Thiếu ảnh thay thế** | Làm Bước 2 trước. |
+| **Không có tác vụ nào đang chờ xử lý** | Đặt lại trạng thái các dòng cần chạy lại. |
+| ❌ Không có prompt | Gõ yêu cầu ở Bước 3 hoặc đặt prompt riêng cho dòng đó. |
+| Có N task đang chạy | Đợi lượt hiện tại xong. |

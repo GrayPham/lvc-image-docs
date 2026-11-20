@@ -1,0 +1,105 @@
+---
+title: Characters & settings
+description: Build the cast, attach your own images and keep characters looking the same in every scene.
+sidebar:
+  order: 4
+---
+
+import { Steps, Aside } from '@astrojs/starlight/components';
+import TutorialVideo from '../../../../components/TutorialVideo.astro';
+
+The **1. Nhân vật/cảnh** (Characters/settings) page lets you view and edit the cast and settings **before** splitting scenes. With a cast list, AI uses the right names and the tool attaches the right reference images, so characters keep the same face and shape in every scene.
+
+This page is available in both **Phụ đề/âm thanh → Video** (Subtitles/audio → Video) and **Kịch Bản → Video** (Script → Video).
+
+<TutorialVideo id="cast-page" />
+
+Open the page in one of three ways:
+
+- Click **1. Nhân vật/cảnh** in the results panel on the right.
+- Press <kbd>Ctrl</kbd>+<kbd>1</kbd>.
+- Click the <kbd>🎭 Nhân vật && bối cảnh…</kbd> (Characters & settings) button.
+
+## Steps
+
+<Steps>
+
+1. **Prepare the content**:
+   - Subtitles/audio → Video tab: run step *1. Tách sub* (1. Transcribe) first, or load a `.srt` file.
+   - Script → Video tab: you need narration.
+
+2. Click <kbd>✨ Phân tích nhân vật</kbd> (Analyze characters). AI reads the content and builds the cast and settings (up to 12 characters, 8 settings). Names you have already set are kept.
+
+3. **Check the table**. Double-click a row to edit **Tên** (Name), **Loại** (Type) and **Mô tả** (Description). The description is what AI uses to draw the image, so the clearer it is, the more accurate the result.
+
+4. **Attach your own images** if you have them (see the section below). For rows with your image, the tool uses it directly, **no redrawing, no turns used**.
+
+5. Click <kbd>🎨 Tạo ảnh</kbd> (Create images) to draw images for the rows that are missing them.
+   - If rows are selected, only those rows are drawn.
+   - If no rows are selected, every row without an image is drawn.
+   - Each image uses 1 image generation turn.
+
+6. Click <kbd>▶ Tạo kịch bản với nhân vật</kbd> (Create script with characters) to split scenes using exactly this cast.
+
+</Steps>
+
+<Aside type="tip" title="Characters that aren't people">
+A character can be an animal, an object, or anything in the story. Start the description with **what it is** (a dog, a diamond…). From version 1.1.61, the tool draws it as what it really is and does not turn it into a person.
+</Aside>
+
+## Attach your own images
+
+| Method | Result |
+| --- | --- |
+| Drag and drop **1 image** onto a row | That row uses the image. |
+| Drag and drop images onto an **empty area** of the table | Each image becomes a new character, named after its file. |
+| <kbd>➕ Thêm</kbd> (Add) → *Thêm nhân vật… / Thêm bối cảnh… / Thêm nhiều ảnh…* (Add character / Add setting / Add many images) | Adds a new row, with or without an image. |
+| Right-click a row → *🖼️ Chọn ảnh của bạn…* (Choose your image) | Replaces the image for that row. |
+
+The tool accepts `.png`, `.jpg`, `.jpeg`, `.webp`, `.bmp` images.
+
+After you attach images, the tool automatically turns on **Giữ nhân vật cố định** (Keep characters consistent) or **Giữ bối cảnh cố định** (Keep settings consistent).
+
+## What the Status column means
+
+| Status | Meaning |
+| --- | --- |
+| ⏳ Chưa có ảnh (No image yet) | Not drawn yet. |
+| ⚡ Đang tạo… (Creating) | Drawing now. |
+| ✅ Đã có ảnh (Has image) | The tool has finished drawing. |
+| 📌 Ảnh của bạn (Your image) | Using the image you attached. |
+| ❌ Lỗi (Error) | Could not draw. Right-click → *🎨 Vẽ (lại) ảnh dòng này* ((Re)draw this row's image) to try again. |
+
+## Shared character library
+
+The library stores characters and settings with their images so you can **reuse them in any project** without spending turns to redraw.
+
+- **Save to library**: right-click a row → *🗃️ Lưu vào kho* (Save to library).
+- **Take from library**: click <kbd>🗃️ Kho nhân vật</kbd> (Character library), search by name or description, tick the items you need, then click <kbd>✅ Đưa vào dự án</kbd> (Add to project).
+
+The library keeps a **copy** of each image, so deleting an old project does not remove the images in the library.
+
+## Other buttons
+
+| Button | What it does |
+| --- | --- |
+| <kbd>🔄 Đặt lại</kbd> (Reset) | Drops the image so it can be redrawn. With no rows selected, it applies to every row (asks first). Files on disk are kept. |
+| <kbd>🗑️ Xóa</kbd> (Delete) | Removes the row from the project. The library is not affected. |
+| Right-click → *🔍 Xem ảnh* (View image) | View the image large. Clicking the image in the table also works. |
+| Right-click → *📂 Mở thư mục ảnh* (Open image folder) | Opens the folder containing the character images. |
+
+## Notes
+
+<Aside type="caution" title="The image model must accept reference images">
+Character images only work with **Banana2, BananaPro, BananaLite, Muse AI** and **GPT Image**. The **ImageGen4** model does not accept reference images.
+</Aside>
+
+- The log says *“…có ảnh nhưng không khớp nhân vật/bối cảnh nào trong kịch bản”* (…has an image but does not match any character/setting in the script): the name you set is completely different from the name in the story. Edit the name to match.
+- If you redraw a row that uses your own image, the tool asks first: *“Vẽ đè ảnh của bạn?”* (Draw over your image?).
+
+| Message | How to fix |
+| --- | --- |
+| **Chưa có nội dung** (No content yet) | Run *1. Tách sub* (1. Transcribe) (or load a `.srt`), or write the narration first, then click *Phân tích nhân vật* (Analyze characters). |
+| **Model này không dùng được ảnh tham chiếu** (This model can't use reference images) | Switch the image model to Banana2, BananaPro, BananaLite, Muse or GPT Image. |
+| **Mọi dòng đã có ảnh** (Every row already has an image) | Nothing to draw. To redraw, select rows and click *Đặt lại* (Reset). |
+| **Trùng tên** (Duplicate name) | A row with the same name already exists. Use a different name. |

@@ -1,0 +1,146 @@
+---
+title: Tài khoản Google Flow
+description: Thêm, đăng nhập, kiểm tra credit và quản lý tài khoản Google dùng để tạo ảnh.
+sidebar:
+  order: 2
+---
+
+import { Steps, Aside, Tabs, TabItem } from '@astrojs/starlight/components';
+import TutorialVideo from '../../../components/TutorialVideo.astro';
+
+Tài khoản Google dùng cho các model **Banana 2, Banana Pro, Banana Lite, ImageGen4** và cho AI **Gemini** viết kịch bản. Vào **👤 Tài Khoản → 🎬 Google Flow**.
+
+Mỗi tài khoản chạy trong trình duyệt riêng: **🦊 Firefox Portable** (đi kèm tool, mặc định) hoặc **🌐 Chrome** cài trên máy.
+
+## Thêm tài khoản
+
+<Tabs>
+<TabItem label="🤖 Tự động (khuyên dùng)">
+
+<TutorialVideo id="accounts-google-auto" />
+
+Tool tự đăng nhập bằng email, mật khẩu và tự điền mã 2FA.
+
+<Steps>
+
+1. Bấm <kbd>🤖 Thêm Tài Khoản Tự Động</kbd>.
+2. Chọn **Trình duyệt** (Firefox Portable hoặc Chrome).
+3. Điền **Email**, **Password**. Nếu tài khoản bật xác minh 2 bước, dán **Khoá 2FA**.
+4. Điền **Proxy** nếu có, rồi bấm **OK**.
+5. Nếu Google đòi xác minh thêm (quét QR, bấm “Có” trên điện thoại…), cửa sổ trình duyệt sẽ **chờ bạn làm tay**. Làm xong, tool tự lưu.
+
+</Steps>
+
+Đăng nhập xong, tool tự kiểm credit của tài khoản đó.
+
+<Aside type="caution" title="Khoá 2FA không phải mã 6 số">
+Ô **Khoá 2FA** cần chuỗi bí mật Google đưa lúc bạn bật xác minh 2 bước (chỉ gồm chữ A–Z và số 2–7, dạng `ABCD EFGH IJKL MNOP`). Không dán mã 6 số đang hiện trên điện thoại.
+</Aside>
+
+</TabItem>
+<TabItem label="➕ Thủ công">
+
+<TutorialVideo id="accounts-google-manual" />
+
+Dùng khi bạn muốn tự đăng nhập trên cửa sổ trình duyệt.
+
+<Steps>
+
+1. Bấm <kbd>➕ Thêm Tài Khoản Thủ Công</kbd>.
+2. Chọn trình duyệt, điền Email (mật khẩu không bắt buộc), Proxy nếu có.
+3. Tool mở trang đăng nhập Google. Bạn đăng nhập như bình thường.
+4. Đăng nhập xong, **đóng cửa sổ trình duyệt**. Tool tự lưu phiên.
+
+</Steps>
+
+Nếu dùng Chrome: đăng nhập xong, chuột phải dòng tài khoản → *🔄 Reload cookie* để tool lấy phiên.
+
+</TabItem>
+<TabItem label="📋 Hàng loạt">
+
+<TutorialVideo id="accounts-google-bulk" />
+
+<Steps>
+
+1. Bấm <kbd>📋 Thêm Hàng Loạt</kbd>.
+2. Chọn **Trình duyệt cho cả mẻ**.
+3. Dán danh sách, **mỗi dòng một tài khoản**. Chỉ email là bắt buộc. Các cột cách nhau bằng `|`, Tab (chép từ Excel) hoặc `:`, thứ tự tuỳ ý.
+4. Xem bảng xem trước. Nếu tool đoán sai loại cột, chọn lại loại ở đầu cột.
+5. Bấm <kbd>Thêm N tài khoản</kbd>.
+
+</Steps>
+
+Ví dụ một dòng:
+
+```text
+ten@gmail.com|matkhau|khoiphuc@gmail.com|ABCD EFGH IJKL MNOP|1.2.3.4:8080
+```
+
+Dòng trống hoặc bắt đầu bằng `#` bị bỏ qua. Lỗi của từng dòng hiện ngay trong hộp, kèm số dòng. Tool tự đăng nhập các tài khoản có mật khẩu.
+
+</TabItem>
+</Tabs>
+
+<Aside type="tip" title="Mật khẩu được mã hoá">
+Mật khẩu và khoá 2FA được mã hoá trên máy bạn. Khi chuyển tool sang máy khác, phải đăng nhập lại các tài khoản.
+</Aside>
+
+## Kiểm tra credit
+
+Tích các tài khoản rồi bấm <kbd>💰 Kiểm Tra Credit Đã Chọn</kbd>. Tool kiểm tối đa 3 tài khoản cùng lúc.
+
+- Hết credit: tài khoản tự **tắt**, ghi chú *Hết credit*.
+- Hết phiên đăng nhập: tool thử lấy lại phiên một lần. Không được thì tài khoản tự **tắt**, ghi chú *Hết phiên*.
+
+## Ý nghĩa cột Trạng thái
+
+| Trạng thái | Nghĩa và cách xử lý |
+| --- | --- |
+| ✅ Hoạt động | Dùng được. |
+| ⚠️ Hết hạn | Phiên hết hạn. Chuột phải → *🔄 Reload cookie*. |
+| 🔒 Cần đăng nhập | Chuột phải → *🔐 Đăng nhập tự động* hoặc *👤 Đăng nhập thủ công*. |
+| 📱 Cần quét QR · ✋ Cần xác minh | Mở trình duyệt (<kbd>▶</kbd>) và làm theo yêu cầu của Google. |
+| 🔑 Sai mật khẩu · 🔑 Sai mã 2FA | Sửa ở hộp chỉnh sửa (chuột phải → *✏️ Sửa*). |
+| 📧 Cần OTP | Google gửi mã về mail khôi phục. |
+| ⛔ Google tạm chặn · 🚫 Giới hạn | Cho tài khoản nghỉ, dùng tài khoản khác. |
+| 🌐 Proxy lỗi | Đổi proxy. |
+| ❓ Chưa kiểm | Bấm <kbd>🔍</kbd> để kiểm tra. |
+
+## Các nút quản lý
+
+| Nút | Làm gì |
+| --- | --- |
+| <kbd>▶ Mở Đã Chọn</kbd> / <kbd>■ Đóng Đã Chọn</kbd> | Mở hoặc đóng trình duyệt của các tài khoản đã tích. |
+| <kbd>🚫 Đóng Trình Duyệt</kbd> | Đóng mọi trình duyệt do tool mở. Không đụng Chrome cá nhân của bạn. |
+| <kbd>🗑️ Xoá Đã Chọn</kbd> | Xoá **sạch** tài khoản và thư mục hồ sơ. Không hoàn tác được. |
+| <kbd>🔎 Quét Thư Mục</kbd> | So thư mục hồ sơ trên đĩa với danh sách. Thêm lại hồ sơ bị sót, đánh dấu tài khoản mất hồ sơ (không xoá). |
+| <kbd>📁 Profiles Đã Lưu</kbd> | Xem, mở hoặc xoá từng hồ sơ trình duyệt. |
+
+## Menu chuột phải
+
+Chuột phải một tài khoản để:
+
+- **Đăng nhập lại**: *🔄 Reload cookie (Flow + Gemini)*, *🔐 Đăng nhập tự động*, *👤 Đăng nhập thủ công*.
+- **Kiểm tra ▸**: sống/chết, credit, loại tài khoản, phiên đăng nhập, proxy.
+- **Copy ▸**: email, mật khẩu, mã 2FA 6 số đang hiện, proxy…
+- **Cookie**: *📤 Xuất cookie ra tệp…*, *📥 Nhập cookie từ tệp…*.
+- **Sắp xếp**: *🏷 Đánh dấu loại TK* (Ultra/Pro/Thường/Free), *📁 Chuyển vào nhóm*.
+- **🔁 Chuyển trình duyệt**: đổi giữa Firefox và Chrome, mang theo cookie.
+- **🔌 Bật dùng / ⛔ Tắt** tài khoản.
+
+Nhấp đúp một dòng để mở **Chi tiết tài khoản**: copy nhanh email, mật khẩu, xem mã 2FA tự đổi mỗi 30 giây.
+
+## Cài đặt của tab
+
+Bấm <kbd>⚙️ Cài đặt</kbd> ở thanh lọc:
+
+| Mục | Mặc định |
+| --- | --- |
+| 🌐 Chrome | Dùng Chrome có sẵn trên máy |
+| 🦊 Firefox Portable | Dùng bản đi kèm tool |
+| Mặc định cho tài khoản mới | Firefox Portable |
+| Số trình duyệt mở cùng lúc | 5 (1–20) |
+| Hiện mật khẩu trong bảng | Bật |
+| Cột hiển thị | Bật thêm các cột ẩn như Cookie, 2FA, Mail khôi phục… |
+
+Thanh lọc phía trên bảng cho phép tìm theo email, nhóm, ghi chú. Dán nhiều email, mỗi dòng một email, để lọc nhiều tài khoản cùng lúc.

@@ -1,0 +1,87 @@
+---
+title: ChatGPT accounts
+description: Add ChatGPT accounts by cookie, session page or manual sign-in to use GPT Image and ChatGPT script writing.
+sidebar:
+  order: 4
+---
+
+import { Steps, Aside, Tabs, TabItem } from '@astrojs/starlight/components';
+import TutorialVideo from '../../../../components/TutorialVideo.astro';
+
+ChatGPT accounts are used for the **💬 GPT Image** image model and for **ChatGPT script writing**. Go to **👤 Tài Khoản → 💬 ChatGPT** (Accounts → ChatGPT).
+
+<TutorialVideo id="accounts-chatgpt" />
+
+## Add accounts
+
+<Tabs>
+<TabItem label="🔑 Via the session page (recommended)">
+
+The fastest method, and the one that lasts the longest.
+
+<Steps>
+
+1. In a browser where you are signed in to ChatGPT, open `https://chatgpt.com/api/auth/session`.
+2. Press <kbd>Ctrl</kbd>+<kbd>A</kbd> then <kbd>Ctrl</kbd>+<kbd>C</kbd> to copy the whole page.
+3. In the tool, click <kbd>🔑 Thêm 1 Tài Khoản</kbd> (Add 1 Account).
+4. Paste into the **🍪 Cookie / token** field and fill in the **Email** (a nickname is optional).
+5. Click <kbd>➕ Thêm</kbd> (Add), then turn on the switch in the **Dùng** (Use) column.
+
+</Steps>
+
+The Cookie / token field also accepts an export from the Cookie-Editor extension, or a single token on its own.
+
+</TabItem>
+<TabItem label="🌐 Manual sign-in">
+
+<Steps>
+
+1. Click <kbd>🌐 Đăng Nhập Tay</kbd> (Manual Sign-in).
+2. The tool opens Firefox with a small panel that has *Chép* (Copy) buttons, so you can copy your email and password and paste them (<kbd>Ctrl</kbd>+<kbd>V</kbd>) into the sign-in page.
+3. Finish signing in within 5 minutes. The tool saves the session by itself.
+
+</Steps>
+
+The tool does not fill in the password for you. You paste it into the page yourself.
+
+</TabItem>
+<TabItem label="📋 Bulk">
+
+Click <kbd>📋 Thêm Hàng Loạt</kbd> (Add in Bulk) and paste your list, one account per line.
+
+</TabItem>
+</Tabs>
+
+<Aside type="tip" title="The session renews itself">
+When you paste the session page, the tool keeps a **refresh token**: you never have to paste it again. If you only paste an access token, that token lasts about 10 days and then you must paste a new one (right-click → *🔑 Dán token mới* (Paste new token)).
+</Aside>
+
+## Threads
+
+The **🧵 Luồng/tài khoản** (Threads per account) field (default 1, max 4) sets how many images each account draws at once. The tool always shows the total *“= N ảnh cùng lúc”* (= N images at once).
+
+This number applies to the Tạo Image (Create Image), Phụ đề/âm thanh → Video (Subtitles/audio → Video) and Kịch Bản → Video (Script → Video) tabs.
+
+## Management
+
+| Button | What it does |
+| --- | --- |
+| <kbd>🔄 Kiểm Tra Đã Chọn</kbd> (Check Selected) | Reads the remaining quota. Does **not** use up any image generations. |
+| <kbd>🗑 Xóa Đã Chọn</kbd> (Delete Selected) | Deletes the accounts along with their Firefox profiles. |
+| <kbd>☑ Tích Tất Cả</kbd> / <kbd>☐ Bỏ Tích</kbd> (Tick All / Untick) | Quick selection. |
+
+The **Nguồn** (Source) column shows how the account is signed in: ♾️ refresh token (long-lasting), 🍪 session, 🍪 cookie, ⏳ token (expires), 🌐 profile.
+
+## Status
+
+| Status | What to do |
+| --- | --- |
+| ✅ Hoạt động (Active) | Ready to use. |
+| 🔒 Cần đăng nhập (Sign-in needed) | The session has ended. Paste a new session page or sign in manually again. |
+| 📭 Hết lượt hôm nay (Out of uses today) | The daily image quota is used up. Wait until the next day or use another account. |
+| 🚫 Bị chặn (Blocked) | Usually caused by Cloudflare. Change the proxy or sign in manually once. |
+| 🌐 Proxy lỗi (Proxy error) | Change the proxy. ChatGPT only accepts HTTP proxies. |
+
+<Aside type="caution">
+If an account's session ends while images are being created, the tool **turns off** that account automatically so it does not ruin the following images. After you sign in again, remember to turn the **Dùng** switch back on.
+</Aside>

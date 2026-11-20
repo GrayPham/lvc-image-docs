@@ -1,0 +1,58 @@
+---
+title: Tổng quan tài khoản
+description: Các loại tài khoản tool dùng và quy tắc chung của bảng tài khoản.
+sidebar:
+  order: 1
+---
+
+import { Aside, CardGrid, LinkCard } from '@astrojs/starlight/components';
+import TutorialVideo from '../../../components/TutorialVideo.astro';
+
+Tool tạo ảnh bằng **tài khoản của chính bạn**. Mục **👤 Tài Khoản** ở thanh bên trái có ba tab con:
+
+<CardGrid>
+	<LinkCard title="🎬 Google Flow" description="Model Banana 2, Banana Pro, Banana Lite, ImageGen4. Dùng cho hầu hết tính năng." href="/tai-khoan/google-flow/" />
+	<LinkCard title="🎭 Muse AI" description="Model Muse AI, thêm bằng đăng nhập tay hoặc cookie." href="/tai-khoan/muse-ai/" />
+	<LinkCard title="💬 ChatGPT" description="GPT Image để tạo ảnh và ChatGPT để viết kịch bản." href="/tai-khoan/chatgpt/" />
+</CardGrid>
+
+<TutorialVideo id="accounts-overview" />
+
+## Quy tắc chung của bảng tài khoản
+
+Ba tab con dùng chung cách thao tác:
+
+| Thành phần | Ý nghĩa |
+| --- | --- |
+| Ô tích cột **✓** | Chỉ để **chọn dòng** cho các nút “… Đã Chọn”. |
+| Công tắc cột **Dùng** (● Bật / ● Tắt) | Quyết định tài khoản có được dùng để tạo ảnh hay không. Bấm là lưu ngay. |
+| Cột **Hành động** | <kbd>▶</kbd>/<kbd>■</kbd> mở hoặc dừng trình duyệt, <kbd>🔄</kbd> nạp lại đăng nhập, <kbd>🔍</kbd> kiểm tra. |
+| **Nhật ký** cuối trang | Thu gọn khi không có lỗi, tự mở ra khi có lỗi. Có nút *Chép toàn bộ* để gửi cho bên hỗ trợ. |
+
+<Aside type="caution" title="Tích chọn khác với bật dùng">
+Tích ô ✓ **không** làm tài khoản được dùng. Phải bật công tắc ở cột **Dùng**.
+</Aside>
+
+- Các nút có chữ **“Đã Chọn”** chỉ làm với dòng đã tích. Chưa tích dòng nào thì tool hỏi có làm cho tất cả không (mặc định là *Không*).
+- Nút **Xoá** thì bắt buộc phải tích dòng trước.
+- Mục bị mờ trong menu chuột phải: rê chuột lên để xem lý do.
+
+## Proxy
+
+Mỗi tài khoản có thể đi qua một proxy riêng. Tool nhận các dạng:
+
+```text
+ip:port
+ip:port:user:pass
+user:pass@ip:port
+socks5://ip:port
+```
+
+- Đổi proxy: chuột phải tài khoản → *🔑 Đổi proxy…*, hoặc nhấp đúp vào ô Proxy.
+- Đổi cho nhiều tài khoản: dán mỗi dòng một proxy, khớp theo thứ tự. Dòng trống nghĩa là không dùng proxy.
+- Proxy mới có tác dụng từ lần mở trình duyệt sau. Cửa sổ đang mở thì bấm <kbd>■</kbd> rồi <kbd>▶</kbd>.
+- Kiểm tra proxy: chuột phải → *🔍 Kiểm tra ▸ Proxy*. Proxy hỏng thì cột Trạng thái báo **🌐 Proxy lỗi**.
+
+<Aside>
+Tài khoản ChatGPT chỉ nhận proxy HTTP, không nhận SOCKS.
+</Aside>

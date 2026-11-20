@@ -1,0 +1,118 @@
+---
+title: Script → Video
+description: From an idea or an existing story, the tool writes the narration, builds the characters, draws the images and exports the video.
+sidebar:
+  order: 3
+---
+
+import { Steps, Aside, Tabs, TabItem } from '@astrojs/starlight/components';
+import TutorialVideo from '../../../../components/TutorialVideo.astro';
+
+All you need is **a one-sentence idea**, and AI writes the narration. Or you can **paste an existing story**. The tool builds the characters, splits scenes, draws images, then exports a slideshow video with a `.srt` subtitle file.
+
+<TutorialVideo id="video-from-script" />
+
+## Make a video from an idea
+
+<Steps>
+
+1. In the left sidebar, click **📖 Kịch Bản → Video** (Script → Video).
+
+2. **Card 1 · Kịch bản** (Script):
+   - **Chế độ** (Mode): choose *Từ ý tưởng (AI viết)* (From an idea (AI writes)) and type your idea, for example a one-sentence summary of the story.
+   - Or choose *Đã có sẵn truyện* (I already have a story) and paste the story into the **Lời dẫn** (Narration) box.
+   - Choose the **Thời lượng** (Duration) (seconds), the **narration language** and the **Lĩnh vực (giọng kể)** (Genre (narration voice)).
+
+3. **Card 2 · Nhân vật** (Characters): keep the defaults so the tool draws an image for each character and uses it as a reference, which keeps characters looking the same in every scene.
+
+4. **Card 3 · Phân cảnh** (Scene splitting): choose how many seconds **Mỗi cảnh** (Each scene) lasts, the script model and the **Phong cách (ảnh)** (Style (images)).
+
+5. **Card 4 · Tạo ảnh** (Image generation): choose the image model, aspect ratio and tick your accounts.
+
+6. **Card 5 · Video**: choose the frame size. The **Âm thanh** (Audio) box is for background music or your own voice-over file.
+
+7. In **Chế độ chạy** (Run mode), keep *“Từ ý tưởng ra video · chạy cả 5 bước”* (Idea to video · run all 5 steps) and click <kbd>Bắt đầu</kbd> (Start).
+
+8. When done, the tool shows the video's path. Click **Mở dự án** (Open project) to open the folder.
+
+</Steps>
+
+<Aside type="tip" title="Length estimate">
+The tool shows the line *“Cần ~N từ cho Xs → khoảng K cảnh”* (Need ~N words for Xs → about K scenes). The reading pace is about 2.5 words per second.
+</Aside>
+
+## Key settings
+
+### Card 1 · Script
+
+| Box | Meaning | Default |
+| --- | --- | --- |
+| Chế độ (Mode) | *Từ ý tưởng (AI viết)* (From an idea (AI writes)) or *Đã có sẵn truyện* (I already have a story). | Từ ý tưởng (From an idea) |
+| Thời lượng (Duration) | Desired video length, in seconds. | 60 |
+| Ngôn ngữ lời dẫn (Narration language) | Tiếng Việt, English, Español, 日本語. | Tiếng Việt |
+| Lĩnh vực (giọng kể) (Genre (narration voice)) | Fairy tale, everyday life, news, knowledge, history, horror, romance, review… | — |
+
+<Aside type="caution">
+**Lĩnh vực** (Genre) only changes the **narration voice**, not the image style. The image style is set by the **Phong cách (ảnh)** (Style (images)) box in card 3. For example, if you want a news video with real photos, choose the *Tài liệu - Ảnh thực tế* (Documentary - Real photo) or *Tin tức - Đồ họa tin* (News - News graphics) style.
+</Aside>
+
+### Card 2 · Characters
+
+| Box | Meaning | Default |
+| --- | --- | --- |
+| Tạo ảnh nhân vật và dùng làm ảnh tham chiếu (Create character images and use them as references) | Draws an image for each character first, then uses it when drawing the scenes. | On |
+| Vẽ bộ 9 góc thay vì một ảnh chân dung (Draw a 9-angle set instead of one portrait) | One 9-angle sheet per character. Still only 1 turn per character. | Off |
+| Giữ bối cảnh cố định (Keep settings consistent) | Draws a background image for each location. Choose the **Số địa điểm** (Number of locations) or leave it at *Tự động* (Auto) (up to 8). | Off |
+| Số nhân vật (Number of characters) | 0–12, or leave it at *Tự động* (Auto). | Auto |
+
+Click <kbd>🎭 Nhân vật && bối cảnh…</kbd> (Characters & settings) to view and edit the cast or attach your own images. See the [Characters & settings](/en/lam-video/nhan-vat-canh/) page.
+
+### Cards 3, 4, 5
+
+The boxes in the Scene splitting, Image generation and Video cards are the same as in the Subtitles/audio → Video tab. See the detailed explanation on [that page](/en/lam-video/phu-de-am-thanh/#2--scene-splitting).
+
+The only difference: in card **5 · Video**, the **Âm thanh** (Audio) box has a default volume of **60%**. If you don't choose any audio, the video is silent and comes with a `.srt` file.
+
+## Run modes
+
+<Tabs>
+<TabItem label="Run to the end">
+
+| Mode | When to use |
+| --- | --- |
+| Từ ý tưởng ra video · chạy cả 5 bước (Idea to video · run all 5 steps) | Making the video for the first time. |
+| Tạo lại nhân vật ra video (Redo characters to video) | You want to redraw the characters, then continue. |
+| Tạo lại phân cảnh ra video (Redo scene splitting to video) | You want AI to split the scenes again. |
+| Tạo lại từ ảnh tới video (Redo from images through video) | Keep the scenes, redraw all images. |
+| Tạo lại ảnh còn thiếu ra video (Redo missing images to video) | Only redraw the failed scenes, then export the video. |
+
+</TabItem>
+<TabItem label="One step only">
+
+| Mode | What it does |
+| --- | --- |
+| Chỉ tạo lời dẫn (Narration only) | Only writes the narration, so you can read and edit it first. |
+| Chỉ tạo nhân vật (Characters only) | Only builds and draws the characters. |
+| Chỉ tạo prompt phân cảnh (Scene prompts only) | Only splits scenes. |
+| Chỉ tạo lại ảnh (Redraw images only) | Redraws every image. |
+| Tạo lại ảnh còn thiếu (Redo missing images) | Only draws the scenes missing images. |
+| Chỉ xuất video (Export video only) | Builds the video from the existing images. |
+
+</TabItem>
+</Tabs>
+
+<Aside type="tip" title="The safest way to work">
+Run **Chỉ tạo lời dẫn** (Narration only) first. Read it through and edit it in the Lời dẫn (Narration) box until you're happy. Then switch the mode to **Đã có sẵn truyện** (I already have a story) and run to the end.
+</Aside>
+
+This tab **has no queue**. The tool saves the session after each step, so you can close and reopen the tool and carry on.
+
+## Common errors
+
+| Message | How to fix |
+| --- | --- |
+| **Chưa có ý tưởng** (No idea yet) | Type your idea into the box in card 1. |
+| **Chưa có lời dẫn** (No narration yet) | The *Đã có sẵn truyện* (I already have a story) mode needs you to paste the story into the Lời dẫn (Narration) box. |
+| **Chưa có tài khoản dùng được** (No usable account) | Tick accounts in the *4 · Tạo ảnh* (Image generation) card, or sign in again in the **Tài Khoản** (Accounts) tab and click **Làm mới** (Refresh). |
+| **Không tạo được ảnh** (Could not generate images) | Every scene failed. See the log for the reason; usually the account's session expired or it ran out of turns. |
+| *Không tạo được ảnh nhân vật nào* (Could not create any character images) | Scenes are still drawn, but without reference images. Check whether the image model supports references. |

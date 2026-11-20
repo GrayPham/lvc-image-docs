@@ -1,0 +1,43 @@
+---
+/**
+ * Chuyển ngôn ngữ dạng hai nút VI | EN, giữ nguyên bài đang đọc.
+ * Tiếng Việt nằm ở gốc (/…), tiếng Anh nằm dưới /en/….
+ */
+const isEnglish = Astro.locals.starlightRoute.locale === 'en';
+const path = Astro.url.pathname;
+const viPath = isEnglish ? path.replace(/^\/en(\/|$)/, '/') : path;
+const enPath = isEnglish ? path : `/en${path === '/' ? '/' : path}`;
+---
+
+<nav class="lvc-lang" aria-label={isEnglish ? 'Language' : 'Ngôn ngữ'}>
+	<a href={viPath} lang="vi" class:list={{ 'is-current': !isEnglish }} aria-current={!isEnglish ? 'true' : undefined}>
+		VI
+	</a>
+	<a href={enPath} lang="en" class:list={{ 'is-current': isEnglish }} aria-current={isEnglish ? 'true' : undefined}>
+		EN
+	</a>
+</nav>
+
+<style>
+	.lvc-lang {
+		display: flex;
+		padding: 0.15rem;
+		border: 1px solid var(--sl-color-gray-5);
+		border-radius: 999px;
+	}
+	.lvc-lang a {
+		padding: 0.2rem 0.6rem;
+		border-radius: 999px;
+		color: var(--sl-color-gray-3);
+		font-size: var(--sl-text-xs);
+		font-weight: 700;
+		text-decoration: none;
+	}
+	.lvc-lang a:hover {
+		color: var(--sl-color-text-accent);
+	}
+	.lvc-lang a.is-current {
+		background: var(--sl-color-accent);
+		color: #ffffff;
+	}
+</style>

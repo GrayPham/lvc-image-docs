@@ -1,0 +1,59 @@
+---
+title: Tài khoản Muse AI
+description: Thêm tài khoản Muse AI để tạo ảnh bằng model Muse.
+sidebar:
+  order: 3
+---
+
+import { Steps, Aside } from '@astrojs/starlight/components';
+import TutorialVideo from '../../../components/TutorialVideo.astro';
+
+Tài khoản Muse AI dùng cho model **🎭 Muse AI** ở các tab tạo ảnh. Vào **👤 Tài Khoản → 🎭 Muse AI**.
+
+<TutorialVideo id="accounts-muse" />
+
+## Thêm tài khoản
+
+<Steps>
+
+1. Bấm <kbd>🌐 Thêm Tài Khoản (Đăng Nhập Tay)</kbd>, <kbd>🍪 Thêm Bằng Cookie</kbd> hoặc <kbd>📄 Thêm Hàng Loạt</kbd>.
+
+2. Điền **Email**. Mật khẩu, mã mời và proxy không bắt buộc.
+
+3. Chọn **Cách thêm**:
+   - *🌐 Đăng nhập thủ công*: tool mở Firefox, bạn đăng nhập trong vòng 5 phút.
+   - *🍪 Dán cookie*: dán cookie đăng nhập của muse.ai (cookie tên `hatch_sess`).
+   - *📄 Thêm hàng loạt từ file cookie…*: chọn file cookie.
+
+4. Bấm nút xác nhận. Nút đổi chữ theo cách bạn chọn, ví dụ *🌐 Thêm & Mở Firefox*.
+
+5. Bật công tắc ở cột **Dùng**.
+
+</Steps>
+
+## Quản lý
+
+| Nút | Làm gì |
+| --- | --- |
+| <kbd>🔄 Kiểm Tra Đã Chọn</kbd> | Kiểm tra phiên đăng nhập, tối đa 3 tài khoản một lúc. |
+| <kbd>🔌 Bật Đã Chọn</kbd> / <kbd>⛔ Tắt Đã Chọn</kbd> | Bật, tắt nhiều tài khoản. |
+| <kbd>🗑 Xoá Đã Chọn</kbd> | Xoá tài khoản khỏi bảng. Thư mục hồ sơ Firefox được giữ lại. |
+| <kbd>🚫 Đóng Trình Duyệt</kbd> | Đóng các cửa sổ Firefox do tool mở. |
+
+Chuột phải một tài khoản để *🔐 Đăng nhập lại / làm mới*, *🍪 Dán cookie mới*, *🛡 Đổi proxy…* hoặc xuất, nhập cookie.
+
+## Trạng thái
+
+| Trạng thái | Cách xử lý |
+| --- | --- |
+| ✅ Hoạt động | Dùng được. |
+| 🔒 Cần đăng nhập · ⚠️ Chưa đăng nhập | Chuột phải → *🔐 Đăng nhập lại / làm mới*. |
+| ❌ Cookie không hợp lệ | Dán cookie mới. |
+| 🌐 Proxy lỗi | Đổi proxy. |
+
+<Aside>
+- Model Muse chậm hơn Google Flow và không upscale được.
+- Số ảnh chạy cùng lúc bằng số tài khoản Muse đang bật.
+- Muse nhận tối đa 6 ảnh tham chiếu.
+- Mỗi hồ sơ Firefox chỉ làm một việc một lúc. Gặp *“Tài khoản đang bận”* thì đợi việc trước xong.
+</Aside>

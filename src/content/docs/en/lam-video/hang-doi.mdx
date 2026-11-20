@@ -1,0 +1,85 @@
+---
+title: Script queue
+description: Line up many videos in a queue so the tool makes them one after another, even overnight.
+sidebar:
+  order: 2
+---
+
+import { Steps, Aside } from '@astrojs/starlight/components';
+import TutorialVideo from '../../../../components/TutorialVideo.astro';
+
+The first screen of **🎞️ Phụ đề/âm thanh → Video** (Subtitles/audio → Video) is the **Hàng đợi** (Queue). You add many scripts (files or links), click run once, and the tool works through them one by one. A script that fails is marked red with the reason, and the tool keeps going with the next one.
+
+<TutorialVideo id="video-queue" />
+
+## Add many videos at once
+
+<Steps>
+
+1. Click <kbd>➕ Thêm nhanh</kbd> (Quick add).
+
+2. Choose the **Nguồn** (Source):
+   - *Từ video có sẵn trên máy* (From videos on this computer): click <kbd>Chọn video…</kbd> (Choose videos) or <kbd>Chọn cả thư mục…</kbd> (Choose whole folder). The tool only takes files directly inside the folder, not in subfolders.
+   - *Từ link video* (From video links): paste links, **one link per line**, then click <kbd>Thêm link</kbd> (Add links). A link is only downloaded when its turn comes.
+
+3. In the **Áp cho cả mẻ** (Apply to whole batch) column, choose the shared settings: settings preset, style, script model, image model, aspect ratio, frame size, run mode…
+
+4. Click <kbd>Thêm N kịch bản</kbd> (Add N scripts).
+
+5. Click <kbd>▶ Chạy hàng đợi</kbd> (Run queue).
+
+</Steps>
+
+<Aside type="note">
+In the **Thêm nhanh** (Quick add) box, the *🧍 Giữ nhân vật cố định* (Keep characters consistent) and *🏞️ Giữ bối cảnh cố định* (Keep settings consistent) boxes are **turned on by default**. On the detail page these two boxes are off by default.
+</Aside>
+
+<Aside type="tip">
+After adding, the queue **does not run** until you click *Chạy hàng đợi* (Run queue). While the queue is running, you can still add new scripts; they go to the end of the line.
+</Aside>
+
+## Reading the queue screen
+
+- **Progress card**: scripts done / total, estimated time left, and four counters *Xong / Đang chạy / Lỗi / Chờ* (Done / Running / Error / Waiting).
+- **Status of each row**: ⏳ Chờ (Waiting) · ▶️ Đang chạy (Running) · ✅ Xong (Done) · ❌ Lỗi (Error) · ⏸ Đã dừng (Stopped).
+- The running row also shows the step and percentage, for example *“▶️ Đang chạy · Tạo ảnh 62%”* (Running · Image generation 62%). The percentage is per step, so dropping back to 0 at a new step is normal.
+- The **Chi tiết** (Details) column has the buttons <kbd>📂 Dự án</kbd> (Project), <kbd>▶ Video</kbd> (once a video exists) and <kbd>Xem →</kbd> (View).
+
+The queue is saved when you close the tool. A row that was halfway through goes back to **Chờ** (Waiting) when you reopen it.
+
+## Control buttons
+
+| Button | What it does |
+| --- | --- |
+| <kbd>▶ Chạy hàng đợi</kbd> (Run queue) | Runs every waiting row in turn. |
+| <kbd>⏹ Dừng</kbd> (Stop) | Immediately stops the running script and the whole queue. Images already made are kept. |
+| <kbd>↻ Chạy lại dòng lỗi</kbd> (Rerun failed rows) | Puts failed rows back to waiting so they run again. |
+| <kbd>🧹 Dọn dòng xong</kbd> (Clear finished rows) | Removes finished rows from the list (files are not deleted). |
+| <kbd>✎ Đổi tên</kbd> (Rename) | Changes the display name, not the file name. |
+| <kbd>↑</kbd> <kbd>↓</kbd> | Changes the run order. |
+| <kbd>🔄 Nạp dự án có sẵn</kbd> (Load existing projects) | Scans the export folder and adds projects that already have scenes to the queue. |
+
+## Right-click menu
+
+Select one or more rows, then right-click:
+
+- **▶ Chạy đã chọn** (Run selected) / **⏹ Dừng đã chọn** (Stop selected).
+- **↻ Đặt lại trạng thái** (Reset status):
+  - *Về Chờ — giữ chế độ chạy của dòng* (Back to Waiting — keep the row's run mode).
+  - *Làm lại từ đầu — bỏ dự án cũ, chạy từ file nguồn* (Start over — drop the old project, run from the source file).
+  - *Chạy lại: …* (Rerun: …) a specific mode, for example only redrawing missing images.
+- **⚙ Cài đặt / chọn mẫu…** (Settings / choose preset): change settings for the selected rows. Each row's own prompt, setting and notes are kept.
+- **📂 Mở thư mục dự án** (Open project folder), **🎬 Mở video đã xuất** (Open exported video), **📁 Mở thư mục chứa file nguồn** (Open source file folder).
+- **✖ Bỏ khỏi hàng đợi** (Remove from queue) (greyed out while the queue is running).
+
+## View details of a script
+
+Click <kbd>Xem →</kbd> (View) to open that row's detail page. You edit settings here; when you click <kbd>← Hàng đợi</kbd> (Queue), the tool saves them to the row automatically.
+
+Use the <kbd>‹ Trước</kbd> (Previous) and <kbd>Sau ›</kbd> (Next) buttons to move quickly between scripts.
+
+<Aside type="caution">
+While the queue is **running**, clicking *Xem* (View) on another row opens that row's project folder instead of the detail page, so the current run is not interrupted.
+</Aside>
+
+When you click <kbd>📂 Dự án</kbd> (Project), the tool also writes a `thong_so_du_an.txt` file into the project folder. This file lists the settings used for that script.

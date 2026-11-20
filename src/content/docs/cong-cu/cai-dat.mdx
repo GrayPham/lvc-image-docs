@@ -1,0 +1,48 @@
+---
+title: Tab Cài Đặt
+description: Khoá API Gemini, OpenRouter, công cụ tải video, cookie, user-agent và proxy dùng chung.
+sidebar:
+  order: 4
+---
+
+import { Aside } from '@astrojs/starlight/components';
+import TutorialVideo from '../../../components/TutorialVideo.astro';
+
+Mở bằng **⚙️ Cài Đặt** ở cuối thanh bên trái. Sửa xong, bấm <kbd>💾 Lưu cài đặt</kbd>.
+
+<TutorialVideo id="settings" />
+
+## ① Khoá API
+
+| Ô | Ý nghĩa |
+| --- | --- |
+| Gemini API key | Mỗi dòng một key. Key hết lượt thì tool tự chuyển sang key khác. Dùng cho bước viết kịch bản. **Tạo ảnh không cần key.** |
+| OpenRouter API key | Tuỳ chọn, để dùng các model kịch bản của OpenRouter. Bấm <kbd>Kiểm tra key</kbd> (không tốn lượt), rồi mở lại tool để thấy danh sách model. |
+
+## ② Tải video từ link
+
+- **Công cụ tải (yt-dlp)**: bấm <kbd>Cập nhật</kbd> để lên bản mới nhất (~17 MB).
+- **Cookie tải video**: nạp hoặc dán cookie cho các trang đòi đăng nhập.
+
+<Aside type="tip" title="Tải video báo “403 Forbidden”?">
+Gần như luôn do yt-dlp đã cũ. Bấm **Cập nhật** ở mục này rồi tải lại.
+</Aside>
+
+## ③ Lấy mã xác minh
+
+Cách tool lấy mã xác minh khi tạo ảnh bằng Google Flow:
+
+| Lựa chọn | Ghi chú |
+| --- | --- |
+| Theo profile tài khoản | **Khuyên dùng.** |
+| Chrome · hồ sơ khách | Dùng Chrome. |
+| Firefox riêng tư (Camoufox) | Lần đầu tải thêm khoảng 470 MB. |
+
+Nếu chưa được bên hỗ trợ hướng dẫn, hãy để mặc định.
+
+## ④ User-Agent & proxy dùng chung
+
+- **User-Agent**: bấm <kbd>Lấy UA Chrome</kbd> hoặc <kbd>Lấy UA Firefox</kbd> để điền tự động.
+- **Proxy**: mỗi dòng một proxy (`ip:port` hoặc `ip:port:user:pass`). Danh sách này dùng khi bạn tích **🌐 Sử dụng Proxy** ở tab Tạo Image hoặc Thay Thế.
+
+Proxy riêng cho từng tài khoản thì đặt ở tab **Tài Khoản**. Xem [Proxy](/tai-khoan/tong-quan/#proxy).

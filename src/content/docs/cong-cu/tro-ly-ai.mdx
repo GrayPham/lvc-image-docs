@@ -1,0 +1,69 @@
+---
+title: Trợ lý AI (MCP)
+description: Cho Claude, Cursor hoặc Antigravity điều khiển tool ngay trong khung chat.
+sidebar:
+  order: 3
+---
+
+import { Steps, Aside } from '@astrojs/starlight/components';
+import TutorialVideo from '../../../components/TutorialVideo.astro';
+
+Mục **🧩 Trợ lý AI** cho các trợ lý AI như **Claude, Cursor, Antigravity** điều khiển tool ngay trong khung chat. Ví dụ: thêm prompt, đổi cài đặt, bấm chạy, hỏi tiến độ.
+
+Khác với [API Server](/cong-cu/api-server/) (lệnh vào, ảnh ra), Trợ lý AI điều khiển chính **các tab** của tool. Hai tính năng dùng cổng và khoá khác nhau.
+
+<TutorialVideo id="ai-assistant" />
+
+## Cài đặt
+
+<Steps>
+
+1. Ở thanh bên trái, bấm **🧩 Trợ lý AI**.
+
+2. Bấm <kbd>Tạo khoá mới</kbd> ở mục **2 · KHOÁ KẾT NỐI**.
+
+3. Bấm <kbd>▶ Bật máy chủ</kbd>. Trạng thái báo **🟢 Đang chạy**.
+
+4. Ở mục **3 · CÀI VÀO TRỢ LÝ**, bấm <kbd>Cài</kbd> cạnh trợ lý bạn dùng. Tool tự ghi cấu hình, bạn không phải gõ lệnh.
+
+5. Khởi động lại trợ lý theo hướng dẫn trên dòng đó.
+
+</Steps>
+
+| Trợ lý | Sau khi bấm Cài |
+| --- | --- |
+| Claude Desktop | Khởi động lại Claude Desktop. |
+| Claude Code | Mở phiên Claude Code mới. |
+| Cursor | Bấm *Reload Window* trong Cursor. |
+| Antigravity | Nếu không cài được, bấm <kbd>Chép JSON (Cursor · Antigravity)</kbd> rồi dán vào phần MCP trong Cài đặt của Antigravity. |
+
+Trước khi ghi, tool sao lưu file cấu hình cũ của trợ lý. Bấm <kbd>Gỡ</kbd> để gỡ ra.
+
+<Aside type="caution">
+- Máy chủ phải **đang bật** thì trợ lý mới nối vào được. Tắt tool là mất kết nối. Tích **Tự bật khi mở tool** cho tiện.
+- Đổi khoá hoặc đổi cổng thì phải bấm **Cài lại** ở các trợ lý đã cài.
+</Aside>
+
+## Trợ lý làm được gì
+
+Bạn nói chuyện bình thường với trợ lý, ví dụ *“thêm 20 prompt này vào tab Tạo Image, tỉ lệ 16:9, rồi chạy”*. Trợ lý dùng các công cụ sau:
+
+| Nhóm | Việc |
+| --- | --- |
+| Xem | Tình trạng tool, danh sách model, danh sách prompt đang có. |
+| Tạo Image | Thêm prompt, đổi cài đặt (model, tỉ lệ, số ảnh, luồng), xoá prompt, chạy, dừng. |
+| Phụ đề/âm thanh → Video | Đặt link video, chạy, dừng. |
+| Kịch Bản → Video | Đặt ý tưởng hoặc truyện, chạy từ một bước bất kỳ, dừng. |
+
+<Aside type="note" title="Trợ lý hỏi trước khi tiêu credit">
+Các lệnh bắt đầu chạy tiêu credit thật. Trợ lý được dặn phải hỏi bạn trước khi gọi các lệnh này.
+</Aside>
+
+## Lỗi hay gặp
+
+| Thông báo | Cách xử lý |
+| --- | --- |
+| Chưa có khoá MCP | Bấm *Tạo khoá mới* trước. |
+| Cổng … đang bị chương trình khác dùng | Đổi cổng khác. |
+| Tệp cấu hình đang KHÔNG phải JSON hợp lệ | File cấu hình của trợ lý bị hỏng. Sửa hoặc xoá file đó rồi bấm Cài lại. |
+| Trợ lý báo không kết nối được | Kiểm tra máy chủ đang **🟢 Đang chạy** và đã khởi động lại trợ lý. |

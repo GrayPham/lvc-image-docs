@@ -1,0 +1,59 @@
+---
+/**
+ * Nút đổi giao diện sáng/tối dạng icon — thay ô chọn "Tự động / Sáng / Tối"
+ * mặc định (chữ bị cắt thành "Tự đ…").
+ *
+ * Lưu cùng khoá `starlight-theme` với Starlight, nên đoạn script chống nháy
+ * màu của Starlight vẫn đọc đúng lựa chọn khi tải trang.
+ */
+import { Icon } from '@astrojs/starlight/components';
+
+const isEnglish = Astro.locals.starlightRoute.locale === 'en';
+const label = isEnglish ? 'Switch light / dark theme' : 'Đổi giao diện sáng / tối';
+---
+
+<button type="button" class="lvc-theme-toggle" data-lvc-theme-toggle aria-label={label} title={label}>
+	<Icon name="sun" class="lvc-theme-toggle__sun" />
+	<Icon name="moon" class="lvc-theme-toggle__moon" />
+</button>
+
+<script is:inline>
+	(() => {
+		// Nút này có HAI bản (thanh đầu trang + menu điện thoại), mỗi bản kèm
+		// một đoạn script. Chỉ gắn vào đúng nút đứng ngay trước đoạn script —
+		// gắn cho mọi nút thì một cú bấm đổi hai lần, về lại như cũ.
+		const button = document.currentScript?.previousElementSibling;
+		if (!button || !button.matches('[data-lvc-theme-toggle]')) return;
+		button.addEventListener('click', () => {
+			const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+			document.documentElement.dataset.theme = next;
+			try {
+				localStorage.setItem('starlight-theme', next);
+			} catch {}
+		});
+	})();
+</script>
+
+<style>
+	.lvc-theme-toggle {
+		display: grid;
+		place-items: center;
+		width: 2.25rem;
+		height: 2.25rem;
+		border: 1px solid var(--sl-color-gray-5);
+		border-radius: 50%;
+		background: transparent;
+		color: var(--sl-color-gray-2);
+		cursor: pointer;
+		font-size: 1.1rem;
+	}
+	.lvc-theme-toggle:hover {
+		color: var(--sl-color-text-accent);
+		border-color: var(--sl-color-text-accent);
+	}
+	/* Đang sáng thì hiện mặt trăng (bấm để sang tối), và ngược lại. */
+	:global(:root[data-theme='light']) .lvc-theme-toggle__sun,
+	:global(:root[data-theme='dark']) .lvc-theme-toggle__moon {
+		display: none;
+	}
+</style>

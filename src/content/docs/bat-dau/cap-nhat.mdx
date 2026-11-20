@@ -1,0 +1,59 @@
+---
+title: Cập nhật tool
+description: Tool tự cập nhật, hoặc cập nhật bằng cách chép đè bộ cài đầy đủ.
+sidebar:
+  order: 3
+---
+
+import { Steps, Aside, Tabs, TabItem } from '@astrojs/starlight/components';
+import TutorialVideo from '../../../components/TutorialVideo.astro';
+
+<TutorialVideo id="update" />
+
+<Tabs>
+<TabItem label="Tự cập nhật (thường dùng)">
+
+Mỗi lần mở, tool tự kiểm tra bản mới.
+
+<Steps>
+
+1. Có bản mới, hộp **🎉 Có phiên bản mới!** hiện ra. Bấm **Yes**.
+2. Tool hỏi *“Bạn có chắc muốn đóng ứng dụng?”*. Bấm **Yes** để tool đóng và cập nhật.
+3. Cửa sổ **Đang cập nhật LVC Image Gen** tải bản mới, xong tự mở lại tool.
+4. Hộp **🎉 Có gì mới?** liệt kê các thay đổi của bản mới.
+
+</Steps>
+
+Muốn kiểm tra ngay, bấm <kbd>🔄 Cập nhật</kbd> ở góc dưới thanh bên trái.
+
+</TabItem>
+<TabItem label="Chép đè bộ cài đầy đủ">
+
+Dùng khi tự cập nhật bị lỗi, hoặc khi bản cũ của bạn thiếu file đi kèm (ví dụ thiếu Firefox).
+
+<Steps>
+
+1. Tải file `LVC_Image_Gen_vX.Y.Z.rar` mới nhất và giải nén.
+2. **Tắt hẳn** LVC Image Gen, kể cả icon dưới khay đồng hồ.
+3. Chép **toàn bộ nội dung** thư mục vừa giải nén **đè lên** thư mục tool cũ. Khi Windows hỏi, chọn **Replace**.
+4. Mở lại `LVC Image Gen.exe`.
+
+</Steps>
+
+Bộ cài không chứa tài khoản, cookie hay cài đặt, nên chép đè **không mất dữ liệu** của bạn.
+
+</TabItem>
+</Tabs>
+
+## Lỗi khi cập nhật
+
+| Thông báo | Cách xử lý |
+| --- | --- |
+| Lỗi kết nối | Không vào được máy chủ cập nhật. Kiểm tra mạng rồi bấm *Cập nhật* lại. |
+| Lỗi tải file … sau 4 lần thử | Mạng chập chờn. Thử lại sau ít phút, hoặc dùng cách chép đè bộ cài đầy đủ. |
+| File … bị lỗi (hash không khớp) | File tải về bị hỏng. Cập nhật lại. |
+| Không thể xóa file cũ | Tool vẫn đang chạy. Tắt hẳn tool (kể cả icon dưới khay) rồi thử lại. |
+
+<Aside type="tip">
+Phần mềm diệt virus đôi khi chặn file cập nhật. Nếu cập nhật lỗi nhiều lần, thêm thư mục tool vào danh sách loại trừ của phần mềm diệt virus.
+</Aside>

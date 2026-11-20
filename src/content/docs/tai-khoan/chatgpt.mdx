@@ -1,0 +1,87 @@
+---
+title: Tài khoản ChatGPT
+description: Thêm tài khoản ChatGPT bằng cookie, trang session hoặc đăng nhập tay để dùng GPT Image và ChatGPT viết kịch bản.
+sidebar:
+  order: 4
+---
+
+import { Steps, Aside, Tabs, TabItem } from '@astrojs/starlight/components';
+import TutorialVideo from '../../../components/TutorialVideo.astro';
+
+Tài khoản ChatGPT dùng cho model ảnh **💬 GPT Image** và cho **ChatGPT viết kịch bản**. Vào **👤 Tài Khoản → 💬 ChatGPT**.
+
+<TutorialVideo id="accounts-chatgpt" />
+
+## Thêm tài khoản
+
+<Tabs>
+<TabItem label="🔑 Bằng trang session (khuyên dùng)">
+
+Cách nhanh và dùng được lâu nhất.
+
+<Steps>
+
+1. Trên trình duyệt đang đăng nhập ChatGPT, mở trang `https://chatgpt.com/api/auth/session`.
+2. Nhấn <kbd>Ctrl</kbd>+<kbd>A</kbd> rồi <kbd>Ctrl</kbd>+<kbd>C</kbd> để chép cả trang.
+3. Trong tool, bấm <kbd>🔑 Thêm 1 Tài Khoản</kbd>.
+4. Dán vào ô **🍪 Cookie / token**, điền **Email** (tên gợi nhớ không bắt buộc).
+5. Bấm <kbd>➕ Thêm</kbd>, rồi bật công tắc cột **Dùng**.
+
+</Steps>
+
+Ô Cookie / token cũng nhận bản xuất từ extension Cookie-Editor, hoặc riêng từng token.
+
+</TabItem>
+<TabItem label="🌐 Đăng nhập tay">
+
+<Steps>
+
+1. Bấm <kbd>🌐 Đăng Nhập Tay</kbd>.
+2. Tool mở Firefox kèm một khung nhỏ có nút *Chép* để bạn chép email, mật khẩu rồi dán (<kbd>Ctrl</kbd>+<kbd>V</kbd>) vào trang đăng nhập.
+3. Đăng nhập xong trong vòng 5 phút. Tool tự lưu phiên.
+
+</Steps>
+
+Tool không tự điền mật khẩu. Bạn tự dán vào trang.
+
+</TabItem>
+<TabItem label="📋 Hàng loạt">
+
+Bấm <kbd>📋 Thêm Hàng Loạt</kbd> và dán danh sách, mỗi dòng một tài khoản.
+
+</TabItem>
+</Tabs>
+
+<Aside type="tip" title="Phiên tự gia hạn">
+Khi bạn dán trang session, tool giữ được **refresh token**: không bao giờ phải dán lại. Nếu chỉ dán access token, token đó sống khoảng 10 ngày rồi phải dán mới (chuột phải → *🔑 Dán token mới*).
+</Aside>
+
+## Số luồng
+
+Ô **🧵 Luồng/tài khoản** (mặc định 1, tối đa 4) quyết định mỗi tài khoản vẽ mấy ảnh cùng lúc. Tool hiện luôn tổng *“= N ảnh cùng lúc”*.
+
+Con số này áp dụng cho cả tab Tạo Image, Phụ đề/âm thanh → Video và Kịch Bản → Video.
+
+## Quản lý
+
+| Nút | Làm gì |
+| --- | --- |
+| <kbd>🔄 Kiểm Tra Đã Chọn</kbd> | Đọc hạn mức còn lại. **Không** tốn lượt tạo ảnh. |
+| <kbd>🗑 Xóa Đã Chọn</kbd> | Xoá tài khoản và cả hồ sơ Firefox của nó. |
+| <kbd>☑ Tích Tất Cả</kbd> / <kbd>☐ Bỏ Tích</kbd> | Chọn nhanh. |
+
+Cột **Nguồn** cho biết tài khoản đăng nhập bằng gì: ♾️ refresh token (lâu dài), 🍪 session, 🍪 cookie, ⏳ token (có hạn), 🌐 profile.
+
+## Trạng thái
+
+| Trạng thái | Cách xử lý |
+| --- | --- |
+| ✅ Hoạt động | Dùng được. |
+| 🔒 Cần đăng nhập | Phiên hết. Dán trang session mới hoặc đăng nhập tay lại. |
+| 📭 Hết lượt hôm nay | Hết hạn mức ảnh trong ngày. Chờ sang ngày hoặc dùng tài khoản khác. |
+| 🚫 Bị chặn | Thường do Cloudflare. Đổi proxy hoặc đăng nhập tay một lần. |
+| 🌐 Proxy lỗi | Đổi proxy. ChatGPT chỉ nhận proxy HTTP. |
+
+<Aside type="caution">
+Khi một tài khoản hết phiên giữa lúc tạo ảnh, tool tự **tắt** tài khoản đó để không làm hỏng các ảnh sau. Đăng nhập lại xong, nhớ bật lại công tắc **Dùng**.
+</Aside>

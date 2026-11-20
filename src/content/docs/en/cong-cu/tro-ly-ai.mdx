@@ -1,0 +1,69 @@
+---
+title: AI Assistant (MCP)
+description: Let Claude, Cursor or Antigravity control the tool right from the chat window.
+sidebar:
+  order: 3
+---
+
+import { Steps, Aside } from '@astrojs/starlight/components';
+import TutorialVideo from '../../../../components/TutorialVideo.astro';
+
+The **🧩 Trợ lý AI** (AI Assistant) section lets AI assistants such as **Claude, Cursor, Antigravity** control the tool right from the chat window. For example: add prompts, change settings, start a run, ask about progress.
+
+Unlike the [API Server](/en/cong-cu/api-server/) (request in, images out), the AI Assistant controls the tool's actual **tabs**. The two features use different ports and keys.
+
+<TutorialVideo id="ai-assistant" />
+
+## Setup
+
+<Steps>
+
+1. In the left sidebar, click **🧩 Trợ lý AI**.
+
+2. Click <kbd>Tạo khoá mới</kbd> (Create new key) in the **2 · KHOÁ KẾT NỐI** (Connection key) section.
+
+3. Click <kbd>▶ Bật máy chủ</kbd> (Start server). The status shows **🟢 Đang chạy** (Running).
+
+4. In the **3 · CÀI VÀO TRỢ LÝ** (Install into assistant) section, click <kbd>Cài</kbd> (Install) next to the assistant you use. The tool writes the configuration for you, no commands to type.
+
+5. Restart the assistant as instructed on that row.
+
+</Steps>
+
+| Assistant | After clicking Cài |
+| --- | --- |
+| Claude Desktop | Restart Claude Desktop. |
+| Claude Code | Open a new Claude Code session. |
+| Cursor | Click *Reload Window* in Cursor. |
+| Antigravity | If installation fails, click <kbd>Chép JSON (Cursor · Antigravity)</kbd> (Copy JSON) and paste it into the MCP section of Antigravity's Settings. |
+
+Before writing, the tool backs up the assistant's old configuration file. Click <kbd>Gỡ</kbd> (Remove) to uninstall.
+
+<Aside type="caution">
+- The server must be **running** for the assistant to connect. Closing the tool drops the connection. Tick **Tự bật khi mở tool** (Start when the tool opens) for convenience.
+- If you change the key or the port, click **Cài lại** (Reinstall) for every assistant you've installed.
+</Aside>
+
+## What the assistant can do
+
+Talk to the assistant normally, for example *“add these 20 prompts to the Tạo Image tab, aspect ratio 16:9, then run”*. The assistant uses the following tools:
+
+| Group | Actions |
+| --- | --- |
+| View | Tool status, model list, current prompt list. |
+| Tạo Image (Create Image) | Add prompts, change settings (model, aspect ratio, number of images, threads), delete prompts, run, stop. |
+| Phụ đề/âm thanh → Video (Subtitles/audio → Video) | Set the video link, run, stop. |
+| Kịch Bản → Video (Script → Video) | Set an idea or story, run from any step, stop. |
+
+<Aside type="note" title="The assistant asks before spending credits">
+Commands that start a run spend real credits. The assistant is instructed to ask you before calling them.
+</Aside>
+
+## Common errors
+
+| Message | What to do |
+| --- | --- |
+| Chưa có khoá MCP (No MCP key yet) | Click *Tạo khoá mới* first. |
+| Cổng … đang bị chương trình khác dùng (Port … is in use by another program) | Choose a different port. |
+| Tệp cấu hình đang KHÔNG phải JSON hợp lệ (Config file is NOT valid JSON) | The assistant's configuration file is corrupted. Fix or delete that file, then click Cài lại. |
+| Assistant says it can't connect | Check that the server shows **🟢 Đang chạy** and that you've restarted the assistant. |

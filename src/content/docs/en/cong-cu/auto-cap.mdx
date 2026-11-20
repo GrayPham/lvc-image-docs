@@ -1,0 +1,84 @@
+---
+title: Auto Cap
+description: Combine images, clips, audio and subtitles into a CapCut project or export straight to MP4.
+sidebar:
+  order: 1
+---
+
+import { Steps, Aside } from '@astrojs/starlight/components';
+import TutorialVideo from '../../../../components/TutorialVideo.astro';
+
+You already have images, clips, an audio file and subtitles. **Auto Cap** combines them into a **CapCut project** you can open and keep editing, or **exports straight to MP4** without needing CapCut.
+
+<TutorialVideo id="auto-cap" />
+
+## Steps
+
+<Steps>
+
+1. In the left sidebar, click **✂️ Auto Cap**.
+
+2. **📁 Nguồn dữ liệu** (Data source):
+   - **Thư mục ảnh / video** (Image / video folder): click 📂 to choose one. Click <kbd>➕ Thêm thư mục</kbd> (Add folder) if you have several folders.
+   - **File tiếng** (Audio file): a voice-over or music file. If left empty, each image lasts 5 seconds.
+   - **File SRT**: subtitles, optional.
+
+3. **⚙️ Tùy chọn** (Options): set **Tên dự án** (Project name, required) and choose **Độ phân giải** (Resolution).
+
+4. **🎞 Đầu ra** (Output): check the **Draft CapCut** field. The tool finds CapCut's drafts folder automatically.
+
+5. Click <kbd>⚡ Tạo dự án CapCut</kbd> (Create CapCut project), then open CapCut and the project appears in the **Projects** list.
+   Or choose **File MP4 xuất ra** (Output MP4 file) and click <kbd>🎞 Kết xuất MP4</kbd> (Render MP4).
+
+</Steps>
+
+<Aside type="tip" title="Name your files to get the right order">
+Images and clips are mixed together and **sorted by file name**. Name them `001_…`, `002_…`, `003_…` to match your script order. Clips keep their original length and are not zoomed.
+</Aside>
+
+## All options
+
+### Data source
+
+| Field | Meaning | Default |
+| --- | --- | --- |
+| Chia thời lượng theo (Split duration by) | *Độ dài audio* (Audio length): the video is as long as the audio file, and images share the time left after the clips. *Độ dài clip có sẵn* (Existing clip length): use this when the clips already contain dialogue. | Độ dài audio |
+| Dùng tiếng có sẵn trong clip (Use the clips' own audio) | Keeps the clips' original audio. | On |
+| Chọn cả thư mục audio (Select a whole audio folder) | Joins several audio files in name order. Each file can come with a `.srt` that has **the same name**. | Off |
+
+Accepted formats: images `.jpg .jpeg .png .webp .bmp`, video `.mp4 .mov .mkv .avi .webm .m4v`, audio `.wav .mp3 .m4a .aac .flac .ogg`.
+
+### Options
+
+| Field | Meaning | Default |
+| --- | --- | --- |
+| Độ phân giải (Resolution) | 1920×1080 landscape, 1080×1920 portrait, 1080×1080 square, 2K, 4K. Always 30 fps. | 1920×1080 |
+| Chuyển động ảnh (Ken Burns) (Image motion) | Images zoom and pan gently, cycling through 4 styles. | On |
+| Chuyển cảnh hoà tan (Dissolve transition) | Two scenes blend into each other. **Dài** (Length) 0.2–5 seconds. | On, 1 second |
+| Logo | Adds a logo to the video. | — |
+| Thư mục nhạc nền (Background music folder) | Background music that plays throughout the video. | — |
+| Tự hạ nhạc khi có tiếng (Lower music under voice) | Music gets quieter during voice-over and louder again in the silences. | On |
+
+### Output
+
+| Field | Meaning | Default |
+| --- | --- | --- |
+| Draft CapCut | CapCut's drafts folder. The tool detects it automatically. | Auto-detected |
+| File MP4 xuất ra (Output MP4 file) | Only needed when you click *Kết xuất MP4*. | — |
+| Chất lượng (Quality) | Cao (High, slow), Vừa (Medium), Nhanh (Fast, larger file). | Vừa |
+| Nung phụ đề vào hình (Burn in subtitles) | The text is fixed onto the video. Once burned in, it can't be edited. | On |
+
+<Aside type="caution" title="CapCut folder not found?">
+If the tool says *“Chưa thấy thư mục draft”* (Draft folder not found), CapCut may not be installed, or it is installed but you have never created a project. Open CapCut, create an empty test project, then come back to the tool.
+</Aside>
+
+## Common errors
+
+| Message | What to do |
+| --- | --- |
+| **Còn thiếu** (Missing) | The tool lists the missing fields: project name, image folder, Draft CapCut folder… Fill them all in and click again. |
+| Không tìm thấy ảnh hoặc video nào (No images or videos found) | The selected folder has no files in a supported format. |
+| Các clip đã chiếm …s, dài hơn cả …s cần lấp (The clips take up …s, longer than the …s to fill) | The clips are longer than the audio file. Change *Chia thời lượng theo* to *Độ dài clip có sẵn*, or use a longer audio file. |
+| Nguồn quá ngắn để hoà tan (Source too short to dissolve) | Shorten the transition, use fewer images, or use a longer audio file. |
+| Đường dẫn bản nháp quá dài (Draft path too long) | Choose a Draft CapCut folder closer to the drive root, or use a shorter project name. |
+| Không tìm thấy ffmpeg (ffmpeg not found) | Put `ffmpeg.exe` next to the tool, or install CapCut (the tool uses CapCut's ffmpeg). |

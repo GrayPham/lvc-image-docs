@@ -1,0 +1,193 @@
+---
+title: Tạo Image
+description: Dán nhiều prompt một lần, tool tạo ảnh hàng loạt bằng Google Flow, Muse AI hoặc ChatGPT.
+sidebar:
+  order: 1
+---
+
+import { Steps, Aside, Tabs, TabItem } from '@astrojs/starlight/components';
+import TutorialVideo from '../../../components/TutorialVideo.astro';
+
+Bạn dán nhiều prompt (lời tả ảnh) cùng lúc. Tool chia việc cho các tài khoản, tạo ảnh hàng loạt và tự lưu ảnh về máy.
+
+<TutorialVideo id="create-image" />
+
+## Tạo ảnh nhanh
+
+<Steps>
+
+1. Ở thanh bên trái, bấm **🔥 Tạo Image**.
+
+2. Bấm <kbd>➕ Thêm Prompts</kbd>, dán prompt vào ô (mặc định **mỗi dòng một prompt**) rồi bấm **OK**.
+
+3. Ở khung **⚙️ Cài đặt**, chọn **Tỷ lệ**, **Ảnh/prompt** (số ảnh mỗi prompt) và **Model**.
+
+4. Ở khung **💾 Tải xuống**, kiểm tra thư mục lưu ảnh. Bấm <kbd>📁</kbd> để đổi.
+
+5. Bấm <kbd>▶ Bắt đầu</kbd>.
+
+6. Xong, bấm <kbd>📁 Mở</kbd> để mở thư mục ảnh.
+
+</Steps>
+
+<Aside type="tip">
+Trước khi chạy, hãy chắc chắn đã có tài khoản được **bật** ở tab **Tài Khoản**. Xem [Tài khoản Google Flow](/tai-khoan/google-flow/).
+</Aside>
+
+## Thêm prompt
+
+Hộp **📝 Quản lý Prompts** có 4 chế độ:
+
+| Chế độ | Dùng khi |
+| --- | --- |
+| ➕ Thêm hàng loạt — mỗi dòng một prompt | Mỗi prompt nằm gọn trên một dòng. |
+| 📑 Tách theo mốc | Prompt dài nhiều dòng, chia bằng mốc như `SHOT 1`, `Cảnh 1`, `P1`, `1.`, dấu `|`… Để ô **Mốc** là *Tự nhận*. |
+| 📝 Thêm 1 prompt | Cả khối chữ là một prompt. |
+| 🧩 Dán JSON | Dán file JSON, ví dụ file `scenes.json` của tab Phụ đề/âm thanh → Video. |
+
+Một số tiện ích khác trong hộp:
+
+- <kbd>📂 Import từ file</kbd>: nạp prompt từ file `.txt` hoặc `.json`.
+- Cột **Sẽ tạo ra** cho xem trước. Bấm một mục để sửa riêng, hoặc bấm *🚫 Bỏ mục này*.
+- **Prompt cố định**: đoạn chữ được ghép vào **mọi** prompt, ở đầu hoặc cuối. Thường dùng để thêm phong cách chung, ví dụ kiểu vẽ hay ánh sáng.
+
+Prompt mới được **thêm nối** vào bảng, không thay prompt cũ.
+
+## Cài đặt
+
+| Ô | Ý nghĩa | Mặc định |
+| --- | --- | --- |
+| 📐 Tỷ lệ | Dọc 9:16, ngang 16:9 hoặc vuông 1:1. | Dọc 9:16 |
+| 🎨 Ảnh/prompt | Số ảnh cho mỗi prompt (1–4). | 2 |
+| ⚡ Luồng | **Tổng** số ảnh vẽ cùng lúc (1–10), không nhân theo số tài khoản. | 3 |
+| 🖼️ Model | Banana 2, Banana Pro, Banana Lite, ImageGen4, 🎭 Muse AI, 💬 GPT Image. | Banana 2 |
+| 🌐 Sử dụng Proxy | Dùng proxy trong danh sách ở tab **Cài Đặt**. | Tắt |
+| 🔍 Tự động Upscale | Phóng ảnh lên 2K hoặc 4K ngay khi tạo. Upscale lỗi thì vẫn giữ ảnh gốc. | Tắt |
+| 🧽 Gỡ logo Gemini | Xoá logo nhỏ ở góc ảnh. | Tắt |
+| 🖼️ Định dạng | Tự động, PNG, JPG hoặc WEBP. | Tự động |
+
+### Chọn model
+
+<Tabs>
+<TabItem label="Banana (Google Flow)">
+
+Dùng tài khoản Google ở **Tài Khoản → 🎬 Google Flow**.
+
+- **Banana 2 / Banana Pro / Banana Lite**: nhận ảnh tham chiếu và upscale được.
+- **ImageGen4**: không nhận ảnh tham chiếu.
+
+</TabItem>
+<TabItem label="🎭 Muse AI">
+
+- Dùng tài khoản ở **Tài Khoản → 🎭 Muse AI**.
+- Chậm hơn Google Flow, không upscale.
+- Số ảnh chạy cùng lúc bằng số tài khoản Muse đang bật.
+
+</TabItem>
+<TabItem label="💬 GPT Image">
+
+- Dùng tài khoản ở **Tài Khoản → 💬 ChatGPT**.
+- Khoảng 70 giây một ảnh, không upscale.
+- Số ảnh chạy cùng lúc = số tài khoản × **Luồng/tài khoản** (đặt ở tab ChatGPT), không theo ô Luồng của tab này.
+- Ảnh bị bộ lọc chặn thì tool tự vẽ lại.
+
+</TabItem>
+</Tabs>
+
+Khi chọn Muse AI hoặc GPT Image, hai ô *Gỡ logo* và *Tự động Upscale* bị làm mờ vì không dùng được.
+
+## Ảnh tham chiếu
+
+Ảnh tham chiếu giúp ảnh tạo ra giữ đúng khuôn mặt nhân vật, sản phẩm hay phong cách bạn muốn. Khung **🖼️ Ảnh tham chiếu** nhận tối đa 10 ảnh.
+
+- Bấm <kbd>📁</kbd> ở mỗi ô để chọn ảnh, <kbd>➕ Thêm</kbd> để thêm ô.
+- **🔄 Tự động áp dụng** (mặc định bật): khi bấm chạy, ảnh chung được gán cho mọi prompt **chưa có** ảnh tham chiếu riêng.
+- <kbd>✨ Áp dụng tất cả</kbd>: gán ngay ảnh chung cho mọi prompt.
+
+### Gán ảnh theo tên nhân vật
+
+<Steps>
+
+1. Thêm prompt trước.
+2. Bấm <kbd>👥 Thêm nhân vật hàng loạt</kbd> và chọn nhiều ảnh.
+3. Tool lấy tên từ tên file (sửa được). Ví dụ ảnh `Bao.png` có tên *Bao*.
+4. Tool tự gán ảnh vào những prompt có chứa tên đó.
+
+</Steps>
+
+Bấm <kbd>📚 Gán từ kho</kbd> để lấy nhân vật đã lưu trong kho.
+
+## Chạy, dừng và chạy lại ảnh lỗi
+
+- Bấm <kbd>▶ Bắt đầu</kbd>. Nếu đang có tác vụ khác chạy, nút thành <kbd>🕒 Xếp hàng</kbd>: tới lượt sẽ tự chạy.
+- Bấm <kbd>⏹️ Dừng</kbd> để dừng. Nếu còn tác vụ đang xếp hàng, tool hỏi bạn dừng mẻ này hay dừng hết.
+
+<Aside type="caution" title="Tool không tự chạy lại dòng lỗi">
+Khi bấm Bắt đầu, tool bỏ qua các dòng đã ✅ xong, ❌ lỗi hoặc 🚫 bị bỏ. Muốn chạy lại dòng lỗi:
+
+- Bấm <kbd>🔄 Chạy lại tất cả task lỗi</kbd>, rồi bấm <kbd>▶ Bắt đầu</kbd>.
+- Hoặc chuột phải các dòng lỗi → *🔄 Chạy lại N dòng lỗi đã chọn*.
+</Aside>
+
+## Bảng kết quả
+
+- Ô **🔍 Lọc trạng thái** lọc theo thành công, lỗi, đang xử lý, chờ.
+- Rê chuột lên ô **Trạng thái** để xem lý do lỗi đầy đủ.
+- Các nút dưới bảng:
+
+| Nút | Làm gì |
+| --- | --- |
+| <kbd>⬇️ Tải tất cả</kbd> | Tải các ảnh chưa có trên máy. |
+| <kbd>📤 Xuất prompt</kbd> | Xuất các dòng đang hiện ra `.txt`, `.json` hoặc `.csv`. |
+| <kbd>♻️ Đặt lại trạng thái</kbd> | Giữ prompt, đưa mọi dòng về Chờ để chạy lại. |
+| <kbd>🗑️</kbd> trên thanh nút | **Xoá sạch** mọi prompt. |
+
+### Menu chuột phải
+
+- **Sửa**: *✏️ Sửa prompt đã chọn*, *🖼️ Sửa Prompt + Reference*.
+- **Ảnh tham chiếu**: áp ảnh chung, xoá ảnh của dòng, *📷 Gán ảnh lần lượt*.
+- **📦 Gom nhóm N dòng**: chỉ gom được các dòng liền nhau. Trong nhóm, ảnh của prompt trước làm tham chiếu cho prompt sau, giúp kể chuyện liền mạch.
+- **🔍 Upscale (N ảnh)** → 1K / 2K / 4K cho ảnh đã có.
+- **🔄 Chạy lại**, **🗑️ Xóa dòng đã chọn**, **🔍 Xem chi tiết**.
+
+## Dải tác vụ
+
+Phía trên cùng có dải tác vụ giống các tab trên trình duyệt. Mỗi tác vụ giữ riêng prompt, cài đặt và kết quả, nên bạn chuẩn bị được nhiều mẻ ảnh rồi để chúng chạy lần lượt.
+
+- <kbd>＋</kbd> thêm tác vụ mới (tối đa 30).
+- Chuột phải một tác vụ: *✏️ Đổi tên*, *📄 Nhân bản* (chép prompt và cài đặt), *🗑️ Đóng tác vụ*.
+- <kbd>⏸</kbd> tạm dừng hàng đợi; tác vụ đang chạy vẫn chạy nốt.
+- <kbd>⚙ Cài đặt</kbd> mở **Cài đặt hàng đợi**:
+
+| Ô | Mặc định |
+| --- | --- |
+| Nghỉ giữa hai tác vụ | 30 giây |
+| Tự chuyển sang tác vụ tiếp theo | Bật |
+| Khi một dòng lỗi | Thử lại 1 lần rồi chạy tiếp |
+| Khi mọi tài khoản hết credit | Tạm dừng hàng đợi và báo |
+| Mở lại app thì chạy tiếp hàng đợi còn dở | Tắt (bật lên là tiêu credit ngay khi mở app) |
+
+## Gỡ logo Gemini
+
+Tích **🧽 Gỡ logo Gemini ở góc ảnh**. Lưu ý:
+
+- Phải bật **Tự động tải về** và có thư mục lưu.
+- Cần **ít nhất 4 ảnh cùng kích thước** trong một lượt để tool dò được vị trí logo.
+- Tool **ghi đè lên file gốc**. Cần giữ bản có logo thì sao lưu trước.
+- Chỉ gỡ logo nhìn thấy được, không gỡ dấu ẩn SynthID.
+
+## Ý nghĩa lỗi trong bảng
+
+| Thông báo | Cách xử lý |
+| --- | --- |
+| Nội dung vi phạm chính sách — sửa lời tả | Sửa prompt nhẹ nhàng hơn. Chạy lại y nguyên sẽ bị chặn tiếp. |
+| Dính người nổi tiếng — bỏ tên riêng | Bỏ tên người thật khỏi prompt. |
+| Ảnh tham chiếu có người nổi tiếng — đổi ảnh | Dùng ảnh tham chiếu khác. |
+| Tài khoản chưa xác minh tuổi — đổi tài khoản | Xác minh tuổi tài khoản Google, hoặc dùng tài khoản khác. |
+| Hỏng mã xác minh — bấm chạy lại task lỗi | Chạy lại. Nếu cả loạt đều dính, giảm Luồng. |
+| Bắn quá nhiều cùng lúc — giảm Luồng, chờ 5 phút | Giảm Luồng, chờ vài phút. |
+| Hết lượt hôm nay của model — đổi tài khoản | Đổi tài khoản, đổi model hoặc chờ sang ngày mới. |
+| Tài khoản hết phiên — đăng nhập lại | Vào tab **Tài Khoản**, chuột phải tài khoản → *🔄 Reload cookie*. |
+| Máy chủ Google lỗi / quá tải | Chờ vài phút rồi chạy lại. |
+
+Xem thêm: [Lỗi thường gặp](/ho-tro/loi-thuong-gap/).

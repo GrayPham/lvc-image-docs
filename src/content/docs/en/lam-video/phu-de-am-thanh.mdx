@@ -1,0 +1,219 @@
+---
+title: Subtitles/audio → Video
+description: Turn a subtitle file, audio file, video or video link into a video with an illustration for every line of dialogue.
+sidebar:
+  order: 1
+---
+
+import { Steps, Aside, Tabs, TabItem } from '@astrojs/starlight/components';
+import TutorialVideo from '../../../../components/TutorialVideo.astro';
+
+You provide a **subtitle file, audio file, video or video link**. The tool extracts the dialogue, splits it into scenes that match each line, has AI draw an image for each scene, then joins them into a video with a zoom effect. You can also export a **CapCut draft** to keep editing.
+
+<TutorialVideo id="video-from-subtitle" />
+
+This section has two screens:
+
+- **Queue**: the list of scripts that will run one after another. See the [Script queue](/en/lam-video/hang-doi/) page.
+- **Detail page**: settings and progress for one script. This page covers that part.
+
+## Make a video from start to finish
+
+<Steps>
+
+1. In the left sidebar, click **🎞️ Phụ đề/âm thanh → Video** (Subtitles/audio → Video), then click <kbd>Mở dự án đang làm →</kbd> (Open current project).
+
+2. **Card 1 · Nguồn đầu vào** (Input source): click <kbd>Chọn file…</kbd> (Choose file) to pick a subtitle, audio or video file.
+   Or paste a link into the *“…hoặc dán link video vào đây”* (…or paste a video link here) box and click <kbd>Tải về</kbd> (Download).
+
+3. **Card 2 · Phân cảnh** (Scene splitting): choose how many seconds **Mỗi cảnh** (Each scene) lasts (default 5), the **script model** and the image **Phong cách** (Style).
+
+4. **Card 3 · Tạo ảnh** (Image generation): choose the **Model ảnh** (Image model), the **Tỉ lệ ảnh** (Aspect ratio) (landscape for YouTube, portrait for TikTok) and tick the **accounts** used for drawing.
+
+5. **Card 4 · Video**: choose the **Khung hình** (Frame size), background music and save location.
+
+6. In the **Chế độ chạy** (Run mode) box, keep *“Từ phụ đề ra video · chạy cả 4 bước”* (Subtitles to video · run all 4 steps) and click <kbd>Bắt đầu</kbd> (Start).
+
+7. When it finishes, click <kbd>▶ Xem video</kbd> (Watch video) to watch it, or <kbd>📂 Mở dự án</kbd> (Open project) to open the folder with the images and video.
+
+</Steps>
+
+<Aside type="tip" title="Want to make many videos at once?">
+Use <kbd>➕ Thêm nhanh</kbd> (Quick add) on the Queue screen to add a whole folder of videos or many links at once, then let the computer run overnight. See [Script queue](/en/lam-video/hang-doi/).
+</Aside>
+
+## 1 · Input source
+
+The tool accepts these file types:
+
+| Type | File extensions |
+| --- | --- |
+| Subtitles | `.srt`, `.vtt` |
+| Audio | `.mp3`, `.wav`, `.m4a`, `.aac`, `.flac`, `.ogg`, `.opus`, `.wma` |
+| Video | `.mp4`, `.mov`, `.mkv`, `.avi`, `.webm`, `.m4v`, `.wmv`, `.flv`, `.ts` |
+
+If you provide a subtitle file, the tool reads it directly and skips the transcription step. If you provide audio or video, the tool listens and writes the subtitles itself.
+
+### Download a video from a link
+
+Paste a YouTube, TikTok, Facebook… link into the link box, then click <kbd>Tải về</kbd> (Download) (or press Enter). Once downloaded, the tool picks up the file automatically.
+
+<Aside type="caution" title="Video requires sign-in or asks “not a robot”">
+Click the <kbd>Cookie</kbd> button to load a `cookies.txt` file (JSON files exported from an extension also work), then download again. The line under the link box will say *“đã nạp cookie”* (cookie loaded).
+</Aside>
+
+### Settings presets
+
+If you often use the same set of settings (style, model, frame size…), save them as a **preset**:
+
+- **Mẫu cài đặt** (Settings preset) box → **Quản lý** (Manage) link → *Thêm mẫu từ cài đặt đang đặt* (Add preset from current settings).
+- Next time, just pick the preset and every box is filled in. Presets do not save the source file or link.
+
+### Detailed recognition settings
+
+Click **Cài đặt nhận dạng chi tiết ▾** (Detailed recognition settings) to open it. This block only appears when the source is audio or video.
+
+| Box | Meaning | Default |
+| --- | --- | --- |
+| Tải về (Download) | Quality when downloading from a link. The tool only needs the audio, so a light option is enough. | 480p · nhẹ (light) |
+| Tải xong thì phân tích phong cách video (Analyze video style after download) | AI watches the original video to suggest an image style. Uses one extra Gemini turn. | Off |
+| Nhận dạng (Recognition) | The speech recognizer. Larger ones are more accurate but slower and heavier. The tool downloads each one the first time you use it. | small (~485 MB) |
+| Ngôn ngữ (Language) | Language of the dialogue. | Tự động nhận diện (Auto-detect) |
+| Chỉ dùng CPU (CPU only) | Turn on if transcription with the graphics card fails. | Off |
+
+<Aside>
+Computers with an NVIDIA card transcribe much faster. The status line will say *“GPU sẵn sàng”* (GPU ready) or *“nhận dạng chạy bằng CPU”* (recognition running on CPU). An NVIDIA card needs the `cuda` folder next to `LVC Image Gen.exe` (included in the full installer package).
+</Aside>
+
+## 2 · Scene splitting
+
+AI reads the dialogue, splits it into scenes and writes an image description (prompt) for each scene.
+
+| Box | Meaning |
+| --- | --- |
+| Mỗi cảnh (Each scene) | Length of one scene, 2–30 seconds. Default 5 seconds. |
+| Model kịch bản (Script model) | The AI used for scene splitting. For long scripts use **Gemini 3.1 Pro** or **ChatGPT**, since they fail less often than Flash. |
+| Phong cách (Style) | Image style: 3D Pixar, cinematic photo, Anime, Ghibli, news graphics… Click **Quản lý** (Manage) to add your own style. |
+| Prompt | How AI splits scenes. There are presets for children's fairy tales and educational videos. |
+| Ngôn ngữ prompt (Prompt language) | Best left at **English**: image models understand English best. |
+| Bối cảnh (Setting) | Leave empty to let AI choose. Fill it in if you want every scene in a specific place. |
+| Ghi chú cho AI (Notes for AI) | Optional. Extra instructions for the AI. |
+
+Gemini script models use the Google accounts in the **Tài Khoản** (Accounts) tab. ChatGPT uses the account in **Tài Khoản → 💬 ChatGPT**. OpenRouter uses the API key in the **Cài Đặt** (Settings) tab.
+
+## 3 · Image generation
+
+| Box | Meaning | Default |
+| --- | --- | --- |
+| Model ảnh (Image model) | Banana2, BananaPro, BananaLite, ImageGen4, 🎭 Muse AI, 💬 GPT Image (ChatGPT). | Banana2 |
+| Tỉ lệ ảnh (Aspect ratio) | *Ngang 16:9 · YouTube* (Landscape) or *Dọc 9:16 · TikTok* (Portrait). | Landscape |
+| Luồng (Threads) | Number of images drawn at the same time (1–10). Too high and Google may rate-limit you. | 3 |
+| Upscale | Enlarge images to 2K or 4K. Only Banana2, BananaPro and BananaLite can do this. Each image uses one extra turn. | Không (None) |
+| 🧍 Giữ nhân vật cố định (Keep characters consistent) | Draws a 9-angle set for each character first, so characters look the same in every scene. | Off |
+| 🏞️ Giữ bối cảnh cố định (Keep settings consistent) | Draws each location first, so the setting does not change between scenes. | Off |
+| Gỡ logo Gemini ở góc ảnh (Remove Gemini logo from image corner) | Removes the small logo in the corner of the image. Needs at least 4 images in one batch. | — |
+| Tài khoản xoay (Rotating accounts) | Tick the accounts used for drawing. ✓ means ready, a red ✗ means not signed in. | — |
+
+<Aside type="tip">
+To pick characters yourself, attach your own character images or preview the cast, click <kbd>🎭 Nhân vật && bối cảnh…</kbd> (Characters & settings). See the [Characters & settings](/en/lam-video/nhan-vat-canh/) page.
+</Aside>
+
+## 4 · Video
+
+| Box | Meaning | Default |
+| --- | --- | --- |
+| Khung hình (Frame size) | Landscape (YouTube) or portrait (TikTok), from 720p to 4K. 720p exports fastest. | Landscape 720p |
+| FPS | 24 / 25 / 30 / 60 frames per second. | 30 |
+| Zoom mở cảnh / trôi (Scene-open zoom / drift) | How much the image zooms in at the start of a scene and how much it drifts. 0% drift means zoom only. | 80% / 85% |
+| Nhạc nền (Background music) | Choose a music file. The music loops to fill the length and fades out at the end. | Volume 25% |
+| Xuất ra (Export as) | *Video MP4*, *Bản nháp CapCut* (CapCut draft) or *Cả hai* (Both). | Video MP4 |
+| Gắn phụ đề vào video (Burn subtitles into video) | On: text appears on the video. Off: a clean video plus a `.srt` file (best turned off when posting to YouTube). | — |
+| Lưu tại (Save to) | Project save folder. Click **Đổi** (Change) to choose another place. | — |
+
+If you export a **Bản nháp CapCut** (CapCut draft), set **Hoà tan (CapCut)** (Crossfade) to 0. Click **Tự dò** (Auto-detect) to let the tool find the CapCut folder on your computer.
+
+## Run modes
+
+The mode name tells you what it does:
+
+- Contains **“ra …”** (to …) or **“tới …”** (through …): runs to the end and produces a video.
+- Starts with **“Chỉ”** (Only): does exactly one step, then stops.
+
+<Tabs>
+<TabItem label="Run to the end">
+
+| Mode | When to use |
+| --- | --- |
+| Từ phụ đề ra video · chạy cả 4 bước (Subtitles to video · run all 4 steps) | Making the video for the first time. |
+| Từ phụ đề ra bản nháp CapCut (Subtitles to CapCut draft) | You want to keep editing in CapCut. |
+| Tạo lại phân cảnh ra video (Redo scene splitting to video) | You don't like how the scenes were split and want AI to split them again. |
+| Tạo lại từ ảnh tới video (Redo from images through video) | Keep the scenes, redraw all images. |
+| Tạo lại ảnh còn thiếu ra video (Redo missing images to video) | Some scenes failed to draw: only redraw those scenes, then export the video. |
+
+</TabItem>
+<TabItem label="One step only">
+
+| Mode | What it does |
+| --- | --- |
+| Chỉ tách sub (Transcribe only) | Only listens and writes subtitles. |
+| Chỉ tạo prompt phân cảnh (Scene prompts only) | Only splits scenes and writes image descriptions. |
+| Chỉ tạo lại ảnh (Redraw images only) | Redraws every image, no video export. |
+| Tạo lại ảnh còn thiếu (Redo missing images) | Only draws the scenes that are missing images. |
+| Chỉ xuất video (Export video only) | Builds the video from the existing images. |
+| Chỉ tạo bản nháp CapCut (CapCut draft only) | Only exports the CapCut draft. |
+
+</TabItem>
+<TabItem label="Reference images">
+
+Use this when you **already have images** and don't want AI to draw.
+
+1. Choose one of the two reference image modes.
+2. The tool asks *“Lấy ảnh từ đâu?”* (Where to get images from?): choose **📁 Cả folder** (Whole folder) or **🖼️ Từng file** (Individual files).
+3. Images are assigned to scenes in **file name order**. Name them `01.png`, `02.png`…
+4. Then choose **Chỉ xuất video** (Export video only) to build the video.
+
+These modes cannot run in the queue.
+
+</TabItem>
+</Tabs>
+
+Each time you run from the first step, the tool creates a **new project folder** named by date and time. It does not overwrite the previous run.
+
+## View and edit results
+
+The results panel on the right has two pages: **1. Nhân vật/cảnh** (Characters/settings) (key <kbd>Ctrl</kbd>+<kbd>1</kbd>) and **2. Phân cảnh & ảnh** (Scenes & images) (<kbd>Ctrl</kbd>+<kbd>2</kbd>).
+
+- The **step bar** *1. Tách sub › 2. Phân cảnh › 3. Tạo ảnh › 4. Render video* (1. Transcribe › 2. Scene splitting › 3. Image generation › 4. Render video) is clickable. Click a step to run only that step.
+- **Double-click** a scene to see details and edit its prompt. Press <kbd>F2</kbd> to edit quickly in place.
+- **Right-click** a scene:
+  - *🖼️ Chọn ảnh cho cảnh này…* (Choose image for this scene): replace it with your own image.
+  - *Đặt lại trạng thái* (Reset status): mark it to be redrawn. The old image file is not deleted.
+
+After resetting, choose the **Tạo lại ảnh còn thiếu ra video** (Redo missing images to video) mode and click <kbd>Bắt đầu</kbd> (Start).
+
+The row of links under the Start button also has:
+
+- **Trích xuất nội dung** (Extract content): export the dialogue to a `.txt` file, with or without timestamps.
+- **Xuất dự án / Nhập dự án** (Export project / Import project): package the project as a `.lvcproj` file to move it to another computer.
+- **Xóa dự án** (Delete project): deletes it permanently; it cannot be recovered.
+
+<Aside type="note">
+Scenes without an image are left out of the video. The previous scene is stretched so there is no gap.
+</Aside>
+
+## Common errors
+
+| Message | How to fix |
+| --- | --- |
+| **Chưa có tài khoản dùng được** (No usable account) | Tick accounts in the *3 · Tạo ảnh* (Image generation) card. For accounts marked ✗, sign in again in the **Tài Khoản** (Accounts) tab, then click **Làm mới** (Refresh). |
+| **Thiếu ffmpeg** (ffmpeg missing) | Put `ffmpeg.exe` next to `LVC Image Gen.exe` (included in the full installer package) and reopen the tool. |
+| **Chưa có yt-dlp** (yt-dlp not found) | Put `yt-dlp.exe` next to `LVC Image Gen.exe`. Without this file the link box is locked; everything else still works. |
+| **Link không hợp lệ** (Invalid link) | Paste the full link, starting with `http://` or `https://`. |
+| **Sub rỗng** (Empty subtitles) | The subtitle file has no dialogue lines. Check the file. |
+| **Không tạo được ảnh** (Could not generate images) | Check your accounts and image model. See the log for the reason for each image. |
+| **Phân cảnh chưa đủ** (Scene splitting incomplete) | AI skipped a long section. Click *Dừng lại để sửa* (Stop to fix) and run scene splitting again; or add more Google accounts and wait 15–30 minutes. |
+| *Nội dung vi phạm chính sách — sửa lời tả* (Content violates policy — edit the description) | Make that scene's prompt gentler, then redraw. |
+| *Bắn quá nhiều cùng lúc — giảm Luồng, chờ 5 phút* (Too many requests at once — lower Threads, wait 5 minutes) | Lower the **Luồng** (Threads) box, wait a few minutes, then run *Tạo lại ảnh còn thiếu* (Redo missing images). |
+| *Hết lượt hôm nay của model — đổi tài khoản* (Model's daily quota used up — switch account) | Tick another account or change the image model. |
+
+See also: [Common errors](/en/ho-tro/loi-thuong-gap/).

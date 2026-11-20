@@ -1,0 +1,177 @@
+---
+title: API Server
+description: Biến tool thành máy chủ tạo ảnh để script, web hoặc n8n gọi vào bằng HTTP.
+sidebar:
+  order: 2
+---
+
+import { Steps, Aside, Tabs, TabItem } from '@astrojs/starlight/components';
+import TutorialVideo from '../../../components/TutorialVideo.astro';
+
+**API Server** biến tool thành máy chủ tạo ảnh. Chương trình khác (script Python, website, n8n, Make…) gửi lệnh HTTP vào, nhận ảnh về. Ảnh được tạo bằng chính các tài khoản trong tool.
+
+<TutorialVideo id="api-server" />
+
+## Bật máy chủ
+
+<Steps>
+
+1. Ở thanh bên trái, bấm **🔌 API Server**.
+
+2. **1 · MÁY CHỦ**: để **Nghe ở** là *Chỉ máy này (127.0.0.1)*, **Cổng** 5199, **Luồng** 2.
+
+3. **2 · KHOÁ API**: bấm <kbd>Tạo khoá mới</kbd>. Bấm <kbd>📋</kbd> để chép khoá.
+
+4. **3 · MẶC ĐỊNH**: chọn model, tỉ lệ và thư mục lưu ảnh dùng khi lệnh không ghi rõ.
+
+5. Bấm <kbd>▶ Bật máy chủ</kbd>. Chờ trạng thái báo **🟢 Đang chạy — sẵn sàng nhận lệnh**.
+
+</Steps>
+
+Tích **Tự bật khi mở tool** nếu máy này là máy chủ tạo ảnh cố định của bạn. Từ bản 1.1.61, tool nhớ khoá và mọi cài đặt sau khi tắt mở lại.
+
+Bên phải tab có sẵn nút <kbd>Chép lệnh curl</kbd> và <kbd>Chép mã Python</kbd>, đã điền đúng địa chỉ và khoá của bạn.
+
+<Aside type="danger" title="Giữ kín khoá API">
+Ai có khoá là tạo được ảnh bằng tài khoản của bạn, tức tiêu credit của bạn. Đừng đưa khoá lên mã nguồn công khai.
+
+Chọn *Mở ra mạng ngoài (0.0.0.0)* thì máy khác trong mạng, và cả Internet nếu router mở cổng, gọi được vào. Lúc đó khoá phải dài ít nhất 24 ký tự. Hãy dùng khoá do tool tạo.
+</Aside>
+
+## Xác thực
+
+Mọi lệnh, trừ `/v1/health`, cần gửi kèm khoá theo một trong hai cách:
+
+```http
+Authorization: Bearer <khoá>
+X-API-Key: <khoá>
+```
+
+## Danh sách lệnh
+
+| Lệnh | Đường dẫn | Làm gì |
+| --- | --- | --- |
+| `GET` | `/v1/health` | Tình trạng máy chủ. Không cần khoá. |
+| `GET` | `/v1/models` | Danh sách model, tỉ lệ, upscale. |
+| `POST` | `/v1/images` | Tạo ảnh (chữ → ảnh, hoặc ảnh → ảnh). |
+| `GET` | `/v1/images/<id>` | Hỏi tiến độ và kết quả. |
+| `GET` | `/v1/images/<id>/file/<n>` | Tải file ảnh thứ n. |
+| `DELETE` | `/v1/images/<id>` | Xoá việc và ảnh. |
+
+Địa chỉ gốc mặc định: `http://127.0.0.1:5199`.
+
+## Tạo ảnh: `POST /v1/images`
+
+| Trường | Kiểu | Ý nghĩa |
+| --- | --- | --- |
+| `prompt` | chuỗi | **Bắt buộc.** Lời tả ảnh. |
+| `so_luong` | số | Số ảnh, 1–8. Mặc định 1. |
+| `model` | chuỗi | `banana2`, `bananapro`, `bananalite`, `imagen4`, `muse`, `chatgpt`. Mặc định theo tab. |
+| `ty_le` | chuỗi | `1:1`, `9:16`, `16:9`. Mặc định theo tab. |
+| `upscale` | chuỗi | Bỏ trống là không upscale; `2K` hoặc `4K`. Chỉ `banana2`, `bananapro`, `bananalite`. |
+| `anh_tham_chieu` | mảng | Ảnh tham chiếu dạng base64 hoặc data URI, tối đa 3. Mọi model trừ `imagen4`. |
+| `cho` | true/false | `true`: đợi xong mới trả kết quả. `false` (mặc định): trả `id` ngay, hỏi tiến độ sau. |
+| `han_giay` | số | Thời gian đợi tối đa khi `cho: true`. Mặc định 300, trong khoảng 10–900 giây. |
+
+Model `banana2`, `bananapro`, `bananalite`, `imagen4` dùng tài khoản Google Flow đang bật. `muse` dùng tài khoản Muse AI, `chatgpt` dùng tài khoản ChatGPT.
+
+### Ví dụ
+
+<Tabs>
+<TabItem label="Python">
+
+```python
+import base64, requests
+
+GOC  = "http://127.0.0.1:5199"
+KHOA = "<khoá>"
+H    = {"Authorization": "Bearer " + KHOA}
+
+# Chữ -> ảnh, đợi xong rồi trả về
+r = requests.post(GOC + "/v1/images", headers=H, json={
+    "prompt": "a golden retriever astronaut on Mars",
+    "so_luong": 1, "model": "banana2", "ty_le": "1:1",
+    "upscale": "4K", "cho": True,
+}, timeout=600).json()
+print(r["trang_thai"], r.get("loi", ""))
+
+# Tải ảnh về
+for a in r["anh"]:
+    with open("anh_%d.png" % a["chi_so"], "wb") as f:
+        f.write(requests.get(a["url"], headers=H).content)
+
+# Ảnh -> ảnh: gửi kèm ảnh tham chiếu (tối đa 3)
+ref = base64.b64encode(open("mau.png", "rb").read()).decode()
+r2 = requests.post(GOC + "/v1/images", headers=H, json={
+    "prompt": "same character, snowy forest",
+    "anh_tham_chieu": [ref], "cho": True,
+}, timeout=600).json()
+```
+
+</TabItem>
+<TabItem label="curl (cmd Windows)">
+
+```bat
+curl -X POST http://127.0.0.1:5199/v1/images ^
+  -H "Authorization: Bearer <khoá>" ^
+  -H "Content-Type: application/json" ^
+  -d "{\"prompt\": \"a golden retriever astronaut on Mars\", \"so_luong\": 1, \"model\": \"banana2\", \"ty_le\": \"1:1\", \"cho\": true}"
+```
+
+</TabItem>
+</Tabs>
+
+### Kết quả trả về
+
+```json
+{
+  "ok": true,
+  "id": "a1b2c3d4e5f60718",
+  "trang_thai": "xong",
+  "prompt": "a golden retriever astronaut on Mars",
+  "so_luong": 1,
+  "model": "banana2",
+  "ty_le": "1:1",
+  "upscale": "4K",
+  "giay": 32.1,
+  "anh": [
+    {
+      "chi_so": 0,
+      "url": "http://127.0.0.1:5199/v1/images/a1b2c3d4e5f60718/file/0",
+      "rong": 4096,
+      "cao": 4096,
+      "upscale": "4K",
+      "byte": 123456
+    }
+  ]
+}
+```
+
+`trang_thai` có thể là `cho` (đang chờ), `dang_chay`, `xong`, `hong` (lỗi) hoặc `huy`. Khi lỗi, kết quả có thêm trường `loi` nói lý do.
+
+<Aside type="tip">
+- Mỗi ảnh mất khoảng 20–40 giây. Khi dùng `cho: true`, đặt timeout bên gọi **ít nhất 600 giây**.
+- Lệnh đầu tiên của một model khác model mặc định sẽ chậm hơn, vì tool phải chuẩn bị tài khoản cho model đó.
+- Upscale lỗi thì tool vẫn trả ảnh gốc.
+- Máy khác trong mạng gọi vào thì thay `127.0.0.1` bằng địa chỉ IP nội bộ của máy chạy tool.
+</Aside>
+
+## Mã lỗi HTTP
+
+| Mã | Nghĩa |
+| --- | --- |
+| `200` | Thành công. |
+| `202` | Đã nhận việc. Hoặc `cho: true` nhưng quá hạn chờ: hỏi lại bằng `GET /v1/images/<id>`. |
+| `400` | Thân lệnh sai: thiếu `prompt`, model không có, quá 3 ảnh tham chiếu… Đọc trường `loi`. |
+| `401` | Thiếu hoặc sai khoá API. |
+| `404` | Không có đường dẫn, việc hoặc ảnh đó. |
+| `413` | Thân lệnh quá lớn (tối đa 24 MB). |
+| `502` | `cho: true` nhưng việc bị lỗi, ví dụ prompt bị Google chặn. |
+
+## Lỗi khi bật máy chủ
+
+| Thông báo | Cách xử lý |
+| --- | --- |
+| Chưa có khoá API | Bấm *Tạo khoá mới* trước. |
+| Cổng … đang bị chương trình khác dùng | Đổi cổng khác. Thường do đang mở hai bản tool. |
+| 🔴 Đang chạy nhưng KHÔNG tạo được ảnh | Đọc lý do bên cạnh. Thường là chưa bật tài khoản nào ở tab **Tài Khoản**. |

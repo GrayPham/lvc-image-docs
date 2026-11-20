@@ -1,0 +1,80 @@
+---
+title: Cài đặt tool
+description: Yêu cầu máy, cách giải nén và chạy LVC Image Gen lần đầu.
+sidebar:
+  order: 1
+---
+
+import { Steps, Aside, FileTree } from '@astrojs/starlight/components';
+import TutorialVideo from '../../../components/TutorialVideo.astro';
+
+<TutorialVideo id="install" />
+
+## Máy cần có
+
+- **Windows 10 trở lên, bản 64-bit.**
+- **Google Chrome** nếu bạn dùng tài khoản Google bằng Chrome. Tool tự tải ChromeDriver khớp với Chrome trên máy.
+- **Card NVIDIA**: không bắt buộc. Chỉ giúp bước *Tách sub* chạy nhanh hơn.
+
+## Cài lần đầu
+
+<Steps>
+
+1. Tải file `LVC_Image_Gen_vX.Y.Z.rar` (bộ cài đầy đủ).
+
+2. Giải nén **cả thư mục** ra một chỗ cố định, ví dụ `D:\LVC_Image_Gen`.
+
+3. Mở thư mục vừa giải nén, chạy **`LVC Image Gen.exe`**.
+
+4. Đăng nhập tài khoản tool và kích hoạt bản quyền. Xem [Đăng nhập bản quyền](/bat-dau/dang-nhap/).
+
+5. Thêm tài khoản tạo ảnh ở mục **Tài Khoản**. Xem [Tổng quan tài khoản](/tai-khoan/tong-quan/).
+
+</Steps>
+
+<Aside type="caution" title="Đừng chạy thẳng trong file nén">
+Không mở `LVC Image Gen.exe` từ bên trong file `.rar`, và không tách riêng file `.exe` ra chỗ khác. Tool cần các file đi kèm nằm **cạnh** nó.
+</Aside>
+
+## Trong thư mục có gì
+
+<FileTree>
+- LVC_Image_Gen
+  - LVC Image Gen.exe chương trình chính
+  - lvc_image_update.exe trình cập nhật
+  - ffmpeg.exe **bắt buộc**, để tách tiếng và xuất video
+  - ffprobe.exe **bắt buộc**, để đo thời lượng file
+  - transcribe_worker.exe dùng cho bước Tách sub
+  - yt-dlp.exe dùng để tải video từ link
+  - cuda/ tuỳ chọn (~560 MB), cho Tách sub chạy bằng card NVIDIA
+  - data/
+    - firefox-portable/ trình duyệt Firefox cho tài khoản
+  - browser133/
+  - extension/
+</FileTree>
+
+<Aside type="tip" title="Máy không có card NVIDIA?">
+Bạn có thể **xoá thư mục `cuda`** cho nhẹ. Tool tự nhận ra và tách sub bằng CPU (chậm hơn).
+</Aside>
+
+## Thư mục tool tự tạo
+
+Lần đầu chạy, tool tạo thêm các thư mục cạnh file `.exe`:
+
+| Thư mục / file | Chứa gì |
+| --- | --- |
+| `data\` | Đăng nhập, bản quyền, cài đặt. |
+| `profiles\` | Hồ sơ trình duyệt của các tài khoản. |
+| `app_data.json` | Danh sách tài khoản và cài đặt. |
+| `output\` | Dự án và video đã làm. |
+| `logs\` | Nhật ký, dùng khi cần gửi bên hỗ trợ. |
+
+<Aside type="danger" title="Không chia sẻ các thư mục này">
+`data\`, `profiles\` và `app_data.json` chứa phiên đăng nhập tài khoản của bạn. Khi gửi tool cho người khác, **xoá** các mục này trước.
+</Aside>
+
+## Mở hai bản tool cùng lúc
+
+Tool chỉ nên mở **một cửa sổ**. Nếu mở thêm, tool báo *“LVC Image Gen đang mở rồi”*. Hãy chuyển sang cửa sổ đang mở. Hai bản chạy cùng lúc sẽ ghi đè hàng đợi và cài đặt của nhau.
+
+Chỉ bấm **Vẫn mở** khi bạn chắc bản kia đã treo cứng.

@@ -1,0 +1,193 @@
+---
+title: Create Images
+description: Paste many prompts at once and the tool creates images in bulk with Google Flow, Muse AI or ChatGPT.
+sidebar:
+  order: 1
+---
+
+import { Steps, Aside, Tabs, TabItem } from '@astrojs/starlight/components';
+import TutorialVideo from '../../../../components/TutorialVideo.astro';
+
+You paste many prompts (image descriptions) at once. The tool splits the work across your accounts, creates the images in bulk and saves them to your computer automatically.
+
+<TutorialVideo id="create-image" />
+
+## Quick start
+
+<Steps>
+
+1. In the left sidebar, click **🔥 Tạo Image** (Create Image).
+
+2. Click <kbd>➕ Thêm Prompts</kbd> (Add Prompts), paste your prompts into the box (by default **one prompt per line**), then click **OK**.
+
+3. In the **⚙️ Cài đặt** (Settings) panel, choose the **Tỷ lệ** (Aspect ratio), **Ảnh/prompt** (Images per prompt) and **Model**.
+
+4. In the **💾 Tải xuống** (Download) panel, check the folder where images are saved. Click <kbd>📁</kbd> to change it.
+
+5. Click <kbd>▶ Bắt đầu</kbd> (Start).
+
+6. When it finishes, click <kbd>📁 Mở</kbd> (Open) to open the image folder.
+
+</Steps>
+
+<Aside type="tip">
+Before running, make sure you have at least one account **turned on** in the **Tài Khoản** (Accounts) tab. See [Google Flow accounts](/en/tai-khoan/google-flow/).
+</Aside>
+
+## Add prompts
+
+The **📝 Quản lý Prompts** (Manage Prompts) dialog has 4 modes:
+
+| Mode | Use it when |
+| --- | --- |
+| ➕ Thêm hàng loạt — mỗi dòng một prompt (Add in bulk — one prompt per line) | Each prompt fits on a single line. |
+| 📑 Tách theo mốc (Split by marker) | Prompts are long and span several lines, separated by markers such as `SHOT 1`, `Cảnh 1`, `P1`, `1.`, the `|` sign… Leave the **Mốc** (Marker) field on *Tự nhận* (Auto-detect). |
+| 📝 Thêm 1 prompt (Add 1 prompt) | The whole block of text is one prompt. |
+| 🧩 Dán JSON (Paste JSON) | Paste a JSON file, for example the `scenes.json` file from the Phụ đề/âm thanh → Video (Subtitles/audio → Video) tab. |
+
+Other helpers in the dialog:
+
+- <kbd>📂 Import từ file</kbd> (Import from file): loads prompts from a `.txt` or `.json` file.
+- The **Sẽ tạo ra** (Will create) column shows a preview. Click an item to edit it on its own, or click *🚫 Bỏ mục này* (Skip this item).
+- **Prompt cố định** (Fixed prompt): text added to **every** prompt, at the start or the end. Usually used to add a shared style, such as a drawing style or lighting.
+
+New prompts are **appended** to the table; they do not replace the old ones.
+
+## Settings
+
+| Field | Meaning | Default |
+| --- | --- | --- |
+| 📐 Tỷ lệ (Aspect ratio) | Portrait 9:16, landscape 16:9 or square 1:1. | Dọc 9:16 (Portrait 9:16) |
+| 🎨 Ảnh/prompt (Images per prompt) | Number of images for each prompt (1–4). | 2 |
+| ⚡ Luồng (Threads) | **Total** number of images drawn at once (1–10), not multiplied by the number of accounts. | 3 |
+| 🖼️ Model | Banana 2, Banana Pro, Banana Lite, ImageGen4, 🎭 Muse AI, 💬 GPT Image. | Banana 2 |
+| 🌐 Sử dụng Proxy (Use Proxy) | Uses the proxy list in the **Cài Đặt** (Settings) tab. | Off |
+| 🔍 Tự động Upscale (Auto Upscale) | Enlarges images to 2K or 4K as soon as they are created. If upscaling fails, the original image is kept. | Off |
+| 🧽 Gỡ logo Gemini (Remove Gemini logo) | Removes the small logo in the corner of the image. | Off |
+| 🖼️ Định dạng (Format) | Tự động (Auto), PNG, JPG or WEBP. | Tự động |
+
+### Choose a model
+
+<Tabs>
+<TabItem label="Banana (Google Flow)">
+
+Uses the Google accounts in **Tài Khoản → 🎬 Google Flow** (Accounts → Google Flow).
+
+- **Banana 2 / Banana Pro / Banana Lite**: accept reference images and can upscale.
+- **ImageGen4**: does not accept reference images.
+
+</TabItem>
+<TabItem label="🎭 Muse AI">
+
+- Uses the accounts in **Tài Khoản → 🎭 Muse AI** (Accounts → Muse AI).
+- Slower than Google Flow, no upscaling.
+- The number of images running at once equals the number of Muse accounts turned on.
+
+</TabItem>
+<TabItem label="💬 GPT Image">
+
+- Uses the accounts in **Tài Khoản → 💬 ChatGPT** (Accounts → ChatGPT).
+- About 70 seconds per image, no upscaling.
+- Images running at once = number of accounts × **Luồng/tài khoản** (Threads per account, set in the ChatGPT tab), not the Luồng field of this tab.
+- If an image is blocked by the filter, the tool draws it again automatically.
+
+</TabItem>
+</Tabs>
+
+When you choose Muse AI or GPT Image, the *Gỡ logo* (Remove logo) and *Tự động Upscale* (Auto Upscale) boxes are greyed out because they cannot be used.
+
+## Reference images
+
+Reference images help the created images keep the right character face, product or style you want. The **🖼️ Ảnh tham chiếu** (Reference images) panel accepts up to 10 images.
+
+- Click <kbd>📁</kbd> in each slot to choose an image, and <kbd>➕ Thêm</kbd> (Add) to add a slot.
+- **🔄 Tự động áp dụng** (Auto apply, on by default): when you start a run, the shared images are assigned to every prompt that **does not yet have** its own reference images.
+- <kbd>✨ Áp dụng tất cả</kbd> (Apply to all): immediately assigns the shared images to every prompt.
+
+### Assign images by character name
+
+<Steps>
+
+1. Add your prompts first.
+2. Click <kbd>👥 Thêm nhân vật hàng loạt</kbd> (Add characters in bulk) and choose several images.
+3. The tool takes each name from the file name (you can edit it). For example, the image `Bao.png` gets the name *Bao*.
+4. The tool automatically assigns each image to the prompts that contain that name.
+
+</Steps>
+
+Click <kbd>📚 Gán từ kho</kbd> (Assign from library) to use characters saved in the library.
+
+## Run, stop and rerun failed images
+
+- Click <kbd>▶ Bắt đầu</kbd> (Start). If another task is already running, the button becomes <kbd>🕒 Xếp hàng</kbd> (Queue): it runs automatically when its turn comes.
+- Click <kbd>⏹️ Dừng</kbd> (Stop) to stop. If other tasks are still queued, the tool asks whether to stop this batch or stop everything.
+
+<Aside type="caution" title="The tool does not rerun failed rows by itself">
+When you click Bắt đầu, the tool skips rows that are ✅ done, ❌ failed or 🚫 skipped. To rerun failed rows:
+
+- Click <kbd>🔄 Chạy lại tất cả task lỗi</kbd> (Rerun all failed tasks), then click <kbd>▶ Bắt đầu</kbd>.
+- Or right-click the failed rows → *🔄 Chạy lại N dòng lỗi đã chọn* (Rerun N selected failed rows).
+</Aside>
+
+## Results table
+
+- The **🔍 Lọc trạng thái** (Filter by status) field filters by success, error, processing or waiting.
+- Hover over a **Trạng thái** (Status) cell to see the full error reason.
+- Buttons below the table:
+
+| Button | What it does |
+| --- | --- |
+| <kbd>⬇️ Tải tất cả</kbd> (Download all) | Downloads the images not yet on your computer. |
+| <kbd>📤 Xuất prompt</kbd> (Export prompts) | Exports the rows currently shown to `.txt`, `.json` or `.csv`. |
+| <kbd>♻️ Đặt lại trạng thái</kbd> (Reset status) | Keeps the prompts and sets every row back to Chờ (Waiting) so they can run again. |
+| <kbd>🗑️</kbd> on the button bar | **Deletes all** prompts. |
+
+### Right-click menu
+
+- **Edit**: *✏️ Sửa prompt đã chọn* (Edit selected prompt), *🖼️ Sửa Prompt + Reference* (Edit Prompt + Reference).
+- **Reference images**: apply the shared images, remove a row's images, *📷 Gán ảnh lần lượt* (Assign images one by one).
+- **📦 Gom nhóm N dòng** (Group N rows): only adjacent rows can be grouped. Inside a group, the image from one prompt is used as the reference for the next, which helps tell a continuous story.
+- **🔍 Upscale (N ảnh)** (Upscale (N images)) → 1K / 2K / 4K for existing images.
+- **🔄 Chạy lại** (Rerun), **🗑️ Xóa dòng đã chọn** (Delete selected rows), **🔍 Xem chi tiết** (View details).
+
+## Task bar
+
+At the very top there is a task bar that works like browser tabs. Each task keeps its own prompts, settings and results, so you can prepare many batches of images and let them run one after another.
+
+- <kbd>＋</kbd> adds a new task (up to 30).
+- Right-click a task: *✏️ Đổi tên* (Rename), *📄 Nhân bản* (Duplicate, copies prompts and settings), *🗑️ Đóng tác vụ* (Close task).
+- <kbd>⏸</kbd> pauses the queue; the task that is running still finishes.
+- <kbd>⚙ Cài đặt</kbd> (Settings) opens **Cài đặt hàng đợi** (Queue settings):
+
+| Field | Default |
+| --- | --- |
+| Nghỉ giữa hai tác vụ (Pause between tasks) | 30 seconds |
+| Tự chuyển sang tác vụ tiếp theo (Move to the next task automatically) | On |
+| Khi một dòng lỗi (When a row fails) | Thử lại 1 lần rồi chạy tiếp (Retry once, then continue) |
+| Khi mọi tài khoản hết credit (When all accounts are out of credits) | Tạm dừng hàng đợi và báo (Pause the queue and notify) |
+| Mở lại app thì chạy tiếp hàng đợi còn dở (Resume the unfinished queue when the app reopens) | Off (turning it on spends credits as soon as the app opens) |
+
+## Remove the Gemini logo
+
+Tick **🧽 Gỡ logo Gemini ở góc ảnh** (Remove the Gemini logo in the image corner). Note:
+
+- **Tự động tải về** (Auto download) must be on, with a save folder set.
+- You need **at least 4 images of the same size** in one run so the tool can find where the logo is.
+- The tool **overwrites the original files**. If you need to keep the versions with the logo, back them up first.
+- It only removes the visible logo, not the hidden SynthID watermark.
+
+## Error messages in the table
+
+| Message | What to do |
+| --- | --- |
+| Nội dung vi phạm chính sách — sửa lời tả (Content violates policy — edit the description) | Make the prompt milder. Running it again unchanged will be blocked again. |
+| Dính người nổi tiếng — bỏ tên riêng (Involves a celebrity — remove proper names) | Remove real people's names from the prompt. |
+| Ảnh tham chiếu có người nổi tiếng — đổi ảnh (Reference image has a celebrity — change the image) | Use a different reference image. |
+| Tài khoản chưa xác minh tuổi — đổi tài khoản (Account age not verified — change account) | Verify the age on the Google account, or use another account. |
+| Hỏng mã xác minh — bấm chạy lại task lỗi (Verification code failed — rerun failed tasks) | Run it again. If the whole batch hits this, lower Luồng (Threads). |
+| Bắn quá nhiều cùng lúc — giảm Luồng, chờ 5 phút (Too many requests at once — lower Threads, wait 5 minutes) | Lower Luồng and wait a few minutes. |
+| Hết lượt hôm nay của model — đổi tài khoản (Model's daily limit reached — change account) | Change the account, change the model or wait until the next day. |
+| Tài khoản hết phiên — đăng nhập lại (Account session expired — sign in again) | Go to the **Tài Khoản** (Accounts) tab, right-click the account → *🔄 Reload cookie*. |
+| Máy chủ Google lỗi / quá tải (Google server error / overloaded) | Wait a few minutes and run it again. |
+
+See also: [Common errors](/en/ho-tro/loi-thuong-gap/).

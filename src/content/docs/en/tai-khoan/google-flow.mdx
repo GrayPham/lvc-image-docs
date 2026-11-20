@@ -1,0 +1,146 @@
+---
+title: Google Flow accounts
+description: Add, sign in, check credits and manage the Google accounts used to create images.
+sidebar:
+  order: 2
+---
+
+import { Steps, Aside, Tabs, TabItem } from '@astrojs/starlight/components';
+import TutorialVideo from '../../../../components/TutorialVideo.astro';
+
+Google accounts are used for the **Banana 2, Banana Pro, Banana Lite, ImageGen4** models and for the **Gemini** AI that writes scripts. Go to **👤 Tài Khoản → 🎬 Google Flow** (Accounts → Google Flow).
+
+Each account runs in its own browser: **🦊 Firefox Portable** (bundled with the tool, the default) or **🌐 Chrome** installed on your computer.
+
+## Add accounts
+
+<Tabs>
+<TabItem label="🤖 Automatic (recommended)">
+
+<TutorialVideo id="accounts-google-auto" />
+
+The tool signs in with your email and password and fills in the 2FA code by itself.
+
+<Steps>
+
+1. Click <kbd>🤖 Thêm Tài Khoản Tự Động</kbd> (Add Account Automatically).
+2. Choose the **Trình duyệt** (Browser): Firefox Portable or Chrome.
+3. Fill in **Email** and **Password**. If the account has 2-Step Verification turned on, paste the **Khoá 2FA** (2FA key).
+4. Fill in **Proxy** if you have one, then click **OK**.
+5. If Google asks for extra verification (scan a QR code, tap “Yes” on your phone…), the browser window **waits for you to do it by hand**. Once you finish, the tool saves the account by itself.
+
+</Steps>
+
+After signing in, the tool checks that account's credits by itself.
+
+<Aside type="caution" title="The 2FA key is not the 6-digit code">
+The **Khoá 2FA** field needs the secret key Google gave you when you turned on 2-Step Verification (only letters A–Z and digits 2–7, in the form `ABCD EFGH IJKL MNOP`). Do not paste the 6-digit code shown on your phone.
+</Aside>
+
+</TabItem>
+<TabItem label="➕ Manual">
+
+<TutorialVideo id="accounts-google-manual" />
+
+Use this when you want to sign in yourself in the browser window.
+
+<Steps>
+
+1. Click <kbd>➕ Thêm Tài Khoản Thủ Công</kbd> (Add Account Manually).
+2. Choose a browser, then fill in the Email (password is optional) and a Proxy if you have one.
+3. The tool opens the Google sign-in page. Sign in as usual.
+4. When you are signed in, **close the browser window**. The tool saves the session by itself.
+
+</Steps>
+
+If you use Chrome: after signing in, right-click the account row → *🔄 Reload cookie* so the tool picks up the session.
+
+</TabItem>
+<TabItem label="📋 Bulk">
+
+<TutorialVideo id="accounts-google-bulk" />
+
+<Steps>
+
+1. Click <kbd>📋 Thêm Hàng Loạt</kbd> (Add in Bulk).
+2. Choose the **Trình duyệt cho cả mẻ** (Browser for the whole batch).
+3. Paste your list, **one account per line**. Only the email is required. Columns are separated by `|`, Tab (copied from Excel) or `:`, in any order.
+4. Check the preview table. If the tool guesses a column type wrong, pick the right type at the top of that column.
+5. Click <kbd>Thêm N tài khoản</kbd> (Add N accounts).
+
+</Steps>
+
+Example line:
+
+```text
+ten@gmail.com|matkhau|khoiphuc@gmail.com|ABCD EFGH IJKL MNOP|1.2.3.4:8080
+```
+
+Empty lines and lines starting with `#` are skipped. Errors for each line show right in the dialog, with the line number. The tool signs in automatically to accounts that have a password.
+
+</TabItem>
+</Tabs>
+
+<Aside type="tip" title="Passwords are encrypted">
+Passwords and 2FA keys are encrypted on your computer. When you move the tool to another computer, you must sign in to the accounts again.
+</Aside>
+
+## Check credits
+
+Tick the accounts, then click <kbd>💰 Kiểm Tra Credit Đã Chọn</kbd> (Check Credits of Selected). The tool checks up to 3 accounts at a time.
+
+- Out of credits: the account is **turned off** automatically, with the note *Hết credit* (Out of credits).
+- Signed-in session expired: the tool tries once to get the session back. If that fails, the account is **turned off** automatically, with the note *Hết phiên* (Session expired).
+
+## What the Status column means
+
+| Status | Meaning and what to do |
+| --- | --- |
+| ✅ Hoạt động (Active) | Ready to use. |
+| ⚠️ Hết hạn (Expired) | The session has expired. Right-click → *🔄 Reload cookie*. |
+| 🔒 Cần đăng nhập (Sign-in needed) | Right-click → *🔐 Đăng nhập tự động* (Automatic sign-in) or *👤 Đăng nhập thủ công* (Manual sign-in). |
+| 📱 Cần quét QR · ✋ Cần xác minh (QR scan needed · Verification needed) | Open the browser (<kbd>▶</kbd>) and follow Google's instructions. |
+| 🔑 Sai mật khẩu · 🔑 Sai mã 2FA (Wrong password · Wrong 2FA code) | Fix it in the edit dialog (right-click → *✏️ Sửa* (Edit)). |
+| 📧 Cần OTP (OTP needed) | Google sent a code to the recovery email. |
+| ⛔ Google tạm chặn · 🚫 Giới hạn (Temporarily blocked by Google · Limited) | Let the account rest and use another one. |
+| 🌐 Proxy lỗi (Proxy error) | Change the proxy. |
+| ❓ Chưa kiểm (Not checked) | Click <kbd>🔍</kbd> to check it. |
+
+## Management buttons
+
+| Button | What it does |
+| --- | --- |
+| <kbd>▶ Mở Đã Chọn</kbd> / <kbd>■ Đóng Đã Chọn</kbd> (Open Selected / Close Selected) | Opens or closes the browsers of the ticked accounts. |
+| <kbd>🚫 Đóng Trình Duyệt</kbd> (Close Browsers) | Closes every browser the tool opened. Does not touch your personal Chrome. |
+| <kbd>🗑️ Xoá Đã Chọn</kbd> (Delete Selected) | **Completely** deletes the accounts and their profile folders. This cannot be undone. |
+| <kbd>🔎 Quét Thư Mục</kbd> (Scan Folders) | Compares the profile folders on disk with the list. Adds back missing profiles and marks accounts whose profile is gone (without deleting them). |
+| <kbd>📁 Profiles Đã Lưu</kbd> (Saved Profiles) | View, open or delete individual browser profiles. |
+
+## Right-click menu
+
+Right-click an account to:
+
+- **Sign in again**: *🔄 Reload cookie (Flow + Gemini)*, *🔐 Đăng nhập tự động* (Automatic sign-in), *👤 Đăng nhập thủ công* (Manual sign-in).
+- **Kiểm tra ▸** (Check ▸): alive/dead, credits, account type, signed-in session, proxy.
+- **Copy ▸**: email, password, the 6-digit 2FA code currently shown, proxy…
+- **Cookie**: *📤 Xuất cookie ra tệp…* (Export cookies to file…), *📥 Nhập cookie từ tệp…* (Import cookies from file…).
+- **Organize**: *🏷 Đánh dấu loại TK* (Mark account type: Ultra/Pro/Thường/Free, where Thường means Regular), *📁 Chuyển vào nhóm* (Move to group).
+- **🔁 Chuyển trình duyệt** (Switch browser): switches between Firefox and Chrome, taking the cookies along.
+- **🔌 Bật dùng / ⛔ Tắt** (Enable / Disable) the account.
+
+Double-click a row to open **Chi tiết tài khoản** (Account details): quickly copy the email and password, and see the 2FA code that changes every 30 seconds.
+
+## Tab settings
+
+Click <kbd>⚙️ Cài đặt</kbd> (Settings) in the filter bar:
+
+| Item | Default |
+| --- | --- |
+| 🌐 Chrome | Uses the Chrome already installed on your computer |
+| 🦊 Firefox Portable | Uses the copy bundled with the tool |
+| Mặc định cho tài khoản mới (Default for new accounts) | Firefox Portable |
+| Số trình duyệt mở cùng lúc (Browsers open at the same time) | 5 (1–20) |
+| Hiện mật khẩu trong bảng (Show passwords in the table) | On |
+| Cột hiển thị (Visible columns) | Turn on hidden columns such as Cookie, 2FA, Mail khôi phục (Recovery email)… |
+
+The filter bar above the table lets you search by email, group or note. Paste several emails, one per line, to filter many accounts at once.

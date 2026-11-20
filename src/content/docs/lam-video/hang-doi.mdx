@@ -1,0 +1,85 @@
+---
+title: Hàng đợi kịch bản
+description: Xếp nhiều video vào hàng đợi để tool làm lần lượt, kể cả qua đêm.
+sidebar:
+  order: 2
+---
+
+import { Steps, Aside } from '@astrojs/starlight/components';
+import TutorialVideo from '../../../components/TutorialVideo.astro';
+
+Màn đầu tiên của **🎞️ Phụ đề/âm thanh → Video** là **Hàng đợi**. Bạn thêm nhiều kịch bản (file hoặc link), bấm chạy một lần, tool làm lần lượt từng cái. Kịch bản nào lỗi được đánh dấu đỏ kèm lý do, tool vẫn chạy tiếp cái sau.
+
+<TutorialVideo id="video-queue" />
+
+## Thêm nhiều video một lúc
+
+<Steps>
+
+1. Bấm <kbd>➕ Thêm nhanh</kbd>.
+
+2. Chọn **Nguồn**:
+   - *Từ video có sẵn trên máy*: bấm <kbd>Chọn video…</kbd> hoặc <kbd>Chọn cả thư mục…</kbd>. Tool chỉ lấy file nằm thẳng trong thư mục, không vào thư mục con.
+   - *Từ link video*: dán link, **mỗi dòng một link**, rồi bấm <kbd>Thêm link</kbd>. Link chỉ được tải khi tới lượt chạy.
+
+3. Ở cột **Áp cho cả mẻ**, chọn cài đặt chung: mẫu cài đặt, phong cách, model kịch bản, model ảnh, tỉ lệ, khung hình, chế độ chạy…
+
+4. Bấm <kbd>Thêm N kịch bản</kbd>.
+
+5. Bấm <kbd>▶ Chạy hàng đợi</kbd>.
+
+</Steps>
+
+<Aside type="note">
+Trong hộp **Thêm nhanh**, hai ô *🧍 Giữ nhân vật cố định* và *🏞️ Giữ bối cảnh cố định* **được bật sẵn**. Ở trang chi tiết thì hai ô này mặc định tắt.
+</Aside>
+
+<Aside type="tip">
+Thêm xong, hàng đợi **chưa chạy** cho tới khi bạn bấm *Chạy hàng đợi*. Khi hàng đợi đang chạy, bạn vẫn thêm được kịch bản mới; kịch bản mới xếp cuối hàng.
+</Aside>
+
+## Đọc màn hàng đợi
+
+- **Thẻ tiến độ**: số kịch bản đã xong / tổng số, thời gian ước tính còn lại, và bốn ô đếm *Xong / Đang chạy / Lỗi / Chờ*.
+- **Trạng thái mỗi dòng**: ⏳ Chờ · ▶️ Đang chạy · ✅ Xong · ❌ Lỗi · ⏸ Đã dừng.
+- Dòng đang chạy hiện thêm bước và phần trăm, ví dụ *“▶️ Đang chạy · Tạo ảnh 62%”*. Phần trăm tính riêng từng bước, nên sang bước mới tụt về 0 là bình thường.
+- Cột **Chi tiết** có nút <kbd>📂 Dự án</kbd>, <kbd>▶ Video</kbd> (khi đã có video) và <kbd>Xem →</kbd>.
+
+Hàng đợi được lưu lại khi tắt tool. Dòng đang chạy dở sẽ về **Chờ** khi mở lại.
+
+## Các nút điều khiển
+
+| Nút | Làm gì |
+| --- | --- |
+| <kbd>▶ Chạy hàng đợi</kbd> | Chạy lần lượt mọi dòng đang chờ. |
+| <kbd>⏹ Dừng</kbd> | Dừng ngay kịch bản đang chạy và cả hàng đợi. Ảnh đã tạo vẫn được giữ. |
+| <kbd>↻ Chạy lại dòng lỗi</kbd> | Đưa các dòng lỗi về chờ để chạy lại. |
+| <kbd>🧹 Dọn dòng xong</kbd> | Bỏ các dòng đã xong khỏi danh sách (không xoá file). |
+| <kbd>✎ Đổi tên</kbd> | Đổi tên hiển thị, không đổi tên file. |
+| <kbd>↑</kbd> <kbd>↓</kbd> | Đổi thứ tự chạy. |
+| <kbd>🔄 Nạp dự án có sẵn</kbd> | Quét thư mục xuất, đưa các dự án đã phân cảnh vào hàng đợi. |
+
+## Menu chuột phải
+
+Chọn một hoặc nhiều dòng rồi bấm chuột phải:
+
+- **▶ Chạy đã chọn** / **⏹ Dừng đã chọn**.
+- **↻ Đặt lại trạng thái**:
+  - *Về Chờ — giữ chế độ chạy của dòng*.
+  - *Làm lại từ đầu — bỏ dự án cũ, chạy từ file nguồn*.
+  - *Chạy lại: …* một chế độ cụ thể, ví dụ chỉ vẽ lại ảnh còn thiếu.
+- **⚙ Cài đặt / chọn mẫu…**: đổi cài đặt cho các dòng đã chọn. Prompt, bối cảnh và ghi chú riêng của từng dòng vẫn được giữ.
+- **📂 Mở thư mục dự án**, **🎬 Mở video đã xuất**, **📁 Mở thư mục chứa file nguồn**.
+- **✖ Bỏ khỏi hàng đợi** (mờ đi khi hàng đợi đang chạy).
+
+## Xem chi tiết một kịch bản
+
+Bấm <kbd>Xem →</kbd> để mở trang chi tiết của dòng đó. Bạn sửa cài đặt ở đây; khi bấm <kbd>← Hàng đợi</kbd>, tool tự lưu vào dòng.
+
+Nút <kbd>‹ Trước</kbd> và <kbd>Sau ›</kbd> để chuyển nhanh giữa các kịch bản.
+
+<Aside type="caution">
+Khi hàng đợi **đang chạy**, bấm *Xem* một dòng khác sẽ mở thư mục dự án của dòng đó thay vì trang chi tiết, để không làm gián đoạn lượt đang chạy.
+</Aside>
+
+Khi bấm <kbd>📂 Dự án</kbd>, tool ghi thêm file `thong_so_du_an.txt` vào thư mục dự án. File này liệt kê cài đặt đã dùng cho kịch bản đó.

@@ -1,0 +1,118 @@
+---
+title: Kịch Bản → Video
+description: Từ một ý tưởng hoặc truyện có sẵn, tool viết lời dẫn, lập nhân vật, vẽ ảnh và xuất video.
+sidebar:
+  order: 3
+---
+
+import { Steps, Aside, Tabs, TabItem } from '@astrojs/starlight/components';
+import TutorialVideo from '../../../components/TutorialVideo.astro';
+
+Bạn chỉ cần **một câu ý tưởng**, AI sẽ viết lời dẫn. Hoặc bạn **dán truyện có sẵn**. Tool lập nhân vật, chia cảnh, vẽ ảnh rồi xuất video slideshow kèm file phụ đề `.srt`.
+
+<TutorialVideo id="video-from-script" />
+
+## Làm video từ ý tưởng
+
+<Steps>
+
+1. Ở thanh bên trái, bấm **📖 Kịch Bản → Video**.
+
+2. **Thẻ 1 · Kịch bản**:
+   - **Chế độ**: chọn *Từ ý tưởng (AI viết)* rồi gõ ý tưởng, ví dụ một câu tóm tắt câu chuyện.
+   - Hoặc chọn *Đã có sẵn truyện* rồi dán truyện vào ô **Lời dẫn**.
+   - Chọn **Thời lượng** (giây), **ngôn ngữ lời dẫn** và **Lĩnh vực (giọng kể)**.
+
+3. **Thẻ 2 · Nhân vật**: để mặc định là tool tự vẽ ảnh cho từng nhân vật và dùng làm tham chiếu, giúp nhân vật giống nhau ở mọi cảnh.
+
+4. **Thẻ 3 · Phân cảnh**: chọn **Mỗi cảnh** dài bao nhiêu giây, model kịch bản và **Phong cách (ảnh)**.
+
+5. **Thẻ 4 · Tạo ảnh**: chọn model ảnh, tỉ lệ ảnh và tích tài khoản.
+
+6. **Thẻ 5 · Video**: chọn khung hình. Ô **Âm thanh** dùng cho nhạc nền hoặc file lời đọc của bạn.
+
+7. Ở **Chế độ chạy**, để *“Từ ý tưởng ra video · chạy cả 5 bước”* rồi bấm <kbd>Bắt đầu</kbd>.
+
+8. Xong, tool báo đường dẫn video. Bấm **Mở dự án** để mở thư mục.
+
+</Steps>
+
+<Aside type="tip" title="Ước tính độ dài">
+Tool hiện dòng *“Cần ~N từ cho Xs → khoảng K cảnh”*. Nhịp đọc khoảng 2,5 từ mỗi giây.
+</Aside>
+
+## Các ô quan trọng
+
+### Thẻ 1 · Kịch bản
+
+| Ô | Ý nghĩa | Mặc định |
+| --- | --- | --- |
+| Chế độ | *Từ ý tưởng (AI viết)* hoặc *Đã có sẵn truyện*. | Từ ý tưởng |
+| Thời lượng | Độ dài video mong muốn, tính bằng giây. | 60 |
+| Ngôn ngữ lời dẫn | Tiếng Việt, English, Español, 日本語. | Tiếng Việt |
+| Lĩnh vực (giọng kể) | Cổ tích, đời thường, tin tức, kiến thức, lịch sử, kinh dị, tình cảm, review… | — |
+
+<Aside type="caution">
+**Lĩnh vực** chỉ đổi **giọng kể**, không đổi kiểu ảnh. Kiểu ảnh do ô **Phong cách (ảnh)** ở thẻ 3 quyết định. Ví dụ muốn video tin tức dùng ảnh thật, hãy chọn phong cách *Tài liệu - Ảnh thực tế* hoặc *Tin tức - Đồ họa tin*.
+</Aside>
+
+### Thẻ 2 · Nhân vật
+
+| Ô | Ý nghĩa | Mặc định |
+| --- | --- | --- |
+| Tạo ảnh nhân vật và dùng làm ảnh tham chiếu | Vẽ ảnh cho từng nhân vật trước, rồi dùng ảnh đó khi vẽ các cảnh. | Bật |
+| Vẽ bộ 9 góc thay vì một ảnh chân dung | Mỗi nhân vật một bảng 9 góc nhìn. Vẫn chỉ tốn 1 lượt mỗi nhân vật. | Tắt |
+| Giữ bối cảnh cố định | Vẽ ảnh nền cho từng địa điểm. Chọn **Số địa điểm** hoặc để *Tự động* (tối đa 8). | Tắt |
+| Số nhân vật | 0–12, hoặc để *Tự động*. | Tự động |
+
+Bấm <kbd>🎭 Nhân vật && bối cảnh…</kbd> để xem, sửa dàn nhân vật hoặc gắn ảnh của bạn. Xem trang [Nhân vật & bối cảnh](/lam-video/nhan-vat-canh/).
+
+### Thẻ 3, 4, 5
+
+Các ô ở thẻ Phân cảnh, Tạo ảnh và Video giống tab Phụ đề/âm thanh → Video. Xem giải thích chi tiết ở [trang đó](/lam-video/phu-de-am-thanh/#2--phân-cảnh).
+
+Khác biệt duy nhất: ở thẻ **5 · Video**, ô **Âm thanh** có âm lượng mặc định **60%**. Không chọn âm thanh thì video im lặng, kèm file `.srt`.
+
+## Chế độ chạy
+
+<Tabs>
+<TabItem label="Chạy tới hết">
+
+| Chế độ | Khi nào dùng |
+| --- | --- |
+| Từ ý tưởng ra video · chạy cả 5 bước | Lần đầu làm video. |
+| Tạo lại nhân vật ra video | Muốn vẽ lại nhân vật rồi làm tiếp. |
+| Tạo lại phân cảnh ra video | Muốn AI chia cảnh lại. |
+| Tạo lại từ ảnh tới video | Giữ phân cảnh, vẽ lại toàn bộ ảnh. |
+| Tạo lại ảnh còn thiếu ra video | Chỉ vẽ bù các cảnh lỗi rồi xuất video. |
+
+</TabItem>
+<TabItem label="Chỉ một bước">
+
+| Chế độ | Làm gì |
+| --- | --- |
+| Chỉ tạo lời dẫn | Chỉ viết lời dẫn, để bạn đọc và sửa trước. |
+| Chỉ tạo nhân vật | Chỉ lập và vẽ nhân vật. |
+| Chỉ tạo prompt phân cảnh | Chỉ chia cảnh. |
+| Chỉ tạo lại ảnh | Vẽ lại mọi ảnh. |
+| Tạo lại ảnh còn thiếu | Chỉ vẽ bù cảnh thiếu ảnh. |
+| Chỉ xuất video | Ghép video từ ảnh đang có. |
+
+</TabItem>
+</Tabs>
+
+<Aside type="tip" title="Cách làm chắc tay nhất">
+Chạy **Chỉ tạo lời dẫn** trước. Đọc lại, sửa trong ô Lời dẫn cho ưng. Sau đó đổi chế độ sang **Đã có sẵn truyện** và chạy tới hết.
+</Aside>
+
+Tab này **không có hàng đợi**. Tool tự lưu phiên sau mỗi bước, tắt tool mở lại vẫn làm tiếp được.
+
+## Lỗi hay gặp
+
+| Thông báo | Cách xử lý |
+| --- | --- |
+| **Chưa có ý tưởng** | Gõ ý tưởng vào ô ở thẻ 1. |
+| **Chưa có lời dẫn** | Chế độ *Đã có sẵn truyện* cần bạn dán truyện vào ô Lời dẫn. |
+| **Chưa có tài khoản dùng được** | Tích tài khoản ở thẻ *4 · Tạo ảnh*, hoặc đăng nhập lại ở tab **Tài Khoản** rồi bấm **Làm mới**. |
+| **Không tạo được ảnh** | Tất cả cảnh đều lỗi. Xem log để biết lý do, thường là tài khoản hết phiên hoặc hết lượt. |
+| *Không tạo được ảnh nhân vật nào* | Các cảnh vẫn được vẽ nhưng không có ảnh tham chiếu. Kiểm tra model ảnh có hỗ trợ tham chiếu không. |

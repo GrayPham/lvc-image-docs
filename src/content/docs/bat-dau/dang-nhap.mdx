@@ -1,0 +1,50 @@
+---
+title: Đăng nhập bản quyền
+description: Đăng nhập tài khoản tool, kích hoạt license và đăng xuất.
+sidebar:
+  order: 2
+---
+
+import { Steps, Aside } from '@astrojs/starlight/components';
+import TutorialVideo from '../../../components/TutorialVideo.astro';
+
+Lần đầu mở tool, cửa sổ **LVC Image Gen - Đăng Nhập** hiện ra. Có hai bước.
+
+<TutorialVideo id="license-login" />
+
+<Steps>
+
+1. **Đăng Nhập Tài Khoản**: nhập **Tên đăng nhập** và **Mật khẩu** do LVC Media cấp. Tích *Ghi nhớ thông tin đăng nhập* để lần sau tự vào. Bấm <kbd>Đăng Nhập</kbd>.
+
+2. **Kích Hoạt Bản Quyền**: dán **License Key** (dạng `XXXX-XXXX-XXXX-XXXX`) rồi bấm <kbd>Kích Hoạt</kbd>.
+
+3. Hộp *Kích Hoạt Thành Công* hiện ngày hết hạn và số thiết bị được dùng. Bấm OK để vào tool.
+
+</Steps>
+
+Lần sau mở tool, nếu đã tích ghi nhớ, tool tự đăng nhập.
+
+<Aside type="caution" title="Cần mạng để vào tool">
+Mỗi lần mở, tool xác minh bản quyền với máy chủ. Mất mạng thì tool báo *Lỗi Kết Nối Server* và không vào được. Kiểm tra mạng rồi mở lại.
+</Aside>
+
+## Theo dõi hạn dùng
+
+- Thanh dưới đáy cửa sổ luôn hiện ngày hết hạn và số ngày còn lại.
+- Còn dưới 7 ngày, tool nhắc *“Bản quyền sắp hết hạn!”*.
+- Hết hạn, tool chuyển về bước kích hoạt và điền sẵn key cũ. Liên hệ LVC Media để gia hạn rồi nhập key mới.
+
+## Đăng xuất
+
+Bấm <kbd>🚪 Đăng xuất</kbd> ở thanh dưới đáy cửa sổ. Tool xoá phiên đăng nhập và license đã lưu trên máy, rồi tự mở lại màn đăng nhập.
+
+Đăng xuất **không** xoá tài khoản tạo ảnh, dự án hay video của bạn.
+
+## Lỗi hay gặp
+
+| Thông báo | Cách xử lý |
+| --- | --- |
+| Đăng nhập thất bại | Kiểm tra tên đăng nhập và mật khẩu. |
+| Kích hoạt thất bại | Key sai, đã hết hạn hoặc đã dùng hết số thiết bị. Liên hệ hỗ trợ. |
+| Lỗi Kết Nối Server | Kiểm tra mạng, tắt VPN hoặc phần mềm chặn mạng rồi thử lại. |
+| Session Không Hợp Lệ | Đăng nhập lại bằng tay. |

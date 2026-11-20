@@ -1,0 +1,48 @@
+---
+title: Giới thiệu LVC Image Gen
+description: Hướng dẫn sử dụng LVC Image Gen — tạo ảnh AI hàng loạt, làm video từ phụ đề, âm thanh và kịch bản.
+hero:
+  title: LVC Image Gen
+  tagline: Tạo ảnh AI hàng loạt và biến phụ đề, âm thanh, ý tưởng thành video — tất cả trong một tool.
+  image:
+    file: ../../assets/logo.png
+  actions:
+    - text: Bắt đầu
+      link: /bat-dau/cai-dat/
+      icon: right-arrow
+    - text: Làm video đầu tiên
+      link: /bat-dau/video-dau-tien/
+      icon: rocket
+      variant: minimal
+---
+
+import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+import TutorialVideo from '../../components/TutorialVideo.astro';
+
+<TutorialVideo id="intro" />
+
+## Tool làm được gì
+
+<CardGrid>
+	<Card title="Tạo ảnh hàng loạt" icon="seti:image">
+		Dán hàng trăm prompt, tool chia việc cho nhiều tài khoản và tự lưu ảnh. Hỗ trợ Google Flow, Muse AI, GPT Image.
+	</Card>
+	<Card title="Phụ đề / âm thanh → Video" icon="seti:video">
+		Đưa vào file phụ đề, âm thanh, video hoặc link YouTube. Tool tách lời, vẽ ảnh từng cảnh và xuất video.
+	</Card>
+	<Card title="Kịch bản → Video" icon="pencil">
+		Chỉ cần một câu ý tưởng: AI viết lời dẫn, lập nhân vật, vẽ ảnh và xuất video.
+	</Card>
+	<Card title="Nhân vật nhất quán" icon="star">
+		Nhân vật giữ nguyên khuôn mặt, hình dáng ở mọi cảnh. Dùng ảnh của bạn hoặc để AI vẽ.
+	</Card>
+</CardGrid>
+
+## Bắt đầu từ đâu?
+
+<CardGrid>
+	<LinkCard title="Cài đặt tool" description="Yêu cầu máy, giải nén và chạy lần đầu." href="/bat-dau/cai-dat/" />
+	<LinkCard title="Thêm tài khoản" description="Tài khoản Google, Muse AI, ChatGPT." href="/tai-khoan/tong-quan/" />
+	<LinkCard title="Làm video đầu tiên" description="Lộ trình 10 phút tới video đầu tiên." href="/bat-dau/video-dau-tien/" />
+	<LinkCard title="Gặp lỗi?" description="Các lỗi thường gặp và cách xử lý." href="/ho-tro/loi-thuong-gap/" />
+</CardGrid>

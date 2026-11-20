@@ -1,0 +1,91 @@
+/* Màu LVC: xanh dương của nút chính trong tool. */
+:root {
+	--sl-color-accent-low: #102347;
+	--sl-color-accent: #3d6fe0;
+	--sl-color-accent-high: #c7d6ff;
+
+	/* Sidebar — giao diện tối: xanh than, chữ sáng. */
+	--lvc-nav-bg: #131a2b;
+	--lvc-nav-text: #dfe6f5;
+	--lvc-nav-muted: #8995ad;
+	--lvc-nav-icon: #7fa2f0;
+	--lvc-nav-hover: rgba(255, 255, 255, 0.06);
+	--lvc-nav-active: rgba(61, 111, 224, 0.25);
+	--lvc-nav-active-text: #c7d6ff;
+	--lvc-nav-border: rgba(255, 255, 255, 0.1);
+	--lvc-nav-card: rgba(255, 255, 255, 0.04);
+}
+:root[data-theme='light'] {
+	--sl-color-accent-low: #dbe5ff;
+	--sl-color-accent: #2f5fd0;
+	--sl-color-accent-high: #132d6b;
+
+	/* Sidebar — giao diện sáng: xanh rất nhạt, cùng tông với nền trắng. */
+	--lvc-nav-bg: #f4f7fd;
+	--lvc-nav-text: #22304d;
+	--lvc-nav-muted: #6b7895;
+	--lvc-nav-icon: #3d6fe0;
+	--lvc-nav-hover: #e8eefb;
+	--lvc-nav-active: #dce6fc;
+	--lvc-nav-active-text: #1f4fbf;
+	--lvc-nav-border: #e0e6f2;
+	--lvc-nav-card: #ffffff;
+}
+
+.sidebar-pane {
+	background: var(--lvc-nav-bg) !important;
+	border-inline-end: 1px solid var(--lvc-nav-border) !important;
+}
+.sidebar-pane .sidebar-content {
+	padding-top: 1.25rem;
+}
+
+/* Thu gọn: sidebar chỉ còn cột icon (màn hình rộng). */
+@media (min-width: 50rem) {
+	/* Chỉ thu hẹp khung sidebar trái và lề nội dung. KHÔNG đổi
+	   --sl-sidebar-width: Starlight dùng chung biến đó cho cột
+	   "Trên trang này" bên phải, đổi là cột đó bị bóp theo. */
+	:root[data-nav-collapsed][data-has-sidebar] {
+		--sl-content-inline-start: 4.75rem;
+	}
+	:root[data-nav-collapsed] .sidebar-pane {
+		width: 4.75rem !important;
+	}
+	:root[data-nav-collapsed] .lvc-nav__title,
+	:root[data-nav-collapsed] .lvc-nav__label,
+	:root[data-nav-collapsed] .lvc-nav__caret,
+	:root[data-nav-collapsed] .lvc-nav__children,
+	:root[data-nav-collapsed] .lvc-nav__brand {
+		display: none;
+	}
+	:root[data-nav-collapsed] .lvc-nav__link,
+	:root[data-nav-collapsed] .lvc-nav__support {
+		justify-content: center;
+	}
+	:root[data-nav-collapsed] .lvc-nav__section + .lvc-nav__section {
+		margin-top: 0.6rem;
+		padding-top: 0.6rem;
+		border-top: 1px solid var(--lvc-nav-hover);
+	}
+	:root[data-nav-collapsed] .lvc-nav__collapse-icon {
+		transform: rotate(180deg);
+	}
+}
+
+/* Hero ở trang Giới thiệu: ảnh logo vừa phải khi có sidebar bên cạnh. */
+.hero > img,
+.hero > picture img {
+	max-width: 14rem;
+}
+
+/* Nhãn nút trong tool: <kbd> hiển thị như một nút bấm để khách nhận ra. */
+.sl-markdown-content kbd {
+	font-family: var(--sl-font);
+	font-size: 0.85em;
+	padding: 0.1em 0.5em;
+	border-radius: 0.35rem;
+	border: 1px solid var(--sl-color-gray-4);
+	border-bottom-width: 2px;
+	background: var(--sl-color-gray-6);
+	white-space: nowrap;
+}

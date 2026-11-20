@@ -1,0 +1,48 @@
+---
+title: Settings Tab
+description: Gemini and OpenRouter API keys, the video downloader, cookies, user-agent and shared proxies.
+sidebar:
+  order: 4
+---
+
+import { Aside } from '@astrojs/starlight/components';
+import TutorialVideo from '../../../../components/TutorialVideo.astro';
+
+Open it with **⚙️ Cài Đặt** (Settings) at the bottom of the left sidebar. When you're done editing, click <kbd>💾 Lưu cài đặt</kbd> (Save settings).
+
+<TutorialVideo id="settings" />
+
+## ① API keys
+
+| Field | Meaning |
+| --- | --- |
+| Gemini API key | One key per line. When a key runs out of quota, the tool switches to another one automatically. Used for the script-writing step. **Image generation doesn't need a key.** |
+| OpenRouter API key | Optional, for using OpenRouter's script models. Click <kbd>Kiểm tra key</kbd> (Check key; uses no quota), then reopen the tool to see the model list. |
+
+## ② Download video from links
+
+- **Công cụ tải (yt-dlp)** (Downloader): click <kbd>Cập nhật</kbd> (Update) to get the latest version (~17 MB).
+- **Cookie tải video** (Download cookies): load or paste cookies for sites that require login.
+
+<Aside type="tip" title="Video download says “403 Forbidden”?">
+This is almost always because yt-dlp is outdated. Click **Cập nhật** in this section, then download again.
+</Aside>
+
+## ③ Verification code
+
+How the tool gets the verification code when generating images with Google Flow:
+
+| Option | Notes |
+| --- | --- |
+| Theo profile tài khoản (Per account profile) | **Recommended.** |
+| Chrome · hồ sơ khách (Chrome · guest profile) | Uses Chrome. |
+| Firefox riêng tư (Camoufox) (Private Firefox) | Downloads about 470 MB extra the first time. |
+
+Unless support has told you otherwise, leave the default.
+
+## ④ Shared User-Agent & proxy
+
+- **User-Agent**: click <kbd>Lấy UA Chrome</kbd> (Get Chrome UA) or <kbd>Lấy UA Firefox</kbd> (Get Firefox UA) to fill it in automatically.
+- **Proxy**: one proxy per line (`ip:port` or `ip:port:user:pass`). This list is used when you tick **🌐 Sử dụng Proxy** (Use proxy) in the Tạo Image (Create Image) or Thay Thế (Replace) tab.
+
+Per-account proxies are set in the **Tài Khoản** (Accounts) tab. See [Proxy](/en/tai-khoan/tong-quan/#proxy).

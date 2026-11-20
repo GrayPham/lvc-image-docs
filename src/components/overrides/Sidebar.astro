@@ -1,0 +1,269 @@
+---
+/**
+ * Sidebar xanh: nhóm chữ in hoa, mỗi bài có icon, nhóm con gập/mở,
+ * nút "Thu gọn" chỉ còn icon, thẻ LVC Media + nút hỗ trợ ở cuối.
+ * Mục lục lấy từ src/data/navigation.mjs.
+ */
+import { Icon } from '@astrojs/starlight/components';
+import MobileMenuFooter from 'virtual:starlight/components/MobileMenuFooter';
+import { localizedLink, navigation, SUPPORT_LINK } from '../../data/navigation.mjs';
+
+const locale = Astro.locals.starlightRoute.locale === 'en' ? 'en' : 'vi';
+const text = (entry: { label: string; en?: string; title?: string }) =>
+	locale === 'en' ? (entry.en ?? entry.label ?? entry.title) : (entry.label ?? entry.title);
+const href = (link: string) => localizedLink(link, locale);
+const normalize = (path: string) => (path.endsWith('/') ? path : `${path}/`);
+const currentPath = normalize(Astro.url.pathname);
+const isCurrent = (link: string) => normalize(href(link)) === currentPath;
+const ui =
+	locale === 'en'
+		? { nav: 'Documentation', collapse: 'Collapse', support: 'Support on Fanpage' }
+		: { nav: 'Mục lục tài liệu', collapse: 'Thu gọn', support: 'Hỗ trợ qua Fanpage' };
+---
+
+<nav class="lvc-nav" aria-label={ui.nav}>
+	{
+		navigation.map((section) => (
+			<div class="lvc-nav__section">
+				<p class="lvc-nav__title">{text(section)}</p>
+				<ul>
+					{section.items.map((item) =>
+						item.children ? (
+							<li>
+								<details
+									class="lvc-nav__group"
+									open={item.children.some((child) => isCurrent(child.link))}
+								>
+									<summary class="lvc-nav__link" title={text(item)}>
+										<Icon name={item.icon} class="lvc-nav__icon" />
+										<span class="lvc-nav__label">{text(item)}</span>
+										<Icon name="down-caret" class="lvc-nav__caret" />
+									</summary>
+									<ul class="lvc-nav__children">
+										{item.children.map((child) => (
+											<li>
+												<a
+													href={href(child.link)}
+													class:list={['lvc-nav__child', { 'is-current': isCurrent(child.link) }]}
+													aria-current={isCurrent(child.link) ? 'page' : undefined}
+												>
+													{text(child)}
+												</a>
+											</li>
+										))}
+									</ul>
+								</details>
+							</li>
+						) : (
+							<li>
+								<a
+									href={href(item.link)}
+									title={text(item)}
+									class:list={['lvc-nav__link', { 'is-current': isCurrent(item.link) }]}
+									aria-current={isCurrent(item.link) ? 'page' : undefined}
+								>
+									<Icon name={item.icon} class="lvc-nav__icon" />
+									<span class="lvc-nav__label">{text(item)}</span>
+								</a>
+							</li>
+						),
+					)}
+				</ul>
+			</div>
+		))
+	}
+
+	<div class="lvc-nav__footer">
+		<button type="button" class="lvc-nav__collapse" data-lvc-collapse>
+			<Icon name="left-caret" class="lvc-nav__collapse-icon" />
+			<span class="lvc-nav__label">{ui.collapse}</span>
+		</button>
+		<div class="lvc-nav__brand">
+			<span class="lvc-nav__brand-name">LVC Media</span>
+			<span class="lvc-nav__brand-sub">LVC Image Gen</span>
+		</div>
+		<a class="lvc-nav__support" href={SUPPORT_LINK} target="_blank" rel="noopener" title={ui.support}>
+			<Icon name="facebook" class="lvc-nav__icon" />
+			<span class="lvc-nav__label">{ui.support}</span>
+		</a>
+	</div>
+</nav>
+
+<div class="md:sl-hidden"><MobileMenuFooter /></div>
+
+<script is:inline>
+	(() => {
+		const KEY = 'lvc-nav-collapsed';
+		const root = document.documentElement;
+		const apply = (on) => {
+			if (on) root.setAttribute('data-nav-collapsed', '');
+			else root.removeAttribute('data-nav-collapsed');
+		};
+		try {
+			apply(localStorage.getItem(KEY) === '1');
+		} catch {}
+		document.querySelectorAll('[data-lvc-collapse]').forEach((button) => {
+			button.addEventListener('click', () => {
+				const on = !root.hasAttribute('data-nav-collapsed');
+				apply(on);
+				// Nút nằm cuối sidebar nên khung đang cuộn xuống đáy — đưa về đầu
+				// để thấy đủ cột icon.
+				document.getElementById('starlight__sidebar')?.scrollTo(0, 0);
+				try {
+					localStorage.setItem(KEY, on ? '1' : '0');
+				} catch {}
+			});
+		});
+	})();
+</script>
+
+<style>
+	.lvc-nav {
+		display: flex;
+		flex-direction: column;
+		min-height: 100%;
+		padding-bottom: 1rem;
+		color: var(--lvc-nav-text);
+	}
+	.lvc-nav ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+	.lvc-nav__section + .lvc-nav__section {
+		margin-top: 1.1rem;
+	}
+	.lvc-nav__title {
+		margin: 0 0 0.35rem;
+		padding: 0 0.6rem;
+		font-size: 0.7rem;
+		font-weight: 700;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		color: var(--lvc-nav-muted);
+	}
+	.lvc-nav__link,
+	.lvc-nav__collapse,
+	.lvc-nav__support {
+		display: flex;
+		align-items: center;
+		gap: 0.7rem;
+		width: 100%;
+		padding: 0.5rem 0.6rem;
+		border-radius: 0.5rem;
+		color: var(--lvc-nav-text);
+		font-size: var(--sl-text-sm);
+		font-weight: 500;
+		text-decoration: none;
+		cursor: pointer;
+		list-style: none;
+	}
+	.lvc-nav__link::-webkit-details-marker {
+		display: none;
+	}
+	.lvc-nav__link:hover,
+	.lvc-nav__collapse:hover {
+		background: var(--lvc-nav-hover);
+	}
+	.lvc-nav__link.is-current {
+		background: var(--lvc-nav-active);
+		color: var(--lvc-nav-active-text);
+		font-weight: 700;
+	}
+	.lvc-nav__icon {
+		flex: none;
+		font-size: 1.15rem;
+		color: var(--lvc-nav-icon);
+	}
+	.lvc-nav__link.is-current .lvc-nav__icon {
+		color: var(--lvc-nav-active-text);
+	}
+	.lvc-nav__label {
+		flex: 1;
+		min-width: 0;
+	}
+	.lvc-nav__caret {
+		flex: none;
+		transition: transform 0.15s ease;
+	}
+	.lvc-nav__group:not([open]) .lvc-nav__caret {
+		transform: rotate(-90deg);
+	}
+	.lvc-nav__children {
+		margin: 0.15rem 0 0.25rem !important;
+		padding-inline-start: 2.45rem !important;
+	}
+	.lvc-nav__child {
+		display: block;
+		padding: 0.35rem 0.5rem;
+		border-radius: 0.4rem;
+		color: var(--lvc-nav-muted);
+		font-size: var(--sl-text-sm);
+		text-decoration: none;
+	}
+	.lvc-nav__child:hover {
+		color: var(--lvc-nav-text);
+	}
+	.lvc-nav__child.is-current {
+		background: var(--lvc-nav-active);
+		color: var(--lvc-nav-active-text);
+		font-weight: 700;
+	}
+
+	.lvc-nav__footer {
+		margin-top: auto;
+		padding-top: 1.5rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+	}
+	.lvc-nav__collapse {
+		justify-content: center;
+		border: 0;
+		background: none;
+		color: var(--lvc-nav-muted);
+	}
+	.lvc-nav__collapse .lvc-nav__label {
+		flex: none;
+	}
+	.lvc-nav__brand {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.2rem;
+		padding: 0.75rem;
+		border: 1px solid var(--lvc-nav-border);
+		border-radius: 0.6rem;
+		background: var(--lvc-nav-card);
+		text-align: center;
+	}
+	.lvc-nav__brand-name {
+		font-weight: 700;
+	}
+	.lvc-nav__brand-sub {
+		font-size: var(--sl-text-xs);
+		color: var(--lvc-nav-muted);
+	}
+	.lvc-nav__support {
+		justify-content: center;
+		background: var(--sl-color-accent);
+		color: #ffffff;
+		font-weight: 700;
+	}
+	.lvc-nav__support:hover {
+		filter: brightness(1.08);
+	}
+	.lvc-nav__support .lvc-nav__icon {
+		color: #ffffff;
+	}
+	.lvc-nav__support .lvc-nav__label {
+		flex: none;
+	}
+
+	/* Nút Thu gọn chỉ có nghĩa khi sidebar nằm cố định bên trái. */
+	@media (max-width: 49.99rem) {
+		.lvc-nav__collapse {
+			display: none;
+		}
+	}
+</style>

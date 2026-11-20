@@ -1,0 +1,59 @@
+---
+title: Muse AI accounts
+description: Add Muse AI accounts to create images with the Muse model.
+sidebar:
+  order: 3
+---
+
+import { Steps, Aside } from '@astrojs/starlight/components';
+import TutorialVideo from '../../../../components/TutorialVideo.astro';
+
+Muse AI accounts are used for the **🎭 Muse AI** model in the image creation tabs. Go to **👤 Tài Khoản → 🎭 Muse AI** (Accounts → Muse AI).
+
+<TutorialVideo id="accounts-muse" />
+
+## Add accounts
+
+<Steps>
+
+1. Click <kbd>🌐 Thêm Tài Khoản (Đăng Nhập Tay)</kbd> (Add Account (Manual Sign-in)), <kbd>🍪 Thêm Bằng Cookie</kbd> (Add by Cookie) or <kbd>📄 Thêm Hàng Loạt</kbd> (Add in Bulk).
+
+2. Fill in the **Email**. Password, invite code and proxy are optional.
+
+3. Choose the **Cách thêm** (Add method):
+   - *🌐 Đăng nhập thủ công* (Manual sign-in): the tool opens Firefox and you sign in within 5 minutes.
+   - *🍪 Dán cookie* (Paste cookie): paste the muse.ai sign-in cookie (the cookie named `hatch_sess`).
+   - *📄 Thêm hàng loạt từ file cookie…* (Add in bulk from cookie file…): choose a cookie file.
+
+4. Click the confirm button. Its text changes with the method you chose, for example *🌐 Thêm & Mở Firefox* (Add & Open Firefox).
+
+5. Turn on the switch in the **Dùng** (Use) column.
+
+</Steps>
+
+## Management
+
+| Button | What it does |
+| --- | --- |
+| <kbd>🔄 Kiểm Tra Đã Chọn</kbd> (Check Selected) | Checks the signed-in session, up to 3 accounts at a time. |
+| <kbd>🔌 Bật Đã Chọn</kbd> / <kbd>⛔ Tắt Đã Chọn</kbd> (Enable Selected / Disable Selected) | Turns many accounts on or off. |
+| <kbd>🗑 Xoá Đã Chọn</kbd> (Delete Selected) | Removes the accounts from the table. The Firefox profile folders are kept. |
+| <kbd>🚫 Đóng Trình Duyệt</kbd> (Close Browsers) | Closes the Firefox windows the tool opened. |
+
+Right-click an account to *🔐 Đăng nhập lại / làm mới* (Sign in again / refresh), *🍪 Dán cookie mới* (Paste new cookie), *🛡 Đổi proxy…* (Change proxy…) or export and import cookies.
+
+## Status
+
+| Status | What to do |
+| --- | --- |
+| ✅ Hoạt động (Active) | Ready to use. |
+| 🔒 Cần đăng nhập · ⚠️ Chưa đăng nhập (Sign-in needed · Not signed in) | Right-click → *🔐 Đăng nhập lại / làm mới*. |
+| ❌ Cookie không hợp lệ (Invalid cookie) | Paste a new cookie. |
+| 🌐 Proxy lỗi (Proxy error) | Change the proxy. |
+
+<Aside>
+- The Muse model is slower than Google Flow and cannot upscale.
+- The number of images running at once equals the number of Muse accounts turned on.
+- Muse accepts up to 6 reference images.
+- Each Firefox profile does one job at a time. If you see *“Tài khoản đang bận”* (Account is busy), wait for the previous job to finish.
+</Aside>

@@ -1,0 +1,50 @@
+---
+title: License sign-in
+description: Sign in to your tool account, activate your license and sign out.
+sidebar:
+  order: 2
+---
+
+import { Steps, Aside } from '@astrojs/starlight/components';
+import TutorialVideo from '../../../../components/TutorialVideo.astro';
+
+The first time you open the tool, the **LVC Image Gen - Đăng Nhập** (Sign in) window appears. There are two steps.
+
+<TutorialVideo id="license-login" />
+
+<Steps>
+
+1. **Đăng Nhập Tài Khoản** (Account sign-in): enter the **Tên đăng nhập** (Username) and **Mật khẩu** (Password) provided by LVC Media. Tick *Ghi nhớ thông tin đăng nhập* (Remember sign-in details) to sign in automatically next time. Click <kbd>Đăng Nhập</kbd> (Sign in).
+
+2. **Kích Hoạt Bản Quyền** (License activation): paste your **License Key** (format `XXXX-XXXX-XXXX-XXXX`) and click <kbd>Kích Hoạt</kbd> (Activate).
+
+3. The *Kích Hoạt Thành Công* (Activation successful) box shows the expiry date and the number of devices allowed. Click OK to enter the tool.
+
+</Steps>
+
+Next time you open the tool, it signs you in automatically if you ticked the remember option.
+
+<Aside type="caution" title="An internet connection is required">
+Every time it opens, the tool verifies your license with the server. Without internet, the tool shows *Lỗi Kết Nối Server* (Server connection error) and won't open. Check your connection and open it again.
+</Aside>
+
+## Keeping track of your license
+
+- The bar at the bottom of the window always shows the expiry date and the number of days left.
+- With fewer than 7 days left, the tool reminds you: *“Bản quyền sắp hết hạn!”* (License expiring soon!).
+- When it expires, the tool returns to the activation step with your old key filled in. Contact LVC Media to renew, then enter the new key.
+
+## Signing out
+
+Click <kbd>🚪 Đăng xuất</kbd> (Sign out) in the bar at the bottom of the window. The tool deletes the sign-in session and license saved on your computer, then reopens the sign-in screen.
+
+Signing out does **not** delete your image accounts, projects or videos.
+
+## Common errors
+
+| Message | What to do |
+| --- | --- |
+| Đăng nhập thất bại (Sign-in failed) | Check your username and password. |
+| Kích hoạt thất bại (Activation failed) | The key is wrong, expired, or has used up its device limit. Contact support. |
+| Lỗi Kết Nối Server (Server connection error) | Check your connection, turn off VPN or any network-blocking software, then try again. |
+| Session Không Hợp Lệ (Invalid session) | Sign in again manually. |

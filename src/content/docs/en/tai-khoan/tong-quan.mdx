@@ -1,0 +1,58 @@
+---
+title: Accounts overview
+description: The account types the tool uses and the general rules of the account tables.
+sidebar:
+  order: 1
+---
+
+import { Aside, CardGrid, LinkCard } from '@astrojs/starlight/components';
+import TutorialVideo from '../../../../components/TutorialVideo.astro';
+
+The tool creates images with **your own accounts**. The **👤 Tài Khoản** (Accounts) section in the left sidebar has three sub-tabs:
+
+<CardGrid>
+	<LinkCard title="🎬 Google Flow" description="Banana 2, Banana Pro, Banana Lite and ImageGen4 models. Used by most features." href="/en/tai-khoan/google-flow/" />
+	<LinkCard title="🎭 Muse AI" description="The Muse AI model. Add accounts by manual sign-in or by cookie." href="/en/tai-khoan/muse-ai/" />
+	<LinkCard title="💬 ChatGPT" description="GPT Image for creating images and ChatGPT for writing scripts." href="/en/tai-khoan/chatgpt/" />
+</CardGrid>
+
+<TutorialVideo id="accounts-overview" />
+
+## General rules of the account tables
+
+All three sub-tabs work the same way:
+
+| Element | Meaning |
+| --- | --- |
+| Checkbox in the **✓** column | Only **selects rows** for the “… Đã Chọn” (… Selected) buttons. |
+| Switch in the **Dùng** (Use) column (● Bật / ● Tắt) (On / Off) | Decides whether the account is used to create images. Clicking it saves immediately. |
+| **Hành động** (Actions) column | <kbd>▶</kbd>/<kbd>■</kbd> opens or stops the browser, <kbd>🔄</kbd> reloads the sign-in, <kbd>🔍</kbd> checks the account. |
+| **Nhật ký** (Log) at the bottom of the page | Collapsed when there are no errors, opens by itself when an error occurs. Has a *Chép toàn bộ* (Copy all) button so you can send it to support. |
+
+<Aside type="caution" title="Ticking is not the same as enabling">
+Ticking the ✓ box does **not** make the account used. You must turn on the switch in the **Dùng** column.
+</Aside>
+
+- Buttons with **“Đã Chọn”** in their name only act on ticked rows. If no row is ticked, the tool asks whether to apply the action to all of them (the default is *Không* (No)).
+- The **Xoá** (Delete) button requires you to tick rows first.
+- Greyed-out items in the right-click menu: hover over them to see why.
+
+## Proxy
+
+Each account can go through its own proxy. The tool accepts these formats:
+
+```text
+ip:port
+ip:port:user:pass
+user:pass@ip:port
+socks5://ip:port
+```
+
+- Change the proxy: right-click the account → *🔑 Đổi proxy…* (Change proxy…), or double-click the Proxy cell.
+- Change it for many accounts: paste one proxy per line, matched in order. An empty line means no proxy.
+- A new proxy takes effect the next time the browser opens. If the window is already open, click <kbd>■</kbd> then <kbd>▶</kbd>.
+- Check a proxy: right-click → *🔍 Kiểm tra ▸ Proxy* (Check ▸ Proxy). If the proxy is broken, the Status column shows **🌐 Proxy lỗi** (Proxy error).
+
+<Aside>
+ChatGPT accounts only accept HTTP proxies, not SOCKS.
+</Aside>

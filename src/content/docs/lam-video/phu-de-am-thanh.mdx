@@ -1,0 +1,219 @@
+---
+title: Phụ đề/âm thanh → Video
+description: Biến file phụ đề, âm thanh, video hoặc một link video thành video có hình minh hoạ cho từng câu thoại.
+sidebar:
+  order: 1
+---
+
+import { Steps, Aside, Tabs, TabItem } from '@astrojs/starlight/components';
+import TutorialVideo from '../../../components/TutorialVideo.astro';
+
+Bạn đưa vào **file phụ đề, file âm thanh, video hoặc link video**. Tool tự tách lời thoại, chia cảnh khớp từng câu, cho AI vẽ ảnh cho từng cảnh rồi ghép thành video có hiệu ứng zoom. Bạn cũng có thể xuất ra **bản nháp CapCut** để chỉnh tiếp.
+
+<TutorialVideo id="video-from-subtitle" />
+
+Mục này có hai màn hình:
+
+- **Hàng đợi**: danh sách các kịch bản sẽ chạy lần lượt. Xem trang [Hàng đợi kịch bản](/lam-video/hang-doi/).
+- **Trang chi tiết**: cài đặt và theo dõi một kịch bản. Trang này hướng dẫn phần đó.
+
+## Làm một video từ đầu tới cuối
+
+<Steps>
+
+1. Ở thanh bên trái, bấm **🎞️ Phụ đề/âm thanh → Video**, rồi bấm <kbd>Mở dự án đang làm →</kbd>.
+
+2. **Thẻ 1 · Nguồn đầu vào**: bấm <kbd>Chọn file…</kbd> để chọn file phụ đề, âm thanh hoặc video.
+   Hoặc dán link vào ô *“…hoặc dán link video vào đây”* rồi bấm <kbd>Tải về</kbd>.
+
+3. **Thẻ 2 · Phân cảnh**: chọn **Mỗi cảnh** dài bao nhiêu giây (mặc định 5), **model kịch bản** và **Phong cách** ảnh.
+
+4. **Thẻ 3 · Tạo ảnh**: chọn **Model ảnh**, **Tỉ lệ ảnh** (ngang cho YouTube, dọc cho TikTok) và tích các **tài khoản** dùng để vẽ.
+
+5. **Thẻ 4 · Video**: chọn **Khung hình**, nhạc nền và nơi lưu.
+
+6. Ở ô **Chế độ chạy**, để *“Từ phụ đề ra video · chạy cả 4 bước”* rồi bấm <kbd>Bắt đầu</kbd>.
+
+7. Chạy xong, bấm <kbd>▶ Xem video</kbd> để xem, hoặc <kbd>📂 Mở dự án</kbd> để mở thư mục chứa ảnh và video.
+
+</Steps>
+
+<Aside type="tip" title="Muốn làm nhiều video một lúc?">
+Dùng <kbd>➕ Thêm nhanh</kbd> ở màn Hàng đợi để thêm cả thư mục video hoặc nhiều link cùng lúc, rồi để máy chạy qua đêm. Xem [Hàng đợi kịch bản](/lam-video/hang-doi/).
+</Aside>
+
+## 1 · Nguồn đầu vào
+
+Tool nhận các loại file sau:
+
+| Loại | Đuôi file |
+| --- | --- |
+| Phụ đề | `.srt`, `.vtt` |
+| Âm thanh | `.mp3`, `.wav`, `.m4a`, `.aac`, `.flac`, `.ogg`, `.opus`, `.wma` |
+| Video | `.mp4`, `.mov`, `.mkv`, `.avi`, `.webm`, `.m4v`, `.wmv`, `.flv`, `.ts` |
+
+Nếu đưa vào file phụ đề, tool đọc luôn và bỏ qua bước tách sub. Nếu đưa vào âm thanh hoặc video, tool tự nghe và viết ra phụ đề.
+
+### Tải video từ link
+
+Dán link YouTube, TikTok, Facebook… vào ô link rồi bấm <kbd>Tải về</kbd> (hoặc nhấn Enter). Tải xong, tool tự nhận file.
+
+<Aside type="caution" title="Video đòi đăng nhập hoặc hỏi “không phải robot”">
+Bấm nút <kbd>Cookie</kbd> để nạp file `cookies.txt` (nhận cả file JSON xuất từ extension), rồi tải lại. Dòng chữ dưới ô link sẽ báo *“đã nạp cookie”*.
+</Aside>
+
+### Mẫu cài đặt
+
+Nếu bạn hay dùng cùng một bộ cài đặt (phong cách, model, khung hình…), hãy lưu thành **mẫu**:
+
+- Ô **Mẫu cài đặt** → link **Quản lý** → *Thêm mẫu từ cài đặt đang đặt*.
+- Lần sau chỉ cần chọn mẫu là mọi ô được điền sẵn. Mẫu không lưu file nguồn hay link.
+
+### Cài đặt nhận dạng chi tiết
+
+Bấm **Cài đặt nhận dạng chi tiết ▾** để mở. Khối này chỉ hiện khi nguồn là âm thanh hoặc video.
+
+| Ô | Ý nghĩa | Mặc định |
+| --- | --- | --- |
+| Tải về | Chất lượng khi tải từ link. Tool chỉ cần phần tiếng nên chọn nhẹ là đủ. | 480p · nhẹ |
+| Tải xong thì phân tích phong cách video | AI xem video gốc để gợi ý phong cách ảnh. Tốn thêm một lượt Gemini. | Tắt |
+| Nhận dạng | Bộ nghe chữ. Bộ lớn hơn nghe đúng hơn nhưng chậm và nặng hơn. Lần đầu dùng bộ nào thì tool tự tải bộ đó. | small (~485 MB) |
+| Ngôn ngữ | Ngôn ngữ của lời thoại. | Tự động nhận diện |
+| Chỉ dùng CPU | Bật khi tách sub bằng card đồ hoạ bị lỗi. | Tắt |
+
+<Aside>
+Máy có card NVIDIA thì tách sub nhanh hơn nhiều. Dòng trạng thái sẽ báo *“GPU sẵn sàng”* hoặc *“nhận dạng chạy bằng CPU”*. Card NVIDIA cần thư mục `cuda` nằm cạnh file `LVC Image Gen.exe` (có sẵn trong gói cài đầy đủ).
+</Aside>
+
+## 2 · Phân cảnh
+
+AI đọc lời thoại, chia thành từng cảnh và viết lời tả ảnh (prompt) cho mỗi cảnh.
+
+| Ô | Ý nghĩa |
+| --- | --- |
+| Mỗi cảnh | Độ dài một cảnh, 2–30 giây. Mặc định 5 giây. |
+| Model kịch bản | AI dùng để phân cảnh. Kịch bản dài nên dùng **Gemini 3.1 Pro** hoặc **ChatGPT** vì ít hỏng hơn bản Flash. |
+| Phong cách | Kiểu ảnh: 3D Pixar, ảnh thật điện ảnh, Anime, Ghibli, đồ hoạ tin tức… Bấm **Quản lý** để thêm phong cách riêng. |
+| Prompt | Cách AI chia cảnh. Có mẫu cho truyện cổ tích thiếu nhi và video kiến thức. |
+| Ngôn ngữ prompt | Nên để **English**: model ảnh hiểu tiếng Anh tốt nhất. |
+| Bối cảnh | Để trống thì AI tự chọn. Ghi vào nếu muốn mọi cảnh ở một nơi cụ thể. |
+| Ghi chú cho AI | Không bắt buộc. Dặn thêm AI điều bạn muốn. |
+
+Model kịch bản Gemini dùng tài khoản Google ở tab **Tài Khoản**. ChatGPT dùng tài khoản ở **Tài Khoản → 💬 ChatGPT**. OpenRouter dùng API key ở tab **Cài Đặt**.
+
+## 3 · Tạo ảnh
+
+| Ô | Ý nghĩa | Mặc định |
+| --- | --- | --- |
+| Model ảnh | Banana2, BananaPro, BananaLite, ImageGen4, 🎭 Muse AI, 💬 GPT Image (ChatGPT). | Banana2 |
+| Tỉ lệ ảnh | *Ngang 16:9 · YouTube* hoặc *Dọc 9:16 · TikTok*. | Ngang |
+| Luồng | Số ảnh vẽ cùng lúc (1–10). Cao quá dễ bị Google chặn tốc độ. | 3 |
+| Upscale | Phóng ảnh lên 2K hoặc 4K. Chỉ Banana2, BananaPro, BananaLite làm được. Mỗi ảnh tốn thêm một lượt. | Không |
+| 🧍 Giữ nhân vật cố định | Vẽ trước bộ 9 góc cho mỗi nhân vật để nhân vật giống nhau ở mọi cảnh. | Tắt |
+| 🏞️ Giữ bối cảnh cố định | Vẽ trước ảnh từng địa điểm để bối cảnh không đổi giữa các cảnh. | Tắt |
+| Gỡ logo Gemini ở góc ảnh | Xoá logo nhỏ ở góc ảnh. Cần ít nhất 4 ảnh trong một lượt. | — |
+| Tài khoản xoay | Tích các tài khoản dùng để vẽ. ✓ là sẵn sàng, ✗ đỏ là chưa đăng nhập. | — |
+
+<Aside type="tip">
+Muốn tự chọn nhân vật, gắn ảnh nhân vật của riêng bạn hoặc xem trước dàn nhân vật, bấm <kbd>🎭 Nhân vật && bối cảnh…</kbd>. Xem trang [Nhân vật & bối cảnh](/lam-video/nhan-vat-canh/).
+</Aside>
+
+## 4 · Video
+
+| Ô | Ý nghĩa | Mặc định |
+| --- | --- | --- |
+| Khung hình | Ngang (YouTube) hoặc dọc (TikTok), từ 720p tới 4K. 720p xuất nhanh nhất. | Ngang 720p |
+| FPS | 24 / 25 / 30 / 60 khung hình mỗi giây. | 30 |
+| Zoom mở cảnh / trôi | Mức phóng to lúc đầu cảnh và độ trôi của ảnh. Trôi 0% là chỉ zoom. | 80% / 85% |
+| Nhạc nền | Chọn file nhạc. Nhạc tự lặp cho đủ dài và nhỏ dần ở cuối. | Âm lượng 25% |
+| Xuất ra | *Video MP4*, *Bản nháp CapCut* hoặc *Cả hai*. | Video MP4 |
+| Gắn phụ đề vào video | Bật là chữ nằm trên video. Tắt là ra video sạch kèm file `.srt` (nên tắt khi đăng YouTube). | — |
+| Lưu tại | Thư mục lưu dự án. Bấm **Đổi** để chọn nơi khác. | — |
+
+Nếu xuất **Bản nháp CapCut**, nên để **Hoà tan (CapCut)** bằng 0. Bấm **Tự dò** để tool tìm thư mục CapCut trên máy.
+
+## Chế độ chạy
+
+Đọc tên chế độ là biết nó làm gì:
+
+- Có chữ **“ra …”** hoặc **“tới …”**: chạy tới hết, ra video.
+- Mở đầu bằng **“Chỉ”**: làm đúng một bước rồi dừng.
+
+<Tabs>
+<TabItem label="Chạy tới hết">
+
+| Chế độ | Khi nào dùng |
+| --- | --- |
+| Từ phụ đề ra video · chạy cả 4 bước | Lần đầu làm video. |
+| Từ phụ đề ra bản nháp CapCut | Muốn chỉnh tiếp trong CapCut. |
+| Tạo lại phân cảnh ra video | Không ưng cách chia cảnh, muốn AI chia lại. |
+| Tạo lại từ ảnh tới video | Giữ phân cảnh, vẽ lại toàn bộ ảnh. |
+| Tạo lại ảnh còn thiếu ra video | Một số cảnh vẽ lỗi: chỉ vẽ bù các cảnh đó rồi xuất video. |
+
+</TabItem>
+<TabItem label="Chỉ một bước">
+
+| Chế độ | Làm gì |
+| --- | --- |
+| Chỉ tách sub | Chỉ nghe và viết phụ đề. |
+| Chỉ tạo prompt phân cảnh | Chỉ chia cảnh và viết lời tả ảnh. |
+| Chỉ tạo lại ảnh | Vẽ lại mọi ảnh, không xuất video. |
+| Tạo lại ảnh còn thiếu | Chỉ vẽ bù các cảnh thiếu ảnh. |
+| Chỉ xuất video | Ghép video từ ảnh đang có. |
+| Chỉ tạo bản nháp CapCut | Chỉ xuất bản nháp CapCut. |
+
+</TabItem>
+<TabItem label="Ảnh tham chiếu">
+
+Dùng khi bạn **đã có sẵn ảnh** và không muốn AI vẽ.
+
+1. Chọn một trong hai chế độ ảnh tham chiếu.
+2. Tool hỏi *“Lấy ảnh từ đâu?”*: chọn **📁 Cả folder** hoặc **🖼️ Từng file**.
+3. Ảnh được chia cho các cảnh theo **thứ tự tên file**. Nên đặt tên `01.png`, `02.png`…
+4. Xong, chọn **Chỉ xuất video** để ghép.
+
+Nhóm chế độ này không chạy được trong hàng đợi.
+
+</TabItem>
+</Tabs>
+
+Mỗi lần chạy từ bước đầu, tool tạo một **thư mục dự án mới** đặt tên theo ngày giờ, không ghi đè lần trước.
+
+## Xem và sửa kết quả
+
+Khung kết quả bên phải có hai trang: **1. Nhân vật/cảnh** (phím <kbd>Ctrl</kbd>+<kbd>1</kbd>) và **2. Phân cảnh & ảnh** (<kbd>Ctrl</kbd>+<kbd>2</kbd>).
+
+- **Dải bước** *1. Tách sub › 2. Phân cảnh › 3. Tạo ảnh › 4. Render video* bấm được. Bấm một bước là chạy riêng bước đó.
+- **Nhấp đúp** một cảnh để xem chi tiết và sửa prompt. Nhấn <kbd>F2</kbd> để sửa nhanh tại chỗ.
+- **Chuột phải** một cảnh:
+  - *🖼️ Chọn ảnh cho cảnh này…*: thay bằng ảnh của bạn.
+  - *Đặt lại trạng thái*: đánh dấu để vẽ lại. File ảnh cũ không bị xoá.
+
+Đặt lại xong, chọn chế độ **Tạo lại ảnh còn thiếu ra video** rồi bấm <kbd>Bắt đầu</kbd>.
+
+Hàng link dưới nút Bắt đầu có thêm:
+
+- **Trích xuất nội dung**: xuất lời thoại ra file `.txt`, có hoặc không kèm thời gian.
+- **Xuất dự án / Nhập dự án**: đóng gói dự án thành file `.lvcproj` để chuyển sang máy khác.
+- **Xóa dự án**: xoá hẳn, không lấy lại được.
+
+<Aside type="note">
+Cảnh nào không có ảnh sẽ bị bỏ khỏi video. Cảnh liền trước kéo dài ra để không bị trống.
+</Aside>
+
+## Lỗi hay gặp
+
+| Thông báo | Cách xử lý |
+| --- | --- |
+| **Chưa có tài khoản dùng được** | Tích chọn tài khoản ở thẻ *3 · Tạo ảnh*. Tài khoản có dấu ✗ thì vào tab **Tài Khoản** đăng nhập lại, rồi bấm **Làm mới**. |
+| **Thiếu ffmpeg** | Đặt `ffmpeg.exe` cạnh `LVC Image Gen.exe` (có sẵn trong gói cài đầy đủ) rồi mở lại tool. |
+| **Chưa có yt-dlp** | Đặt `yt-dlp.exe` cạnh `LVC Image Gen.exe`. Thiếu file này thì ô link bị khoá, các phần khác vẫn chạy. |
+| **Link không hợp lệ** | Dán link đầy đủ, bắt đầu bằng `http://` hoặc `https://`. |
+| **Sub rỗng** | File phụ đề không có câu thoại nào. Kiểm tra lại file. |
+| **Không tạo được ảnh** | Kiểm tra tài khoản và model ảnh. Xem log để biết lý do từng ảnh. |
+| **Phân cảnh chưa đủ** | AI bỏ sót một đoạn dài. Bấm *Dừng lại để sửa* rồi chạy lại phân cảnh; hoặc thêm tài khoản Google, đợi 15–30 phút. |
+| *Nội dung vi phạm chính sách — sửa lời tả* | Sửa prompt cảnh đó cho nhẹ nhàng hơn rồi vẽ lại. |
+| *Bắn quá nhiều cùng lúc — giảm Luồng, chờ 5 phút* | Giảm ô **Luồng**, chờ vài phút rồi chạy *Tạo lại ảnh còn thiếu*. |
+| *Hết lượt hôm nay của model — đổi tài khoản* | Tích thêm tài khoản khác hoặc đổi model ảnh. |
+
+Xem thêm: [Lỗi thường gặp](/ho-tro/loi-thuong-gap/).

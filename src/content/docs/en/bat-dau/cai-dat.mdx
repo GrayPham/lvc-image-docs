@@ -1,0 +1,80 @@
+---
+title: Install the tool
+description: System requirements, and how to extract and run LVC Image Gen for the first time.
+sidebar:
+  order: 1
+---
+
+import { Steps, Aside, FileTree } from '@astrojs/starlight/components';
+import TutorialVideo from '../../../../components/TutorialVideo.astro';
+
+<TutorialVideo id="install" />
+
+## System requirements
+
+- **Windows 10 or later, 64-bit.**
+- **Google Chrome** if you use Google accounts with Chrome. The tool downloads the ChromeDriver that matches the Chrome on your computer.
+- **NVIDIA graphics card**: optional. It only makes the *Tách sub* (Transcribe) step run faster.
+
+## First-time install
+
+<Steps>
+
+1. Download the file `LVC_Image_Gen_vX.Y.Z.rar` (the full installer package).
+
+2. Extract **the whole folder** to a permanent location, for example `D:\LVC_Image_Gen`.
+
+3. Open the extracted folder and run **`LVC Image Gen.exe`**.
+
+4. Sign in to your tool account and activate your license. See [License sign-in](/en/bat-dau/dang-nhap/).
+
+5. Add image accounts in the **Tài Khoản** (Accounts) section. See [Accounts overview](/en/tai-khoan/tong-quan/).
+
+</Steps>
+
+<Aside type="caution" title="Don't run it from inside the archive">
+Do not open `LVC Image Gen.exe` from inside the `.rar` file, and do not move the `.exe` file somewhere else on its own. The tool needs its companion files right **next to** it.
+</Aside>
+
+## What's in the folder
+
+<FileTree>
+- LVC_Image_Gen
+  - LVC Image Gen.exe main program
+  - lvc_image_update.exe updater
+  - ffmpeg.exe **required**, for extracting audio and exporting video
+  - ffprobe.exe **required**, for measuring file duration
+  - transcribe_worker.exe used by the Transcribe step
+  - yt-dlp.exe used to download videos from links
+  - cuda/ optional (~560 MB), lets Transcribe run on an NVIDIA card
+  - data/
+    - firefox-portable/ Firefox browser for accounts
+  - browser133/
+  - extension/
+</FileTree>
+
+<Aside type="tip" title="No NVIDIA card?">
+You can **delete the `cuda` folder** to save space. The tool detects this and transcribes with the CPU (slower).
+</Aside>
+
+## Folders the tool creates
+
+On first run, the tool creates more folders next to the `.exe` file:
+
+| Folder / file | Contents |
+| --- | --- |
+| `data\` | Sign-in, license and settings. |
+| `profiles\` | Browser profiles for your accounts. |
+| `app_data.json` | Account list and settings. |
+| `output\` | Your projects and finished videos. |
+| `logs\` | Logs, used when you need to send them to support. |
+
+<Aside type="danger" title="Don't share these folders">
+`data\`, `profiles\` and `app_data.json` contain your accounts' sign-in sessions. Before giving the tool to someone else, **delete** these items first.
+</Aside>
+
+## Opening two copies at once
+
+Only keep **one window** of the tool open. If you open another, the tool shows *“LVC Image Gen đang mở rồi”* (LVC Image Gen is already open). Switch to the window that is already open. Two copies running at the same time overwrite each other's queue and settings.
+
+Only click **Vẫn mở** (Open anyway) when you are sure the other copy is completely frozen.

@@ -1,0 +1,77 @@
+---
+title: Character Replacement
+description: Replace a character or a detail across a whole set of existing images, based on one sample image.
+sidebar:
+  order: 2
+---
+
+import { Steps, Aside } from '@astrojs/starlight/components';
+import TutorialVideo from '../../../../components/TutorialVideo.astro';
+
+You already have a set of images and want to change the character in them into a different one. The tool uses AI (Google Flow) to edit each image based on **one sample image** and **one description**.
+
+<TutorialVideo id="replace-character" />
+
+## Steps
+
+<Steps>
+
+1. In the left sidebar, click **🔄 Thay Thế** (Replace).
+
+2. **Bước 1: Import ảnh** (Step 1: Import images): click <kbd>📁 Chọn ảnh (File)</kbd> (Choose images (File)) or <kbd>📂 Chọn ảnh (Thư mục)</kbd> (Choose images (Folder)). Accepts `.png`, `.jpg`, `.jpeg`, `.webp`. Duplicate images are skipped.
+
+3. **Bước 2: Chọn ảnh thay thế** (Step 2: Choose replacement image): click <kbd>🖼️ Chọn ảnh thay thế</kbd> (Choose replacement image).
+   - **📚 Kho** (Library) tab: choose a saved character. Double-click to pick it quickly.
+   - **📤 Upload** tab: choose an image from your computer.
+   - Click <kbd>✅ Chọn</kbd> (Choose).
+
+4. **Bước 3: Yêu cầu thay thế** (Step 3: Replacement request): type what you want done in the *Mô tả yêu cầu thay thế* (Describe the replacement request) field. The tool suggests the sentence *“Thay thế nhân vật trong ảnh bằng …”* (Replace the character in the image with …).
+
+5. Adjust the **⚙️ Cài đặt** (Settings) if needed.
+
+6. Click <kbd>🚀 Bắt đầu thay thế</kbd> (Start replacing).
+
+</Steps>
+
+## Settings
+
+| Field | Meaning | Default |
+| --- | --- | --- |
+| 📐 Tỷ lệ (Aspect ratio) | 16:9 (YouTube), 9:16 (TikTok/Shorts), 1:1 (Instagram). | 16:9 |
+| 🖼️ Model Ảnh (Image model) | Banana 2, Banana Pro, Banana Lite, ImageGen4. | Banana 2 |
+| ⚙️ Số luồng (Threads) | Number of images processed at once (1–10). | 3 |
+| 🔄 Số lần retry (Retries) | Number of retries on error. **Do not set it to 0.** | 30 |
+| 🌐 Proxy | Uses the proxy list in the Cài Đặt (Settings) tab. | Off |
+
+## Edit individual images
+
+- The text typed in Step 3 is filled into the rows that **do not yet have** their own prompt.
+- <kbd>📋 Áp dụng prompt cho tất cả dòng</kbd> (Apply prompt to all rows) overwrites every row's own prompt (it asks first).
+- Right-click → *✏️ Sửa prompt…* (Edit prompt…) to set a separate prompt for one or more rows.
+- Untick the **Dùng ảnh thay thế** (Use replacement image) column in a row: that row only edits the image based on the prompt, without the sample image.
+
+## Where results are saved
+
+Each run, the tool creates a new folder in `data\character_replacement\` inside the tool folder, along with a `log.txt` file. Click <kbd>📁 Mở thư mục</kbd> (Open folder) to open it.
+
+Result images have the suffix `_replaced`, for example `001_anh-goc_replaced.jpg`.
+
+## Rerun failed images
+
+<Aside type="caution">
+The tool only runs rows that are **⏳ Chờ** (Waiting). To run them again:
+
+- Click <kbd>🔄 Chạy lại tất cả task lỗi</kbd> (Rerun all failed tasks).
+- Or right-click → *🔄 Đặt lại trạng thái* (Reset status), then click *Bắt đầu thay thế* again.
+</Aside>
+
+Right-clicking a row also offers *👁️ Xem ảnh gốc* (View original image), *👁️ Xem ảnh sau thay thế* (View replaced image) and *🔍 Upscale* to 1K, 2K, 4K.
+
+## Common errors
+
+| Message | What to do |
+| --- | --- |
+| **Thiếu ảnh thay thế** (Missing replacement image) | Do Step 2 first. |
+| **Không có tác vụ nào đang chờ xử lý** (No tasks waiting to be processed) | Reset the status of the rows you want to run again. |
+| ❌ Không có prompt (No prompt) | Type a request in Step 3 or set a separate prompt for that row. |
+| Có N task đang chạy (N tasks are running) | Wait for the current run to finish. |
